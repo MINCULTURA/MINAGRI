@@ -1,0 +1,186 @@
+﻿@{
+    ViewBag.Title = "Resultados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input type="hidden" id="hddNIDPROCESOUSU" value="0" />
+<input type="hidden" id="hddNIDPROCESO" value="0" />
+<input type="hidden" id="NIDCONVOCATORIA_REP" value="0" />
+<div class="row" style="padding-top:20px">
+    <div class="col-lg-4">
+        <div class="table-responsive" style="font-size:11px;">
+            <table class="display compact" id="tbl_Convocatoria" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="display:none; text-align:center;">NIDITEM</th>
+                        <th style="display:none; text-align:center;">BACTIVO</th>
+                        <th style="text-align: center; width: 45%;">CONVOCATORIA</th>
+                        <th style="text-align: center; width: 35%;">ESTADO</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="table-responsive row" style="font-size:11px;">
+            <table class="display compact" id="tbl_Proceso" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="display:none;">NIDPROCESO</th>
+                        <th style="display:none;">NIDCONVOCATORIA</th>
+                        <th style="text-align:center; width:25%;">PROCESO</th>
+                        <th style="text-align:center; width:65%;">SERVICIO</th>
+                        <th style="text-align:center; width:10%;">FORMATOS</th>
+                        <th style="display: none;">TEXTO_ADIC</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="row" style="padding-top:20px">
+            <div class="col-lg-4">
+                <label class="control-label">Acta o Reporte:</label>
+                <select tabindex="-1" id="NREPORTE" class="form-control"></select>
+            </div>
+            <div class="col-lg-2" style="text-align:center;padding-top:15px;">
+                <button type="button" class="btn btn-dark-grey" onclick="exportarApta();">Exportar&nbsp;&nbsp;<i class="fa fa-save"></i> </button>
+            </div>
+            <div class="col-lg-6" style="display:none">
+                <b> MOSTRAR TODAS LAS CONVOCATORIAS </b>&nbsp;<input id="CHK_TODOS" type="checkbox" onchange="cargarConvocatorias()" /> <br />(solo se están mostrando las convocatorias del presente año)
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="padding-top:20px">
+    <div class="col-lg-12">
+        <div class="table-responsive" style="font-size:11px;">
+            <table class="display compact" id="tbl_PostulantesE" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                        <th style="text-align:center; width:25%;">POSTULANTE</th>
+                        <th style="text-align:center; width:75%;">CELULAR</th>
+                        <th style="text-align:center; width:75%;">TEL.FIJO</th>
+                        <th style="text-align:center; width:75%;">E-MAIL</th>
+                        <th style="text-align:center; width:75%;">E.C.AU</th>
+                        <th style="text-align:center; width:75%;">E.C.OGA</th>
+                        <th style="text-align:center; width:75%;">E.C.OGRH</th>
+                        <th style="text-align:center; width:75%;">EVALUACIÓN CURRICULAR</th>
+                        <th style="text-align:center; width:75%;">EVALUACIÓN TÉCNICA</th>
+                        <th style="text-align:center; width:75%;">ENTREVISTA PERSONAL</th>
+                        <th style="text-align:center; width:75%;">GANADOR</th>
+                        <th style="display:none;">DFECHAGANADOR</th>
+                        <th style="display:none;">DFECHAFIRMA</th>
+                        <th style="display:none;">NFIRMA</th>
+                        <th style="display:none;">NGANADOR</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="table-responsive" style="font-size:11px;">
+            <table class="display compact" id="tbl_Comite" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="display:none; text-align:center;">NIDCOMITE</th>
+                        <th style="display:none; text-align:center;">NIDPERSONAL</th>
+                        <th style="text-align: center; width: 35%;">PERSONAL</th>
+                        <th style="text-align: center; width: 45%;">OFICINA DEL PERSONAL</th>
+                        <th style="text-align: center; width: 10%;">TIPO EVALUADOR</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-6" id="divFirma" style="display: none;">
+        <div class="col-lg-12" style="text-align:center;padding-bottom:10px;font-weight:bold">
+            DATOS DE LA FIRMA DE CONTRATO
+        </div>
+        <div class="col-lg-6">
+            <label class="control-label">Fecha Declarado Ganador (Ref.):</label>
+            <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha" id="DFECHA_PUB" maxlength="10" placeholder="DD/MM/AAAA">
+        </div>
+        <div class="col-lg-6">
+            <label class="control-label">Fecha Firma Contrato:</label>
+            <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha" id="DFECHA_FIRMA" maxlength="10" placeholder="DD/MM/AAAA">
+        </div>
+        <div class="col-lg-6" style="text-align:right;padding-top:15px;">
+            <button type="button" class="btn btn-dark-grey" onclick="firmaC(1);">Procesar firma contrato </button>
+        </div>
+        <div class="col-lg-6" style="text-align:left;padding-top:15px;">
+            <button type="button" class="btn btn-red" onclick="firmaC(2);">No se presentó </button>
+        </div>
+    </div>
+</div>
+<!-- Modal Proceso Evaluación -->
+<input id="idconv" type="hidden">
+<input id="sconv" type="hidden">
+<div id="ModalEval" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="width:50%">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Proceso de Evaluación</h4>
+            </div>
+            <div class="modal-body" style="font-size:12px;">
+                <div class="row">
+                    <div class="col-lg-1" style="padding-top:7px;text-align:right">
+                        <label class="control-label">Etapa:</label>
+                    </div>
+                    <div class="col-lg-3">
+                        <select tabindex="-1" id="NIDESTADO" class="form-control"></select>
+                    </div>
+                    <div class="col-lg-3">
+                        <button type="button" class="btn btn-default" onclick="GuardarEstadoE(1);">Iniciar&nbsp;&nbsp; </button>
+                        <button type="button" class="btn btn-default" onclick="GuardarEstadoE(2);">Finalizar&nbsp;&nbsp;</button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="button" class="btn btn-default" onclick="ProcesarGanadores(0);">Procesar Ganadores&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-10">
+                        <div class="table-responsive" style="font-size:11px;">
+                            <table class="display compact" id="tbl_ProcesoEval" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th style="display:none; text-align:center;">NIDESTADO</th>
+                                        <th style="text-align: center; width: 45%;">ETAPA EVALUACIÓN</th>
+                                        <th style="text-align: center; width: 35%;">FECHA INICIO</th>
+                                        <th style="text-align: center; width: 35%;">USUARIO INICIO</th>
+                                        <th style="text-align: center; width: 35%;">FECHA FIN</th>
+                                        <th style="text-align: center; width: 35%;">USUARIO FIN</th>
+                                        <th style="text-align: center; width: 35%;">OBSERVACIONES</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="padding-top:10px">
+                    <div class="col-lg-10">
+                        <div class="table-responsive" style="font-size:11px;">
+                            <table class="display compact" id="tbl_memo" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th style="display:none; text-align:center;">IDOFICODIGO</th>
+                                        <th style="text-align: center; width: 45%;">DIRECCIÓN</th>
+                                        <th style="text-align: center; width: 35%;">NRO. DE PROCESOS/th>
+                                        <th style="text-align: center; width: 35%;">OPCIONES</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<script src="@Url.Content("~/js/Vistas/Gestion/Resultados.js")" type="text/javascript"></script>

@@ -1,0 +1,1168 @@
+﻿@{
+    ViewBag.Title = "Detalle de la Ficha";
+    if (ViewBag.modo == "Ver")
+    {
+        Layout = "~/Views/Shared/_Modal.cshtml";
+    }
+    else { Layout = "~/Views/Shared/_Layout.cshtml"; }
+    var display = ViewBag.modo == "Editar" ?  "" :"display:none;";
+}
+
+<input type="hidden" id="hddNIDFACADEMICA" value="0" />
+<input type="hidden" id="hddNIDCOLEGIATURA" value="0" />
+<input type="hidden" id="hddNIDCONOCIMIENTO" value="0" />
+<input type="hidden" id="hddNIDCAPACITACION" value="0" />
+<input type="hidden" id="hddNIDCONOCIMIENTOINF" value="0" />
+<input type="hidden" id="hddNIDIDIOMA" value="0" />
+<input type="hidden" id="hddNIDEXPERIENCIA" value="0" />
+<input type="hidden" id="hddNIDDATOSADIC" value="0" />
+<input type="hidden" id="hddNIDRNA" value="0" />
+<input type="hidden" id="hddRUTADOC" value="@ViewBag.rutaDOC" />
+<input type="hidden" id="hddMAX_SIZE" value="@ViewBag.max_size" />
+
+<input type="hidden" id="FLG_UPLOAD" value="S" />
+<input type="hidden" id="SRUTADOC" />
+<input type="hidden" id="SRUTADOC2" />
+<!-- INICIO ESTILOS NAVEGADOR TAB -->
+<style>
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+        color: white;
+        background-color: #962a17;
+        font-size: 14px;
+        font-family: Arial;
+        font-weight: bold;
+    }
+
+    .nav-pills > li > a {
+        color: white;
+        font-size: 14px;
+        font-family: Arial;
+    }
+
+    .nav-pills > li.active > a:hover {
+        background-color: rgba(150,42,23,0.0901981);
+        color: rgb(255,255,255);
+    }
+
+    .nav-pills > li > a:hover {
+        background-color: rgba(255,255,255, 0.0901961);
+        color: rgb(255,255,255);
+    }
+</style>
+<!-- FIN ESTILOS NAVEGADOR TAB -->
+<!-- INICIO DATOS DEL PROCESO DE CONVOCATORIA -->
+<div id="DatosProceso">
+    <div class="row" style="background-color:white; color: darkblue;padding-top:10px;">
+
+        @if (ViewBag.modo != "Ver")
+        { <div class="col-md-6" style="padding-left:10px">
+              <p style="font-size:16px; font-family:arial; ">
+                  <b>Detalle de la Ficha</b></P>
+</div><div class="col-md-6" style="text-align:right">
+            <a href="../Postulacion/Ficha" id="backPage">
+                <p style="font-size:13px; font-family:arial; color:black; ">
+                    <i class=" fa fa-arrow-circle-left">
+                    </i>  <b>Regresar</b>
+                </p>
+            </a>
+        </div>
+        }
+    </div>
+    <div class="row" style="background-color:white; color: darkblue;">
+        <div class="col-md-12" >
+            <p style="font-size: 14px"><b>Convocatoria: @ViewBag.SCONVOCATORIA</b></p>
+</div>
+        <div class="col-md-6" >
+            <p style="font-size: 14px"><b>Postulante:  @ViewBag.SNOMBREPOSTULANTE</b></p>
+</div><div class="col-md-3" style="text-align:right">
+          @if (ViewBag.modo == "Ver")
+          {
+              <a href='#' onclick='descargarECS()' style='padding-right:10px'>Descargar todos los sustentos</a>
+          }
+</div><div class="col-md-3" style="text-align:right;display:none">
+              <p><button type="button" class="btn btn-dark-grey" id="btn_CargarCV" onclick="CargarCV()"> Cargar información de última convocatoria&nbsp;&nbsp;<i class="fa fa-plus"></i> </button></p>
+</div>
+            <input type="hidden" id="txtcodusu" class="form-control" value="@ViewBag.NCODIGOUSUARIO" />
+            <input type="hidden" id="txtcodusureg" class="form-control" value="@ViewBag.NIDUSUARIOREGIS" />
+            <input type="hidden" id="txtperfil" class="form-control" value="@ViewBag.NIDPERFIL" />
+            <input type="hidden" id="txtidproceso" class="form-control" value="@ViewBag.NIDPROCESO" />
+            <input type="hidden" id="txtidprocesousu" class="form-control" value="@ViewBag.NIDPROCESOUSU" />
+            <input type="hidden" id="modo" class="form-control" value="@ViewBag.modo" />
+        </div>
+    </div>
+        <div id="divECS" style="DISPLAY:NONE"></div>
+        <!-- FIN DATOS DEL PROCESO -->
+        <div class="row" id="TabsConsultaProceso">
+            <!-- INICIO CABECERA NAVEGADOR TAB -->
+            <ul class="nav nav-pills nav-justified" style="background-color: rgba(150,42,23,0.7);">
+                <li class="active"><a data-toggle="pill" href="#FormAcademica" style="">Formación académica</a></li>
+                <li><a data-toggle="pill" href="#Capacitacion">Cursos y/o programas de especialización</a></li>
+                <li><a data-toggle="pill" href="#ConEspecializado">Conocimientos relacionados al servicio</a></li>
+                <li><a data-toggle="pill" href="#ConInformatico">Conocimientos informáticos<br /></a></li>
+                <li><a data-toggle="pill" href="#Idioma">Idioma<br /></a></li>
+                <li><a data-toggle="pill" href="#Experiencia">Experiencia laboral</a></li>
+                <li><a data-toggle="pill" href="#DatosAdicional">Datos adicionales</a></li>
+            </ul>
+            <!-- FIN CABECERA NAVEGADOR TAB -->
+            <!-- INICIO CONTENIDO NAVEGADOR TAB -->
+            <div class="tab-content">
+                <div id="FormAcademica" class="tab-pane fade in active">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @if (ViewBag.modo == "Editar")
+                                {
+                                    <br /><p><button type="button" class="btn btn-dark-grey" id="btn_AgregarInfAcad" onclick="NuevoModalFA()"> Agregar información académica&nbsp;&nbsp;<i class="fa fa-plus"></i> </button></p><br />
+                                }
+                            </div>
+                            
+                            <div class="col-md-3"  style="font-size:12px;padding-top:10px;color:red;font-weight:bold">
+                                Registrar la información desde la condición de egresado
+                            </div>
+                            <div class="col-md-6" id="divFA" style="font-size:12px;padding-top:10px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-12">
+
+                                <div class="table-responsive">
+                                    <table class="display compact" id="tbl_FormAcademica" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                                                <th style="display:none; text-align:center;">NIDPROCESO</th>
+                                                <th style="display:none; text-align:center;">NIDCODIGOUSUARIO</th>
+                                                <th style="display:none; text-align:center;">NIDFACADEMICA</th>
+                                                <th style="display:none; text-align:center;">NIDTIPOFORMACION</th>
+                                                <th style="text-align: center; width: 10%;">TIPO DE FORM.</th>
+                                                <th style="text-align: center; width: 15%;">NOMBRE DE LA INSTITUCIÓN</th>
+                                                <th style="text-align: center; width: 10%;">GRADO ACADÉMICO</th>
+                                                <th style="text-align: center; width: 15%;">PROFESIÓN O ESPECIALIDAD</th>
+                                                <th style="text-align: center; width: 10%;">FECHA EXPEDICIÓN </th>
+                                                <th style="display: none;">HASTA </th>
+                                                <th style="display: none;">AÑOS DE ESTUDIO</th>
+                                                <th style="display:none;">N° DE HOJAS</th>
+                                                <th style="text-align: center; width: 5%; @display">EDITAR</th>
+                                                <th style="text-align: center;width: 5%;@display">ELIMINAR</th>
+                                                <th style="display:none; text-align:center;">NIDGRADOACADEMICO</th>
+                                                <th style="display:none;">SRUTADOC</th>
+                                                <th style="display:none;">INST</th>
+                                                <th style="display:none;">ESP</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @if (ViewBag.modo == "Editar")
+                                {
+                                    <br /><br /><p><button type="button" class="btn btn-dark-grey" id="btn_AgregarColeg" onclick="NuevoModalCO();">Agregar colegiatura habilitada&nbsp;&nbsp;<i class="fa fa-plus"></i> </button></p><br />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                <div class="table-responsive">
+                                    <table class="display compact" id="tbl_Colegiatura" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                                                <th style="display:none; text-align:center;">NIDPROCESO</th>
+                                                <th style="display:none; text-align:center;">NIDCODIGOUSUARIO</th>
+                                                <th style="display:none; text-align:center;">NIDCOLEGIATURA</th>
+                                                <th style="text-align: center; width: 20%;">COLEGIO PROFESIONAL</th>
+                                                <th style="text-align: center; width: 10%;">N° DE COLEGIATURA</th>
+                                                <th style="text-align: center; width: 20%;">CONDICIÓN A LA FECHA</th>
+                                                <th style="display: none;">N° DE HOJAS</th>
+                                                <th style="text-align center;width 5%;@display">EDITAR</th>
+                                                <th style="text-align center;width 5%;@display">ELIMINAR</th>
+                                                <th style="display:none; text-align:center;">BCONDICION</th>
+                                                <th style="display:none; text-align:center;">SRUTADOC</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @if (ViewBag.modo == "Editar")
+                                {
+                                    <br /><br /><p><button type="button" class="btn btn-dark-grey" id="btn_AgregarColeg" onclick="NuevoModalRNA();">Agregar RNA&nbsp;&nbsp;<i class="fa fa-plus"></i> </button></p><br />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <div class="table-responsive">
+                                    <table class="display compact" id="tbl_RNA" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                                                <th style="display:none; text-align:center;">NIDPROCESO</th>
+                                                <th style="display:none; text-align:center;">NIDCODIGOUSUARIO</th>
+                                                <th style="display:none; text-align:center;">NIDRNA</th>
+                                                <th style="text-align: center; width: 50%;">CÓDIGO DE INSCRIPCIÓN</th>
+                                                <th style="text-align: center; width: 50%;">FECHA DE REGISTRO</th>
+                                                <th style="text-align: center; width: 5%; @display">EDITAR</th>
+                                                <th style="text-align: center; width: 5%; @display">ELIMINAR</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Capacitacion" class="tab-pane fade">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @if (ViewBag.modo == "Editar")
+                                {
+                                    <br /><p><button type="button" class="btn btn-dark-grey" id="btn_AgregarCapa" onclick="NuevoModalCA();"> Agregar cursos de especialización&nbsp;&nbsp;<i class="fa fa-plus"></i> </button></p><br />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="display compact" id="tbl_Capacitacion" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                                                <th style="display:none; text-align:center;">NIDPROCESO</th>
+                                                <th style="display:none; text-align:center;">NIDCODIGOUSUARIO</th>
+                                                <th style="display:none; text-align:center;">NIDCAPACITACION</th>
+                                                <th style="text-align: center; width: 10%;">INICIO </th>
+                                                <th style="text-align: center; width: 10%;">FIN </th>
+                                                <th style="text-align: center; width: 10%;">CURSO/EVENTO</th>
+                                                <th style="text-align: center; width: 15%;">INSTITUCIÓN</th>
+                                                <th style="text-align: center; width: 10%;">N° HORAS LECTIVAS</th>
+                                                <th style="display: none;">N° DE HOJAS</th>
+                                                <th style="text-align:center; width:5%;@display">EDITAR</th>
+                                                <th style="text-align: center; width: 5%; @display">ELIMINAR</th>
+                                                <th style="display:none; text-align:center;">SRUTADOC</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="divCURSO" style="font-size:12px;padding-top:10px;padding-left:20px;">
+                    </div>
+                </div>
+                <div id="ConEspecializado" class="tab-pane fade">
+
+                    @if (ViewBag.modo == "Editar")
+{ <div class="row">
+        <div class="col-md-3">
+            <br /><p><button type="button" class="btn btn-dark-grey" id="btn_AgregarCon" onclick="NuevoModalCE()"> Agregar conocimiento&nbsp;&nbsp;<i class="fa fa-plus"></i> </button></p><br />
+
+        </div><div class="col-md-9" style="padding-top:20px;font-weight:bold;font-size:12px;color:red">
+                    Debe agregar cada uno de los conocimientos indicados en las bases y otros adicional. Estos conocimientos serán evaluados en su entrevista.
+</div>
+                                        </div> 
+}
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                <div class="table-responsive">
+                                    <table class="display compact" id="tbl_Conocimiento" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                                                <th style="display:none; text-align:center;">NIDPROCESO</th>
+                                                <th style="display:none; text-align:center;">NIDCODIGOUSUARIO</th>
+                                                <th style="display:none; text-align:center;">NIDCONOCIMIENTO</th>
+                                                <th style="text-align: center; width: 20%;">TIPO</th>
+                                                <th style="text-align: center; width: 70%;">CONOCIMIENTO</th>
+                                                <th style="text-align: center; width: 5%; @display">EDITAR</th>
+                                                <th style="text-align: center; width: 5%; @display">ELIMINAR</th>
+                                                <th style="display:none; text-align:center;">NIDTIPO</th>
+                                                <th style="display:none; text-align:center;">SRUTADOC</th>
+                                                <th style="display:none; text-align:center;">NCONOCIMIENTO_B</th>
+                                                <th style="display:none; text-align:center;">SCONOCIMIENTO_B</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="divCRS" style="font-size:12px;padding-top:10px;padding-left:20px;">
+                    </div>
+                </div>
+
+                <div id="ConInformatico" class="tab-pane fade">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @if (ViewBag.modo == "Editar")
+                                {
+                                    <br /><p><button type="button" class="btn btn-dark-grey" id="btn_AgregarConInf" onclick="NuevoModalCI();"> Agregar conocimiento informático&nbsp;&nbsp;<i class="fa fa-plus"></i> </button></p><br />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                <div class="table-responsive">
+                                    <table class="display compact" id="tbl_ConocimientoInf" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                                                <th style="display:none; text-align:center;">NIDPROCESO</th>
+                                                <th style="display:none; text-align:center;">NIDCODIGOUSUARIO</th>
+                                                <th style="display:none; text-align:center;">NIDCONOCIMIENTOINF</th>
+                                                <th style="text-align: center; width: 30%;">CONOCIMIENTOS</th>
+                                                <th style="text-align: center; width: 30%;">TIPO</th>
+                                                <th style="display: none;">N° DE HOJAS</th>
+                                                <th style="text-align: center; width: 5%; @display">EDITAR</th>
+                                                <th style="text-align: center; width: 5%; @display">ELIMINAR</th>
+                                                <th style="display:none; text-align:center;">BTIPO</th>
+                                                <th style="display:none; text-align:center;">SRUTADOC</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Idioma" class="tab-pane fade">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @if (ViewBag.modo == "Editar")
+                                {
+                                    <br /><p><button type="button" class="btn btn-dark-grey" id="btn_AgregarIdioma" onclick="NuevoModalI();"> Agregar idioma&nbsp;&nbsp;<i class="fa fa-plus"></i> </button></p><br />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                <div class="table-responsive">
+                                    <table class="display compact" id="tbl_Idioma" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                                                <th style="display:none; text-align:center;">NIDPROCESO</th>
+                                                <th style="display:none; text-align:center;">NIDCODIGOUSUARIO</th>
+                                                <th style="display:none; text-align:center;">NIDIDIOMA</th>
+                                                <th style="text-align: center; width: 10%;">IDIOMAS</th>
+                                                <th style="text-align: center; width: 10%;">TIPO</th>
+                                                <th style="display: none;">N° DE HOJAS</th>
+                                                <th style="text-align: center; width: 5%; @display">EDITAR</th>
+                                                <th style="text-align: center; width: 5%; @display">ELIMINAR</th>
+                                                <th style="display:none; text-align:center;">BTIPO</th>
+                                                <th style="display:none; text-align:center;">SRUTADOC</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Experiencia" class="tab-pane fade">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-2">
+                                @if (ViewBag.modo == "Editar")
+                                {
+                                    <br /><p><button type="button" class="btn btn-dark-grey" id="btn_AgregarExp" onclick="NuevoModalEX();"> Agregar experiencia&nbsp;&nbsp;<i class="fa fa-plus"></i> </button></p>
+                                }
+                            </div>
+                            <div class="col-md-4" style="vertical-align: middle; font-weight: bold; font-size: 12px;padding-top:10px;">
+                                EXPERIENCIA ACUMULADA<p>
+                                    <div id="divExpGen"></div>
+                                    <div id="divExpEsp"></div>
+                                </p>
+                            </div>
+
+                            <div class="col-md-6" id="divEXP" style="font-size:12px;padding-top:10px;padding-left:20px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="display compact" id="tbl_Experiencia" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center; width: 5%;">EDITAR</th>
+                                                <th style="text-align: center; width: 5%; @display">ELIMINAR</th>
+                                                <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                                                <th style="display:none; text-align:center;">NIDPROCESO</th>
+                                                <th style="display:none; text-align:center;">NIDCODIGOUSUARIO</th>
+                                                <th style="display:none; text-align:center;">NIDEXPERIENCIA</th>
+                                                <th style="text-align: center; width: 5%;">NOMBRE DE LA ENTIDAD</th>
+                                                <th style="text-align: center; width: 5%;">ÁREA</th>
+                                                <th style="text-align: center; width: 5%;">CARGO</th>
+                                                <th style="text-align: center; width: 10%;">FUNCIONES PRINCIPALES</th>
+                                                <th style="text-align: center; width: 10%;">MOD. DE CONTRATACIÓN</th>
+                                                <th style="text-align: center; width: 10%;">MOTIVO RETIRO</th>
+                                                <th style="display: none;">NOMBRE Y CARGO DEL JEFE DIRECTO</th>
+                                                <th style="text-align: center; width: 5%;">TIEMPO DE SERVICIO</th>
+                                                <th style="text-align: center; width: 5%;">INICIO </th>
+                                                <th style="text-align: center; width: 5%;">FIN </th>
+                                                <th style="text-align: center; width: 10%;">REMUN.</th>
+                                                <th style="display: none;">TELÉFONO OFICINA</th>
+                                                <th style="display: none;">N° DE HOJAS</th>
+                                                <th style="display:none; text-align:center;">BESPECIFICA</th>
+                                                <th style="display:none; text-align:center;">BSECTOR</th>
+                                                <th style="display:none; text-align:center;">SFUNCIONES</th>
+                                                <th style="display:none; text-align:center;">SRUTADOC</th>
+                                                <th style="display:none; text-align:center;">BESPECIFICA</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="DatosAdicional" class="tab-pane fade">
+                    <div class="row" style="font-size:11px;font-weight:bold;display:none">
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                1.Eres Pensionista?
+                            </div>
+                            <div class="col-lg-1">
+                                <select id="BPENSIONISTA" class="form-control" onchange="habilitaDivSN(this.value, 1)">
+                                    <option value="0" selected>NO</option>
+                                    <option value="1">SI</option>
+                                </select>
+                            </div>
+                            <div id="divSN1">
+                                <div class="col-lg-4">
+                                    <select tabindex="-1" id="BTIPO_PENSION" class="form-control"></select>
+                                </div>
+                                <div class="col-lg-1">
+                                    está suspendida?
+                                    <select id="BPENSION_SUSP" class="form-control">
+                                        <option value="0" selected>NO</option>
+                                        <option value="1">SI</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="font-size: 11px; font-weight: bold; text-align:justify">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <p>1. Tiene familiares hasta el cuarto grado de consanguinidad o segundo de afinidad trabajando en el Ministerio de Cultura?</p>
+                            </div>
+                            <div class="col-lg-1">
+                                <select id="BFAMILIADIRECTA_DA" class="form-control" onchange="habilitaDivSN(this.value, 2)">
+                                    <option value="0" selected>NO</option>
+                                    <option value="1">SI</option>
+                                </select>
+                            </div>
+                            <div id="divSN2">
+                                <div class="col-lg-4" id="divFaminiar">
+                                    <select tabindex="-1" id="BPARENTESCO" class="form-control"></select>
+                                    <input type="text" class="form-control letras" id="SFAMILIADIRECTA_DA" placeholder="Nombres y apellidos">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="font-size: 11px; font-weight: bold">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                2. Tiene algun tipo de discapacidad?
+                            </div>
+                            <div class="col-lg-1">
+                                <select id="BDISCAPACIDAD_DA" class="form-control" onchange="habilitaDivSN(this.value, 3)">
+                                    <option value="0" selected>NO</option>
+                                    <option value="1">SI</option>
+                                </select>
+                            </div>
+                            <div id="divSN3">
+                                <div class="col-lg-2">
+                                    <input type="text" class="form-control letras-numeros" id="STIPO_DA" placeholder="señale el tipo de discapacidad">
+                                </div>
+                                <div class="col-lg-2">
+                                    Documento Sustento
+                                    <div id="divSelArchivo_DIS">
+                                        <input type="file" name="UploadFile_DIS" id="txtUploadFile_DIS" />
+                                    </div>
+                                    <div id="divVerArchivo_DIS" style="display:none"></div>
+                                    <input type="hidden" id="SRUTADOC_DIS" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="font-size: 11px; font-weight: bold; text-align: justify; ">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                <p>3. Se encuentra usted comprendido dentro del registro de deudores alimentarios morosos, de acuerdo a la Ley N° 28970?</p>
+                            </div>
+                            <div class="col-lg-1">
+                                <select id="BDEUDOR_DA" class="form-control">
+                                    <option value="0" selected>NO</option>
+                                    <option value="1">SI</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style=" font-size: 11px; font-weight: bold">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                4. Tiene antecedentes judiciales y/o penales?
+                            </div>
+                            <div class="col-lg-1">
+                                <select id="BANTECEDENTES_DA" class="form-control" onchange="habilitaDivSN(this.value, 5)">
+                                    <option value="0" selected>NO</option>
+                                    <option value="1">SI</option>
+                                </select>
+                            </div>
+                            <div id="divSN5">
+                                <div class="col-lg-4">
+                                    <select tabindex="-1" id="SANTECEDENTES_DA" class="form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="font-size: 11px; font-weight: bold">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                5. Ud. es Licenciado de las Fuerzas Armadas?
+                            </div>
+                            <div class="col-lg-1">
+                                <select id="BFUERZAARMADA_DA" class="form-control" onchange="habilitaDivSN(this.value, 6)">
+                                    <option value="0" selected>NO</option>
+                                    <option value="1">SI</option>
+                                </select>
+                            </div>
+                            <div id="divSN6">
+                                <div class="col-lg-4">
+                                    Documento Sustento
+                                    <div id="divSelArchivo_LFA">
+                                        <input type="file" name="UploadFile_LFA" id="txtUploadFile_LFA" />
+                                    </div>
+                                    <div id="divVerArchivo_LFA" style="display:none"></div>
+                                    <input type="hidden" id="SRUTADOC_LFA" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="font-size: 11px; font-weight: bold; text-align: justify; ">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                6. Tiene impedimento para trabajar con el estado (LEY 27588)?
+                            </div>
+                            <div class="col-lg-1">
+                                <select id="BINCOMP_ESTADO" class="form-control">
+                                    <option value="0" selected>NO</option>
+                                    <option value="1">SI</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="font-size: 11px; font-weight: bold; text-align: justify; ">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                7. Se encuentra usted inhabilitado para trabajar con el estado (RNSDD)?
+                            </div>
+                            <div class="col-lg-1">
+                                <select id="BINHAB_ESTADO" class="form-control">
+                                    <option value="0" selected>NO</option>
+                                    <option value="1">SI</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="font-size: 11px; font-weight: bold; text-align: justify; ">
+                        <div class="form-group">
+                            <div class="col-lg-8">
+                                8. Si el proceso al que postula es para la Oficina de control Institucional debe realizar lo siguiente, caso contrario omitir este punto:
+                                <ul>
+                                    <li>Descargar los anexos que se indican en las bases.</li>
+                                    <li>
+                                        Llenarlos y firmarlos.
+                                    </li>
+                                    <li>
+                                        Escanearlos en un solo documento PDF.
+                                    </li>
+                                    <li>
+                                        Adjuntarlo aquí.
+                                        <div id="divSelArchivo_OCI">
+                                            <input type="file" name="UploadFile_OCI" id="txtUploadFile_OCI" />
+                                        </div>
+                                        <div id="divVerArchivo_OCI" style="display:none"></div>
+                                        <input type="hidden" id="SRUTADOC_OCI" />
+
+                                    </li>
+                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="font-size: 11px; font-weight: bold; text-align: justify; ">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                9. Escanear el anexo 3B y adjuntarlo aquí:
+                                
+                                       
+                                        <div id="divVerArchivo_A3B" style="display:none"></div>
+                                <input type="hidden" id="SRUTADOC_A3B" />
+                            </div>
+                            <div id="divSelArchivo_A3B" class="col-lg-8">
+                                <input type="file" name="UploadFile_A3B" id="txtUploadFile_A3B" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="font-size: 11px; font-weight: bold">
+                        <div class="form-group">
+                            <div class="col-lg-4">
+                                10. Es deportista calificado de alto nivel?
+                            </div>
+                            <div class="col-lg-1">
+                                <select id="BDEPORTISTA" class="form-control" onchange="habilitaDivSN(this.value, 7)">
+                                    <option value="0" selected>NO</option>
+                                    <option value="1">SI</option>
+                                </select>
+                            </div>
+                            <div id="divSN7">
+                                <div class="col-lg-2">
+                                    Documento Sustento
+                                    <div id="divSelArchivo_DEP">
+                                        <input type="file" name="UploadFile_DIS" id="txtUploadFile_DEP" />
+                                    </div>
+                                    <div id="divVerArchivo_DEP" style="display:none"></div>
+                                    <input type="hidden" id="SRUTADOC_DEP" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div class="row" style="font-size:13px">
+                        <div class="form-group">
+                            <div class="col-lg-11" id="divTC">
+                                <p style="text-align:justify">Suscribo la presente ficha, a mérito de Declaración Jurada en señal de conformidad con los datos consignados y declaro cumplir con el perfil requerido en el proceso al cual postulo, y conocer, aceptar y someterme a todas las reglas, condiciones y procedimientos establecidos en las bases y la convocatoria del proceso de selección para la contratación de personal bajo el contrato administrativo de servicios en el Ministerio de Cultura. Así mismo manifiesto que todo lo declarado responde a la verdad de los hechos y tengo conocimiento que si lo declarado es falso, estoy sujeto a los alcances de lo establecido en el artículo 441° y el artículo 438° del Código Penal, que prevén pena privativa de libertad de hasta 04 años, para los que hacen una falsa declaración, violando el principio de veracidad, así como para aquellos que cometan falsedad, simulando o alterando la verdad intencionalmente.</p>
+                                <select id="BTERM_COND_DA" name="BTERM_COND_DA" class="form-control">
+                                    <option value="0" selected>NO</option>
+                                    <option value="1">SI</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br /><br />
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @if (ViewBag.modo == "Editar")
+                                {
+                                    <br /><p><button type="button" class="btn btn-green" id="btn_Guardar" onclick="GuardarDatosAdic();"> Finalizar y enviar postulación <i class="fa fa-save"></i> </button></p><br />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIN CONTENIDO NAVEGADOR TAB -->
+        </div>
+
+
+        <!-- Modal Formación Académica -->
+        <div id="ModalFA" class="modal fade">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Formación académica</h4>
+                    </div>
+                    <div class="modal-body" style="font-size:12px">
+                        <div id="InfAcademica">
+                            <div class="row" >
+                                <div class="col-lg-6">
+                                    <label class="control-label">Tipo de formación:</label>
+                                    <select tabindex="-1" id="NIDTIPOFORMACION" class="form-control" onchange="cargaInstitucion(this.value)"></select>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="control-label">Grado académico: </label>
+                                    <select tabindex="-1" id="NIDGRADOACADEMICO" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top:10px">
+
+                                <div class="col-lg-12">
+                                    <label class="control-label">Nombre de la institución:</label>
+                                    <select id="NIDINSTITUCION" name="NIDINSTITUCION" class="form-control search-select select2-offscreen" onchange="cargaCarrera(this.value)"></select>
+                                    <input type="text" style="margin-top: 15px" class="form-control letras" id="SINSTITUCION" maxlength="200" placeholder="ingrese el nombre de la institución"><br />
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top:10px">
+
+                                <div class="col-lg-12">
+                                    <label class="control-label">Profesión o especialidad:</label>
+                                    <select id="NIDESPECIALIDAD" name="NIDESPECIALIDAD" class="form-control search-select select2-offscreen"></select>
+                                    <input type="text" class="form-control letras" id="SPROFESION" maxlength="200" placeholder="ingrese la profesión o carrera"><br />
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top:10px">
+                                <div class="col-lg-6">
+                                    <div id="div_fechad_aca" class="input-append">
+                                        <label class="control-label">Fecha de expedición del grado:</label>
+                                        <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="DFECHA_DESDE_ACA" maxlength="10" placeholder="DD/MM/AAAA">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="control-label">Documento Sustento</label>
+                                    <div id="divSelArchivo_ACA">
+                                        <input type="file" name="UploadFile_ACA" id="txtUploadFile_ACA" />
+                                    </div>
+                                    <div id="divVerArchivo_ACA" style="display:none"></div>
+                                </div>
+                                <div class="col-lg-5" style="display:none">
+                                    <div id="div_fechah_aca" class="input-append">
+                                        <label class="control-label">Hasta:</label>
+                                        <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="DFECHA_HASTA_ACA" maxlength="10" placeholder="DD/MM/AAAA"><br />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="display:none">
+                                <div class="col-lg-5">
+                                    <label class="control-label">Años de estudio:</label>
+                                    <input type="number" class="form-control" id="NANIOSESTUDIO" min="1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="GuardarFormAcadem();">Grabar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal Colegiatura -->
+        <div id="ModalCO" class="modal fade">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Colegiatura Habilitada</h4>
+                    </div>
+                    <div class="modal-body" style="font-size:12px">
+                        <div id="Colegiatura">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <label class="control-label">Colegio profesional:</label>
+                                    <input type="text" class="form-control letras mayus" id="SCOLEGIO_CO" maxlength="200">
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="control-label">N° Colegiatura:</label>
+                                    <input type="text" class="form-control solo-numero" id="SNROCOLEGIATURA_CO" maxlength="10"><br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12" >
+                                    <label class="control-label">Condición a la fecha: solo se considerará las colegiaturas en condición HABILITADO</label>
+                                    <select tabindex="-1" id="BCONDICION_CO" class="form-control" disabled>
+                                        <option value="0">NO HABILITADO</option>
+                                        <option value="1" selected>HABILITADO</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <label class="control-label">Documento Sustento</label>
+                                    <div id="divSelArchivo_COL">
+                                        <input type="file" name="UploadFile_COL" id="txtUploadFile_COL" />
+                                    </div>
+                                    <div id="divVerArchivo_COL" style="display:none"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="GuardarColegiatura();">Grabar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Modal RNA -->
+        <div id="ModalRNA" class="modal fade">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Registro nacional de arqueólogos(RNA)</h4>
+                    </div>
+                    <div class="modal-body" style="font-size:12px">
+                        <div id="RNA">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <label class="control-label">Código de inscripción:</label>
+                                    <input type="text" class="form-control" id="SCODIGO_INS" maxlength="20">
+                                </div>
+                                <div class="col-lg-5">
+                                    <div id="div_fecha_rna" class="input-append">
+                                        <label class="control-label">Fecha de Registro:</label>
+                                        <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="DFECHA_REG" maxlength="10" placeholder="DD/MM/AAAA"><br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="GuardarRNA();">Grabar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Modal Capacitacion -->
+        <div id="ModalCA" class="modal fade">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Cursos, programas de especialización y/o diplomados</h4>
+                    </div>
+                    <div class="modal-body" style="font-size:12px">
+                        <div id="Conocimiento">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <div id="div_fechad_cap" class="input-append">
+                                        <label class="control-label">Desde:</label>
+                                        <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="DFECHA_DESDE_CAP" maxlength="10" placeholder="DD/MM/AAAA">
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div id="div_fechah_cap" class="input-append">
+                                        <label class="control-label">Hasta:</label>
+                                        <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="DFECHA_HASTA_CAP" maxlength="10" placeholder="DD/MM/AAAA"><br />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <label class="control-label">Curso/evento:</label>
+                                    <input type="text" class="form-control letras-numeros" id="SCURSO_CA" maxlength="200">
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="control-label">Institución:</label>
+                                    <input type="text" class="form-control letras" id="SINTITUCION_CA" maxlength="200"><br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <label class="control-label">N° horas lectivas:</label>
+                                    <input type="number" class="form-control" id="NHORAS_CA" min="1">
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <label class="control-label">Documento Sustento</label>
+                                    <div id="divSelArchivo_CAP">
+                                        <input type="file" name="UploadFile_CAP" id="txtUploadFile_CAP" />
+                                    </div>
+                                    <div id="divVerArchivo_CAP" style="display:none"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="GuardarCapacitacion();">Grabar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Conocimiento -->
+        <div id="ModalCE" class="modal fade">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Conocimiento relacionado al servicio</h4>
+                    </div>
+                    <div class="modal-body" style="font-size:12px">
+                        <div id="Capacitacion">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="control-label">Tipo conocimiento:</label>
+                                    <select tabindex="-1" id="NIDTIPO" class="form-control"></select><br />
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="control-label">Conocimientos solicitados:</label>
+                                    <select tabindex="-1" id="NCONOCIMEINTO_B" class="form-control"></select><br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label class="control-label">Inidcar nivel, herramientas utilizadas, proyectos en los que ha aplicado el conocimiento, etc.:</label>
+                                    <textarea rows="5" class="form-control letras-numeros" id="SDESCRIPCION_CE" maxlength="2000"></textarea><br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label class="control-label">Documento Sustento: SOLO SI EN LAS BASES INDICA DJ o SUSTENTO</label>
+                                    <div id="divSelArchivo_CRS">
+                                        <input type="file" name="UploadFile_CRS" id="txtUploadFile_CRS" />
+                                    </div>
+                                    <div id="divVerArchivo_CRS" style="display:none"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="GuardarConocimiento();">Grabar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal Conocimiento Informatico -->
+        <div id="ModalCI" class="modal fade">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Conocimiento informático</h4>
+                    </div>
+                    <div class="modal-body" style="font-size:12px">
+                        <div id="ConocimientoInf">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label class="control-label">Conocimiento:</label>
+                                    <textarea rows="4" class="form-control letras-numeros" id="SCONOCIMIENTO_CI" maxlength="2000"></textarea><br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <label class="control-label">Nivel:</label>
+                                    <select class="form-control" id="BTIPO_CI">
+                                        <option value="B">BÁSICO</option>
+                                        <option value="I">INTERMEDIO</option>
+                                        <option value="A">AVANZADO</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <label class="control-label">Documento Sustento</label>
+                                    <div id="divSelArchivo_INF">
+                                        <input type="file" name="UploadFile_INF" id="txtUploadFile_INF" />
+                                    </div>
+                                    <div id="divVerArchivo_INF" style="display:none"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="GuardarConocimientoInf();">Grabar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal Idioma -->
+        <div id="ModalI" class="modal fade">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Idioma</h4>
+                    </div>
+                    <div class="modal-body" style="font-size:12px">
+                        <div id="Idioma">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label class="control-label">Idioma:</label>
+                                    <textarea rows="4" class="form-control letras-numeros" id="SIDIOMA_I" maxlength="2000"></textarea><br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <label class="control-label">Nivel:</label>
+                                    <select class="form-control" id="BTIPO_I">
+                                        <option value="B">BÁSICO</option>
+                                        <option value="I">INTERMEDIO</option>
+                                        <option value="A">AVANZADO</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-10">
+                                    <label class="control-label">Documento Sustento</label>
+                                    <div id="divSelArchivo_IDI">
+                                        <input type="file" name="UploadFile_IDI" id="txtUploadFile_IDI" />
+                                    </div>
+                                    <div id="divVerArchivo_IDI" style="display:none"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="GuardarIdioma();">Grabar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Modal Experiencia -->
+        <div id="ModalEX" class="modal fade">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" onclick="closeModalE()">&times;</button>
+                        <h4 class="modal-title">Experiencia Cronológica</h4>
+                    </div>
+                    <div class="modal-body" style="font-size:12px">
+                        <div id="Experiencia">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="control-label">Nombre de la entidad:</label>
+                                    <input type="text" class="form-control letras-numeros" id="SENTIDAD_EX" maxlength="1000">
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="control-label">Área:</label>
+                                    <input type="text" class="form-control letras-numeros" id="SAREA_EX" maxlength="1000"><br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <label class="control-label">Sector:</label>
+                                    <select class="form-control" id="BSECTOR">
+                                        <option value="0">Seleccione</option>
+                                        <option value="1">Público</option>
+                                        <option value="2">Privado</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-9">
+                                    <label class="control-label">Cargo:</label>
+                                    <input type="text" class="form-control letras-numeros" id="SCARGO_EX" maxlength="1000"><br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <label class="control-label">Tiempo de servicios:</label>
+                                    <div id="divTiempoServicio" style="font-weight:bold"></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div id="div_fechad_exp" class="input-append">
+                                        <label class="control-label">Desde:</label>
+                                        <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="DFECHA_DESDE_EXP" maxlength="10" placeholder="DD/MM/AAAA">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div id="div_fechah_exp" class="input-append">
+                                        <label class="control-label">Hasta:</label>
+                                        <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="DFECHA_HASTA_EXP" maxlength="10" placeholder="DD/MM/AAAA">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <input type="checkbox" id="BESPECIFICA" checked> Específica
+                                    <br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label class="control-label">Funciones principales:</label>
+                                    <textarea class="form-control" rows="3" id="SFUNCIONES_EX" maxlength="3000"></textarea><br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <label class="control-label">N° presentaciones:</label>
+                                    <input type="text" class="form-control solo-numero" id="NPRESENTACIONES" maxlength="3" style="text-align:right">
+                                    <label style="font-size: 8px; font-family: arial; color: red;">(*)SOLO ELENCOS NACIONALES</label>
+                                </div>
+                                <div class="col-lg-9">
+                                    <label class="control-label">Modalidad de contratación:</label>
+                                    <input type="text" class="form-control letras-numeros" id="SMODALIDAD_EX" maxlength="1000"><br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label class="control-label">Motivo de retiro:</label>
+                                    <textarea class="form-control letras-numeros" rows="3" id="SMOTIVORETIRO_EX" maxlength="1000"></textarea>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="control-label">Nombre y cargo del jefe directo:</label>
+                                    <textarea class="form-control letras" rows="3" id="SNOMBRECARGOJEFE_EX" maxlength="1000"></textarea><br />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label class="control-label">Remuneración o retribución:</label>
+                                    <input type="number" class="form-control solo-numero" id="NREMUNERACION_EX" min="0">
+                                </div>
+                                <div class="col-lg-4">
+                                    <label class="control-label">Teléfono oficina:</label>
+                                    <input type="text" class="form-control solo-numero" id="STELEFONO_EX" maxlength="50">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label class="control-label">Documento Sustento</label>
+                                    <div id="divSelArchivo_EXP">
+                                        <input type="file" name="UploadFile_EXP" id="txtUploadFile_EXP" />
+                                    </div>
+                                    <div id="divVerArchivo_EXP" style="display:none"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        @if (ViewBag.modo == "Editar")
+                        {
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+
+                            <button type="button" class="btn btn-primary" onclick=" GuardarExp();">Grabar</button>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script src="@Url.Content("~/js/Vistas/Postulacion/FichaDetalle.js?a=1")" type="text/javascript"></script>

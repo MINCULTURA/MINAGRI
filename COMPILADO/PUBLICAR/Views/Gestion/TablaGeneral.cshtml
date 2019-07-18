@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "TablaGeneral";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" style="padding-top:20px">
+    <div class="col-lg-6">
+        <div class="table-responsive" style="font-size:11px;">
+            <table class="display compact" id="tbl_TablaGC" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="display:none; text-align:center;">NIDTABLA</th>
+                        <th style="text-align:center; width:70%;">DESCRIPCIÓN</th>
+                        <th style="text-align: center; width: 30%;">VER DETALLE</th>
+                        <th style="display:none; text-align:center;">BFECHAS</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        &nbsp;
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-lg-8">
+        <button type="button" class="btn btn-dark-grey" id="btn_AgregarMiembro" onclick="NuevoModalTGD()" style="padding: 6px; font-size:13px; "> Agregar ítem&nbsp;&nbsp;<i class="fa fa-plus"></i> </button>
+        <br /><br />
+        <input type="hidden" id="NIDITEM" value="0" />
+        <input type="hidden" id="NIDTABLA" value="0" />
+        <input type="hidden" id="SDITEM_T" value="" />
+        <div class="table-responsive" style="font-size:11px;">
+            <table class="display compact" id="tbl_TablaGD" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="display:none; text-align:center;">NIDITEM</th>
+                        <th style="display:none; text-align:center;">BACTIVO</th>
+                        <th style="text-align: center; width: 45%;">ÍTEM</th>
+                        <th style="text-align: center; width: 35%;">SIGLA</th>
+                        <th style="text-align: center; width: 35%;">ESTADO</th>
+                        <th style="text-align:center; width:10%;">EDITAR</th>
+                        <th style="text-align:center; width:10%;">ELIMINAR</th>
+                        <th style="display:none; text-align:center;">SFECHA1</th>
+                        <th style="display:none; text-align:center;">SHORA1</th>
+                        <th style="display:none; text-align:center;">SFECHA2</th>
+                        <th style="display:none; text-align:center;">SHORA2</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- Modal TGD -->
+<div id="ModalTGD" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" onclick="LimpiarTGD();">&times;</button>
+                <h4 class="modal-title" id="titulo_TGD"></h4>
+            </div>
+            <div class="modal-body" style="font-size:12px;">
+                <div id="divTGD">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label class="control-label">Descripción:</label>
+                            <input type="text" class="form-control" id="SDITEM" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-lg-9">
+                            <label class="control-label">Sigla:</label>
+                            <input type="text" class="form-control" id="SSITEM" maxlength="100">
+                        </div>
+                        <div class="col-lg-3" style="text-align: right;padding-top:20px">
+                            <input id="BACTIVO" type="checkbox" checked />&nbsp;&nbsp; Activo
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:10px;" id="divfechas">
+                        <div class="col-lg-6">
+                                <div class="input-append" id="div_fecha_1">
+                                    <label class="control-label">Fecha Inicial:</label>
+                                    <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="SFECHA1" placeholder="DD/MM/AAAA">
+                                </div>
+                                <input type="text" class="form-control time" maxlength="5" id="SHORA1" placeholder="HH:MM">
+                        </div>
+                        <div class="col-lg-6">
+                                <div class="input-append" id="div_fecha_2">
+                                    <label class="control-label">Fecha Final:</label>
+                                    <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="SFECHA2" placeholder="DD/MM/AAAA">
+                                </div>
+                                <input type="text" class="form-control time" maxlength="5" id="SHORA2" placeholder="HH:MM">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="LimpiarTGD();">Cerrar&nbsp;&nbsp;<i class="clip-close"></i> </button>
+                <button type="button" class="btn btn-dark-grey" id="btn_guardar" onclick="GuardarTGD();">Guardar&nbsp;&nbsp;<i class="fa fa-save"></i> </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="@Url.Content("~/js/Vistas/Gestion/TablaGeneral.js")" type="text/javascript"></script>
