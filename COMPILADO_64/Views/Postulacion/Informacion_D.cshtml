@@ -1,0 +1,217 @@
+﻿@{
+    ViewBag.Title = "Informacion_D";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+
+<div class="row" style="margin-top:10px;">
+    <div class="col-sm-4">
+        <label>
+            Tipo Información:
+        </label>
+        <select id="NIDTIPO" class="form-control" onchange="setDatoTipo()" disabled></select>
+    </div>
+    <div class="col-sm-4" id="divDtipo" style="display:none">
+        <label id="ltipo">
+        </label>
+        <select id="SDATO_DIA" class="form-control" style="display:none"></select>
+        <input type="text" class="form-control" id="SDATO_IDIOMA" style="display:none">
+        <select id="NIDIDIOMA" name="NIDIDIOMA" class="form-control" style="display:none"></select>
+    </div>
+    <div class="col-sm-4" id="divHI" style="display:none">
+        <label > Herramienta Informática
+        </label>
+        <input type="text" class="form-control" id="SHERRAMIENTA" >
+    </div>
+    <div class="col-sm-12" id="divDias" style="display:none">
+        <div class="row" >
+            <div class="col-sm-12" style="padding-top:10px">
+                Seleccione los días y luego ingrese el horario (formato 24 horas):
+            </div>
+            <div class="col-sm-6">
+                <div class="col-sm-1 checkbox checkbox-primary">
+                    <input id="LU" type="checkbox" /><label for="LU">Lunes</label>
+                </div><div class="col-sm-12 checkbox checkbox-primary">
+                    <input id="MA" type="checkbox" /><label for="MA">Martes</label>
+                </div><div class="col-sm-12 checkbox checkbox-primary">
+                    <input id="MI" type="checkbox" /><label for="MI">Miércoles</label>
+                </div><div class="col-sm-12 checkbox checkbox-primary">
+                    <input id="JU" type="checkbox" /><label for="JU">Jueves</label>
+                </div><div class="col-sm-12 checkbox checkbox-primary">
+                    <input id="VI" type="checkbox" /><label for="VI">Viernes</label>
+                </div><div class="col-sm-12 checkbox checkbox-primary">
+                    <input id="SA" type="checkbox" /><label for="SA">Sábado</label>
+                </div><div class="col-sm-12 checkbox checkbox-primary">
+                    <input id="DO" type="checkbox" /><label for="DO">Domingo</label>
+                </div>
+
+            </div><div class="col-sm-3">
+            Hora ini.:
+          <input type="text" class="form-control time" id="SHORA_INI" placeholder="00:00">
+</div><div class="col-sm-3">
+          Hora fin:
+          <input type="text" class="form-control time" id="SHORA_FIN" placeholder="23:59">
+</div>
+            </div>
+    </div>
+        <div class="col-sm-4" id="divDescripcion" style="display:none">
+            <label id="ldescripcion">
+            </label>
+            <select id="SDESCRIPCION" class="form-control">
+                <option value="">Seleccione...</option>
+                <option value="BÁSICO">BÁSICO</option>
+                <option value="INTERMEDIO">INTERMEDIO</option>
+                <option value="AVANZADO">AVANZADO</option>
+            </select>
+        </div>
+    </div>
+<div class="row" style="margin-top:10px;">
+    <div class="col-sm-12">
+        <label>
+            Detalle:
+        </label>
+        <textarea id="SDETALLE" name="SDETALLE" maxlength="1000" style="height:45px" class="form-control"></textarea>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        CARGARDDL(21, 'NIDTIPO',0, $('#txtidprocesousu').val());
+       // CARGARDDL(22, 'SDATO_DIA', 0, $('#txtidprocesousu').val());
+        CARGARDDL(30, 'NIDIDIOMA', 0, 0);
+        $(function () {
+            $('.time').mask('00:00');
+        });
+        $("#SHORA_INI").keyup(function (key) {
+            validaHora("SHORA_INI")
+        });
+        $("#SHORA_FIN").keyup(function (key) {
+            validaHora("SHORA_FIN")
+        });
+    });
+    function validaHora(id) {
+        var valor = $("#" + id).val()
+        var len = $("#" + id).val().length
+        if (len == 1 && valor > 2)
+            $("#" + id).val("");
+        if (len == 2 && valor > 23)
+            $("#" + id).val("");
+        if (len > 3) {
+            valor = valor.replace(':', '')
+            if (valor.substr(0, 2) > 23 || valor.substr(2, 2) > 59)
+                $("#" + id).val("");
+        }
+    }
+    function setDatoTipo() {
+        $('#divDescripcion').show();
+        $('#divDtipo').show();
+        var nidtipo = $('#NIDTIPO').val();
+        switch (nidtipo) {
+            case "1": 
+                $('#divDtipo').hide(); $('#divDescripcion').hide();
+                $('#divDias').show();
+                    break;
+            case "2": $('#SDATO_DIA').hide();
+                $('#NIDIDIOMA').show();
+                $('#ldescripcion').html("Nivel");
+                $('#ltipo').html("Idioma"); break;
+            case "3": $('#divDtipo').hide();
+                $('#divHI').show();
+                $('#ldescripcion').html("Nivel");
+                    break;
+            case "4": $('#divDescripcion').hide();
+                $('#divDtipo').hide();
+                break;
+            case "5": $('#divDescripcion').hide();
+                $('#divDtipo').hide();
+                break;
+            };
+    }
+
+    function guardarModal() {
+        var NIDPROCESOUSU = $('#txtidprocesousu').val();
+        var NCODIGO = $('#NCODIGO').val();
+        var NTIPO_DATO = $('#NIDTIPO').val();
+        var SDATO = $('#SDATO_IDIOMA').val();
+        var SDESCRIPCION = $('#SDESCRIPCION').val();
+        var SDETALLE = $('#SDETALLE').val();
+        var NIDIDIOMA = $('#NIDIDIOMA').val();
+        var SHERRAMIENTA = $('#SHERRAMIENTA').val();
+        var BACTIVO = 1;
+        var error = "";
+        if (NTIPO_DATO == "1")
+        {
+            SDATO = ($("#LU").is(':checked') ? "-LU" : "") + ($("#MA").is(':checked') ? "-MA" : "") + ($("#MI").is(':checked') ? "-MI" : "") + ($("#JU").is(':checked') ? "-JU" : "") + ($("#VI").is(':checked') ? "-VI" : "") + ($("#SA").is(':checked') ? "-SA" : "") + ($("#DO").is(':checked') ? "-DO" : "");
+            if (SDATO == "") error += "día(s), ";
+            if ($('#SHORA_INI').val().length != 5) error += "hora inicio, ";
+            if ($('#SHORA_FIN').val().length != 5) error += "hora fin, ";
+            SDESCRIPCION = $('#SHORA_INI').val() + "-" + $('#SHORA_FIN').val();
+        }
+        if (NTIPO_DATO == "5" || NTIPO_DATO == "4" ) {
+            if (SDETALLE == "") {
+                error += "detalle, ";
+                $('#SDETALLE').css('border', 'solid 1px red');
+            }
+        }
+        if (NTIPO_DATO == "3" || NTIPO_DATO == "2") {
+            if (SDESCRIPCION == "") {
+                error += "nivel, ";
+                $('#SDESCRIPCION').css('border', 'solid 1px red');
+            }
+            if (NTIPO_DATO == "3") {
+                if (SHERRAMIENTA == "") {
+                    error += "herramienta administrativa, ";
+                    $('#SHERRAMIENTA').css('border', 'solid 1px red');
+                }
+                SDATO = SHERRAMIENTA;
+            }
+        }
+        if (NTIPO_DATO == "2") {
+            SDATO = $('select[name="NIDIDIOMA"] option:selected').text()
+            if (NIDIDIOMA == "0") {
+                error += "idioma, ";
+                $('#NIDIDIOMA').css('border', 'solid 1px red');
+            }
+        }
+        if (NTIPO_DATO == 0) error += "tipo de dato, ";
+        if (error != '') {
+            error = error.substring(0, error.length - 2);
+            error = 'El campo ' + error + ' debe ser válido. ';
+            bootbox.alert(error);
+        } else {
+            bootbox.confirm("Está seguro que realizar la operación?", function (resultado) {
+                if (resultado != true) {
+                    bootbox.alert("Operación Cancelada.");
+                    return;
+                } else {
+                    var dataObject = JSON.stringify({
+                        'NIDPROCESOUSU': NIDPROCESOUSU,
+                        'CODIGO': NCODIGO,
+                        'NTIPO': NTIPO_DATO,
+                        'BACTIVO': BACTIVO,
+                        'SDATO': SDATO,
+                        'SDESCRIPCION': SDESCRIPCION,
+                        'SDETALLE': SDETALLE,
+                        'NIDIDIOMA': NIDIDIOMA
+                    });
+                    $.ajax({
+                        url: baseUrl + 'Postulacion/SP_GUARDAR_VOLUNTARIADO',
+                        type: 'POST',
+                        datatype: 'json',
+                        contentType: 'application/json',
+                        data: dataObject,
+                        success: function (result) {
+                            if (result.SMENSAJE == "OK") {
+                                ListarInformacion();
+                                $('#ModalGeneral').modal('hide');
+                               // bootbox.alert("Se grabó con éxito.")
+                            }
+                            else {
+                                bootbox.alert(result.SMENSAJE);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+</script>

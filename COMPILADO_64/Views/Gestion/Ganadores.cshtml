@@ -1,0 +1,528 @@
+﻿@{
+    ViewBag.Title = "Ganadores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row" style="padding-top:20px">
+    <div class="col-lg-12">
+        <div class="table-responsive" style="font-size:10px;">
+            <table class="display compact" id="tbl_Ganadores" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                        <th style="text-align:center; width:8%;">ACCIONES</th>
+                        <th style="text-align:center; width:10%;">CONVOCATORIA</th>
+                        <th style="text-align:center; width:7%;">PROCESO</th>
+                        <th style="text-align:center; width:10%;">GANADOR</th>
+                        <th style="text-align:center; width:20%;">SERVICIO</th>
+                        <th style="text-align:center; width:3%;">F.NACIMIENTO</th>
+                        <th style="text-align:center; width:2%;">EDAD</th>
+                        <th style="text-align:center; width:3%;">SEXO</th>
+                        <th style="text-align:center; width:3%;">DNI</th>
+                        <th style="text-align:center; width:3%;">RUC</th>
+                        <th style="text-align:center; width:10%;">DEPART. - PROV. - DIST.</th>
+                        <th style="text-align:center; width:10%;">DIRECCIÓN</th>
+                        <th style="text-align:center; width:3%;">TEL.FIJO</th>
+                        <th style="text-align:center; width:3%;">CELULAR</th>
+                        <th style="text-align:center; width:5%;">e-MAIL</th>
+                        <th style="text-align:center; width:5%;">SIGLAS OFI.</th>
+                        <th style="text-align:center; width:7%;">OFICINA</th>
+                        <th style="display: none">NIDPROCESO</th>
+                        <th style="display: none">RESULTADO</th>
+                        <th style="display: none">CONTRATO</th>
+                        <th style="text-align:center; width:2%;">COLEGIATURA</th>
+                        <th style="text-align:center; width:2%;">DISCAPACIDAD</th>
+                        <th style="text-align:center; width:2%;">FFAA</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="ModalContrato" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="width:700px">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="h4Titulo">Contrato</h4>
+            </div>
+            <div class="modal-body" style="font-size:12px;">
+                <div id="divContrato">
+                    <div class="row" style="margin-top:10px;">
+
+                        <input type="hidden" id="NIDPROCESOUSU">
+                        <input type="hidden" id="SEXO_DIR">
+                        <input type="hidden" id="DNI_DIR">
+                        <input type="hidden" id="NOMBRE_DIR">
+                        
+                        <div class="col-lg-3">
+                            <label class="control-label">Nro.Contrato:</label>
+                            <input type="text" class="form-control" id="NRO_CONTRATO" disabled>
+                        </div>
+                        <div class="col-lg-6">
+                            <label class="control-label">Resolución:</label>
+                            <input type="text" class="form-control" id="DRESOLUCION" disabled>
+                        </div>
+                        <div class="col-lg-3" style="text-align: right">
+                            <label class="control-label">F.Resolución:</label>
+                            <input type="text" class="form-control" id="FECHA_RESOL" disabled>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-lg-6">
+                            <label class="control-label">Año:</label>
+                            <input type="text" class="form-control" id="NOMBRE_ANIO">
+                        </div>
+                        <div class="col-lg-3">
+                            <div id="div_fechad_con" class="input-append">
+                                <label class="control-label">Fecha Desde:</label>
+                                <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="DFECHA_DESDE_CON" maxlength="10" placeholder="DD/MM/AAAA">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div id="div_fechah_con" class="input-append">
+                                <label class="control-label">Fecha Hasta:</label>
+                                <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="DFECHA_HASTA_CON" maxlength="10" placeholder="DD/MM/AAAA">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-lg-12">
+                            <label class="control-label">Oficina:</label>
+                            <input type="text" class="form-control" id="OFICINA">
+                        </div>
+                    </div>
+                    <div class="row" >
+                        <div class="col-lg-6" >
+                            <label class="control-label">Nombres:</label>
+                            <input type="text" class="form-control" id="NOMBRE_TRAB">
+                        </div>
+                        <div class="col-lg-3" >
+                            <label class="control-label">DNI:</label>
+                            <input type="text" class="form-control" id="DNI_TRAB">
+                        </div>
+                        <div class="col-lg-3" >
+                            <label class="control-label">RUC:</label>
+                            <input type="text" class="form-control" id="RUC_TRAB">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-lg-12">
+                            <label class="control-label">Domicilio:</label>
+                            <input type="text" class="form-control" id="DIRECCION">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-lg-3" >
+                            <label class="control-label">Nro.Proceso CAS:</label>
+                            <input type="text" class="form-control" id="NRO_CONVOCATORIA">
+                        </div>
+                        <div class="col-lg-3" >
+                            <div id="div_fechah_sus" class="input-append">
+                                <label class="control-label">F.Suscripción:</label>
+                                <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="FECHA_SUSCRIPCION" maxlength="10" placeholder="DD/MM/AAAA">
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <label class="control-label">Monto:</label>
+                            <input type="text" class="form-control" id="NSUELDO" disabled>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="control-label">&nbsp;</label>
+                            <input type="text" class="form-control" id="DSUELDO" disabled>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <div class="col-lg-12">
+                            <label class="control-label">Servicio:</label>
+                            <textarea class="form-control" id="SERVICIO" rows="2"></textarea>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="clickModal(0);">Cancelar&nbsp;&nbsp;<i class="clip-close"></i> </button>
+                <button type="button" class="btn btn-dark-grey" id="btn_guardarR" onclick="GuardarContrato();">Guardar&nbsp;&nbsp;<i class="fa fa-save"></i> </button>
+                <button type="button" class="btn btn-default"  onclick="traeDatosContrato($('#NIDPROCESOUSU').val(),1);">Actualizar&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Conocimiento Informatico -->
+<div id="ModalFicha" class="modal fade">
+    <div class="modal-dialog" style="width:80%">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Detalle de la Ficha</h4>
+            </div>
+            <div class="modal-body" style="font-size:12px">
+                <div id="divFicha">
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="~/Scripts/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/buttons.print.min.js"></script>
+<script src="~/Scripts/buttons.html5.min.js"></script>
+<script src="~/Scripts/jszip.min.js"></script>
+<script type="text/javascript">
+    $(window).load(function () {
+        setCalendar('d_con');
+        setCalendar('h_con');
+        setCalendar('h_sus');
+        listarGanadores();
+    }); 
+    function setDate(ext_id) {
+        $('#div_fecha' + ext_id).datetimepicker('update');
+    }
+    function listarGanadores() {
+        $.ajax({
+            url: baseUrl + 'Gestion/LISTA_GANADORES',
+            type: 'POST',
+            datatype: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                var inf = data;
+                var t = $('#tbl_Ganadores').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [
+                         'excel'
+                    ],
+                    data: inf,
+                    "order": [
+                              [1, "desc"],
+                              [2, "desc"]
+                    ],
+                    "columnDefs": [
+                    { "width": "0%", "targets": 0, "orderable": false },
+                    { "width": "20%", "targets": 1, "orderable": true },
+                    { "width": "10%", "targets": 2, "orderable": true },
+                    { "width": "10%", "targets": 3, "orderable": true },
+                    { "width": "12%", "targets": 4, "orderable": true },
+                    { "width": "10%", "targets": 5, "orderable": true },
+                    { "width": "10%", "targets": 6, "orderable": true },
+                    { "width": "10%", "targets": 7, "orderable": true },
+                    { "width": "10%", "targets": 8, "orderable": true },
+                    { "width": "10%", "targets": 9, "orderable": true },
+                    { "width": "10%", "targets": 10, "orderable": true },
+                    { "width": "10%", "targets": 11, "orderable": true },
+                    { "width": "10%", "targets": 12, "orderable": true },
+                    { "width": "10%", "targets": 13, "orderable": true },
+                    { "width": "10%", "targets": 14, "orderable": true },
+                    { "width": "10%", "targets": 15, "orderable": true },
+                    { "width": "10%", "targets": 16, "orderable": true },
+                    { "width": "10%", "targets": 17, "orderable": true },
+                    { "width": "10%", "targets": 18, "orderable": true },
+                    { "width": "10%", "targets": 19, "orderable": true },
+                    { "width": "10%", "targets": 20, "orderable": true },
+                    { "width": "2%", "targets": 21, "orderable": true }
+                    ],
+                    "sSwfPath": "http://datatables.net/release-datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+                    "aButtons": [{
+                        "sExtends": "collection",
+                        "oSelectorOpts": { filter: 'applied', order: 'current' },
+                        "sButtonText": "Export",
+                        "aButtons": ["xls"]
+                    }],
+                    "oLanguage": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "<div style='padding-top:10px'><b>Postulantes</b></div> _MENU_",
+                        "sZeroRecords": "No se encontraron registros coincidentes",
+                        "sEmptyTable": "No hay registros disponibles",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Ãšltimo",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    "lengthMenu": [[15, 20, 30, 40, 50, -1], [15, 20, 30, 40, 50, "Todo"]],
+                    //"lengthMenu": [[5, 10, 15, 20, 25, -1], [5, 10, 15, 20, 25, "Todo"]],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $('td:eq(0)', nRow).css("text-align", "center").css("display", "none");
+                        $('td:eq(1)', nRow).css("text-align", "center").css("width", "5%");
+                        $('td:eq(2)', nRow).css("text-align", "left").css("width", "5%");
+                        $('td:eq(3)', nRow).css("text-align", "center").css("width", "10%");
+                        $('td:eq(4)', nRow).css("text-align", "left").css("width", "10%");
+                        $('td:eq(5)', nRow).css("text-align", "justify").css("width", "20%");
+                        $('td:eq(6)', nRow).css("text-align", "center").css("width", "2%");
+                        $('td:eq(7)', nRow).css("text-align", "center").css("width", "1%");
+                        $('td:eq(8)', nRow).css("text-align", "center").css("width", "2%");
+                        $('td:eq(9)', nRow).css("text-align", "center").css("width", "2%");
+                        $('td:eq(10)', nRow).css("text-align", "center").css("width", "1%");
+                        $('td:eq(11)', nRow).css("text-align", "center").css("width", "5%");
+                        $('td:eq(12)', nRow).css("text-align", "center").css("width", "10%");
+                        $('td:eq(13)', nRow).css("text-align", "center").css("width", "2%");
+                        $('td:eq(14)', nRow).css("text-align", "center").css("width", "2%");
+                        $('td:eq(15)', nRow).css("text-align", "center").css("width", "2%");
+                        $('td:eq(16)', nRow).css("text-align", "left").css("width", "5%");
+                        $('td:eq(17)', nRow).css("text-align", "left").css("width", "7%");
+                        $('td:eq(18)', nRow).css("display", "none");
+                        $('td:eq(19)', nRow).css("display", "none");
+                        $('td:eq(20)', nRow).css("display", "none");
+                        $('td:eq(21)', nRow).css("text-align", "left").css("width", "2%");
+                        $('td:eq(22)', nRow).css("text-align", "left").css("width", "2%");
+                        $('td:eq(23)', nRow).css("text-align", "left").css("width", "2%");
+                        return nRow;
+                    },
+                    "bFilter": true,
+                    "scrollX": true,
+                    "bLengthChange": true,
+                    "info": true,
+                    destroy: true,
+
+                    columns: [
+                        { data: 'NIDPROCESOUSU' },
+                        { data: 'NIDPROCESOUSU' },
+                        { data: 'CONVOCATORIA' },
+                        { data: 'SPROCESO' },
+                        { data: 'GANADOR' },
+                        { data: 'SSERVICIO' },
+                        { data: 'F_NACIMIENTO' },
+                        { data: 'EDAD' },
+                        { data: 'DSEXO' },
+                        { data: 'SDNI' },
+                        { data: 'SRUC' },
+                        { data: 'LUGAR_DIR' },
+                        { data: 'DIRECCION' },
+                        { data: 'STELEFONOFIJO' },
+                        { data: 'SCELULAR' },
+                        { data: 'SCORREO' },
+                        { data: 'SIGLAS' },
+                        { data: 'OFICINA' },
+                        { data: 'NIDPROCESO' },
+                        { data: 'NRESULTADO' },
+                        { data: 'CONTRATO' },
+                        { data: 'COLEGIATURA' },
+                        { data: 'DISCAPACIDAD' },
+                        { data: 'FFAA' }
+                    ]
+                });
+                var cont = 0;
+                t.on('order.dt search.dt', function () {
+                    cont += 1;
+                    if (cont == 1) {
+                        t.column(5, {}).nodes().each(function (cell, i) {
+                            t.column(0, {}).nodes().each(function (cell, j) { if (i == j) { NIDPROCESOUSU = cell.innerHTML; } });
+                            cell.innerHTML = '<div><a href="#" onclick="Ver_RPT_FICHA(' + NIDPROCESOUSU + ');">' + cell.innerHTML + '</a></div>'
+                        });
+                        t.column(3, {}).nodes().each(function (cell, i) {
+                            t.column(18, {}).nodes().each(function (cell, j) { if (i == j) { NIDPROCESO = cell.innerHTML; } });
+                            cell.innerHTML = '<div><a href="' + baseUrl + 'Gestion/ExportarFormato?NIDPROCESO=' + NIDPROCESO + '&NOPT=30" target="_blank"  >' + cell.innerHTML + '</a></div>'
+                        });
+                        t.column(4, {}).nodes().each(function (cell, i) {
+                            t.column(0, {}).nodes().each(function (cell, j) { if (i == j) { NIDPROCESOUSU = cell.innerHTML; } });
+                            cell.innerHTML = '<div> <a href="javascript:void(0)" onclick="verFicha(' + NIDPROCESOUSU + ')"> ' + cell.innerHTML  + ' </a> </div>'
+                        });
+                        t.column(1, {}).nodes().each(function (cell, i) {
+                            t.column(20, {}).nodes().each(function (cell, j) { if (i == j) { CONTRATO = cell.innerHTML; } });
+                            var codigo = cell.innerHTML;
+                            if (codigo != '') {
+                                cell.innerHTML = '<a href="#" onclick="clickModal(' + codigo + ');" style="padding-right:10px">Datos Contrato</a>'
+                                if (CONTRATO !="0")
+                                    cell.innerHTML = cell.innerHTML + '<BR/><a href="' + baseUrl + 'Gestion/imprimirContrato?NIDPROCESOUSU=' + codigo + '" target="_blank">Imprimir Contrato</a>'
+                            }
+                        });
+                    }
+
+                }).draw();
+            }
+        });
+
+
+    }
+    function verFicha(id) {
+        $.ajax({
+            type: 'GET',
+            url: baseUrl + 'Postulacion/FichaDetalle2',
+            data: 'modo=Ver&NIDPROCESOUSU=' + id,
+            success: function (data) {
+                $("#divFicha").html(data);
+                $('#ModalFicha').modal({
+                    "backdrop": "static",
+                    "keyboard": true,
+                    "show": true,
+                });
+                Cargar_InfAcademica();
+                carga_bases();
+            },
+            error: function (a, b, e) {
+                bootbox.alert("<p>No se pudo abrir la ventana.</p>");
+            }
+        });
+
+        return false;
+    }
+    function Ver_RPT_FICHA(NIDPROCESOUSU_P) {
+
+        var ventana = "../Reports/RPT_FICHA.aspx";
+
+        NIDPROCESOUSU = NIDPROCESOUSU_P;
+
+        //alert(ventana + '?NIDPROCESOUSU=' + NIDPROCESOUSU);
+        window.open(ventana + '?NIDPROCESOUSU=' + NIDPROCESOUSU, "");
+    }
+
+    function clickModal(id) {
+        if (id > 0) {
+            $('#ModalContrato').modal({
+                "backdrop": "static",
+                "keyboard": true,
+                "show": true
+            });
+            traeDatosContrato(id,0)
+        } else{
+            $('#ModalContrato').modal('hide');
+        }
+    }
+    function traeDatosContrato(id,op) {
+        var dataObject = JSON.stringify({
+            'NOPT': op,
+                'NIDPROCESOUSU': id,
+                'SP': 'SP_DATOS_CONTRATO'
+            });
+            $.ajax({
+                url: baseUrl + 'Gestion/LISTA_PROCESOCOMITE',
+                type: 'POST',
+                datatype: 'json',
+                contentType: 'application/json',
+                data: dataObject,
+                success: function (data) {
+                    if (data.length > 0) {
+                        if (op == "0") {
+                            $('#NIDPROCESOUSU').val(id);
+                            $('#DFECHA_DESDE_CON').val(data[0]["FINI_CONTRATO"]);
+                            $('#DFECHA_HASTA_CON').val(data[0]["FFIN_CONTRATO"]);
+                        }
+                        $('#NOMBRE_ANIO').val(data[0]["NOMBRE_ANIO"]);
+                        $('#NRO_CONTRATO').val(data[0]["NRO_CONTRATO"]);
+                        $('#SEXO_DIR').val(data[0]["SEXO_DIR"]);
+                        $('#DNI_DIR').val(data[0]["DNI_DIR"]);
+                        $('#NOMBRE_DIR').val(data[0]["NOMBRE_DIR"]);
+                        $('#DRESOLUCION').val(data[0]["DRESOLUCION"]);
+                        $('#FECHA_RESOL').val(data[0]["FECHA_RESOL"]);
+                        $('#NOMBRE_TRAB').val(data[0]["NOMBRE_TRAB"]);
+                        $('#DNI_TRAB').val(data[0]["DNI_TRAB"]);
+                        $('#RUC_TRAB').val(data[0]["RUC_TRAB"]);
+                        $('#SERVICIO').val(data[0]["SERVICIO"]);
+                        $('#NSUELDO').val(data[0]["NSUELDO"]);
+                        $('#DSUELDO').val(data[0]["DSUELDO"]);
+                        $('#OFICINA').val(data[0]["OFICINA"]);
+                        $('#NRO_CONVOCATORIA').val(data[0]["NRO_CONVOCATORIA"]);
+                        $('#FECHA_SUSCRIPCION').val(data[0]["FECHA_SUSCRIPCION"]);
+                        $('#DIRECCION').val(data[0]["DIRECCION"]);
+                        setDate('d_con');
+                        setDate('h_con');
+                        setDate('h_sus');
+                    }
+                }
+            });
+    }
+    function GuardarContrato() {
+        var NIDPROCESOUSU = $('#NIDPROCESOUSU').val();
+        var NOMBRE_ANIO = $('#NOMBRE_ANIO').val();
+        var NRO_CONTRATO = $('#NRO_CONTRATO').val();
+        var SEXO_DIR = $('#SEXO_DIR').val();
+        var DNI_DIR = $('#DNI_DIR').val();
+        var NOMBRE_DIR = $('#NOMBRE_DIR').val();
+        var DRESOLUCION = $('#DRESOLUCION').val();
+        var FECHA_RESOL = $('#FECHA_RESOL').val();
+        var NOMBRE_TRAB = $('#NOMBRE_TRAB').val();
+        var DNI_TRAB = $('#DNI_TRAB').val();
+        var RUC_TRAB = $('#RUC_TRAB').val();
+        var SERVICIO = $('#SERVICIO').val();
+        var FINI_CONTRATO = $('#DFECHA_DESDE_CON').val();
+        var FFIN_CONTRATO = $('#DFECHA_HASTA_CON').val();
+        var NSUELDO = $('#NSUELDO').val();
+        var DSUELDO = $('#DSUELDO').val();
+        var OFICINA = $('#OFICINA').val();
+        var NRO_CONVOCATORIA = $('#NRO_CONVOCATORIA').val();
+        var FECHA_SUSCRIPCION = $('#FECHA_SUSCRIPCION').val();
+        var DIRECCION = $('#DIRECCION').val();
+
+        var error = "";
+
+        if (NIDPROCESOUSU == 0) error += "proceso, ";
+        if (NOMBRE_ANIO == "") error += "nombre del año, ";
+        if (NRO_CONVOCATORIA == "") error += "nro. convocatoria, ";
+        if (FINI_CONTRATO == "") error += "fecha inicio contrato, ";
+        if (FFIN_CONTRATO == "") error += "fecha fin contrato, ";
+        if (DSUELDO == "") error += "sueldo, ";
+
+        if (error != '') {
+            error = error.substring(0, error.length - 2);
+            error = 'El campo ' + error + ' debe ser válido. ';
+            bootbox.alert(error);
+        } else {
+            bootbox.confirm("Está seguro que realizar la operación?", function (resultado) {
+                if (resultado != true) {
+                    bootbox.alert("Operación Cancelada.");
+                    return;
+                } else {
+
+                    var dataObject = JSON.stringify({
+                    'NIDPROCESOUSU' : NIDPROCESOUSU,
+                    'NOMBRE_ANIO' : NOMBRE_ANIO,
+                    'NRO_CONTRATO' : NRO_CONTRATO,
+                    'SEXO_DIR' : SEXO_DIR,
+                    'DNI_DIR' : DNI_DIR,
+                    'NOMBRE_DIR': NOMBRE_DIR,
+                    'DRESOLUCION' : DRESOLUCION,
+                    'FECHA_RESOL' : FECHA_RESOL,
+                    'NOMBRE_TRAB' : NOMBRE_TRAB,
+                    'DNI_TRAB' : DNI_TRAB,
+                    'RUC_TRAB' : RUC_TRAB,
+                    'SERVICIO' : SERVICIO,
+                    'FINI_CONTRATO' : FINI_CONTRATO,
+                    'FFIN_CONTRATO' : FFIN_CONTRATO,
+                    'NSUELDO' : NSUELDO,
+                    'DSUELDO' : DSUELDO,
+                    'OFICINA' : OFICINA,
+                    'NRO_CONVOCATORIA' : NRO_CONVOCATORIA,
+                    'FECHA_SUSCRIPCION': FECHA_SUSCRIPCION,
+                    'DIRECCION': DIRECCION
+                    });
+                    $.ajax({
+                        url: baseUrl + 'Gestion/SP_GUARDAR_CONTRATO',
+                        type: 'POST',
+                        datatype: 'json',
+                        contentType: 'application/json',
+                        data: dataObject,
+                        success: function (result) {
+                            if (result.SMENSAJE == "OK") {
+                                $('#ModalContrato').modal('hide');
+                                bootbox.alert("Se grabó con éxito.")
+                                listarGanadores();
+                            }
+                            else {
+                                bootbox.alert(result.SMENSAJE);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+    </script>

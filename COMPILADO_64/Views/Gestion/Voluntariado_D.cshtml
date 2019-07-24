@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Voluntariado_D"; 
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+<div class="row" style="margin-top:6px;">
+    <div class="col-lg-5">
+        <label class="control-label">Convocatoria:</label>
+        <select tabindex="-1" id="NIDCONVOCATORIA" class="form-control"></select>
+    </div>
+    <div class="col-lg-2">
+        <div id="div_fecha_cierre" class="input-append">
+            <label class="control-label">Fecha Cierre:</label>
+            <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="DFECHA_CIERRE" maxlength="10" placeholder="DD/MM/AAAA">
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <label class="control-label">Duración:</label>
+        <input type="text" class="form-control" id="SDURACION" maxlength="500">
+    </div>
+</div>
+<div class="row" style="margin-top:10px;">
+    <div class="col-lg-12">
+        <label class="control-label">Nombre:</label>
+        <input type="text" class="form-control" id="SSERVICIO_M" maxlength="1000">
+    </div>
+</div>
+<div class="row" style="margin-top:10px;">
+    <div class="col-lg-12">
+        <label class="control-label">Área usuaria:</label>
+        <select tabindex="-1" id="IDOFICODIGO" class="form-control search-select select2-offscreen"></select>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        setCalendar('_cierre');
+        CARGARDDL(15, 'NIDCONVOCATORIA', '0',0,'Seleccione','T');
+        CARGARDDL(0, 'IDOFICODIGO', '0', 0, 'Seleccione', 'O001','S');
+    });
+    function guardarModal() {
+        var NIDPROCESO = $('#NCODIGO').val();
+        var NIDCONVOCATORIA = $('#NIDCONVOCATORIA').val();
+        var SDURACION = $('#SDURACION').val();
+        var IDOFICODIGO = $('#IDOFICODIGO').val();
+        var SSERVICIO = $('#SSERVICIO_M').val();
+        var SFECHA = $('#DFECHA_CIERRE').val();
+        var BACTIVO = 1;
+        var error = "";
+        if (NIDCONVOCATORIA == 0) error += "convocatoria, ";
+        if (SDURACION == "") error += "duración, ";
+        if (SSERVICIO == "") error += "nombre, ";
+        if (error != '') {
+            error = error.substring(0, error.length - 2);
+            error = 'El campo ' + error + ' debe ser válido. ';
+            bootbox.alert(error);
+        } else {
+            bootbox.confirm("Está seguro que realizar la operación?", function (resultado) {
+                if (resultado != true) {
+                    bootbox.alert("Operación Cancelada.");
+                    return;
+                } else {
+                    var dataObject = JSON.stringify({
+                        'SSERVICIO': SSERVICIO,
+                        'NIDPROCESO': NIDPROCESO,
+                        'NIDCONVOCATORIA': NIDCONVOCATORIA,
+                        'BACTIVO': BACTIVO,
+                        'IDOFICODIGO': IDOFICODIGO,
+                        'SDURACION': SDURACION,
+                        'SFECHA': SFECHA
+                    });
+                    $.ajax({
+                        url: baseUrl + 'Gestion/SP_GUARDAR_PVOLUNTARIADO',
+                        type: 'POST',
+                        datatype: 'json',
+                        contentType: 'application/json',
+                        data: dataObject,
+                        success: function (result) {
+                            if (result.SMENSAJE == "OK") {
+                                ListarProceso();
+                                $('#ModalGeneral').modal('hide');
+                                bootbox.alert("Se grabó con éxito.")
+                            }
+                            else {
+                                bootbox.alert(result.SMENSAJE);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+    </script>

@@ -1,0 +1,327 @@
+﻿@{
+    ViewBag.Title = "ListadoVol";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row" style="padding-top:20px">
+    <div class="col-lg-2">
+        <label class="control-label">Convocatoria:</label>
+        <select tabindex="-1" id="NIDCONVOCATORIA" class="form-control"></select>
+    </div>
+    <div class="col-lg-4">
+        <label class="control-label">Proceso:</label>
+        <select id="ddl_Proceso" tabindex="-1" class="form-control search-select select2-offscreen"></select>
+    </div>
+    <div class="col-md-2">
+        <input type="checkbox" id="chk_tipo" checked>Solo Enviados
+        <button type="button" class="btn btn-red" id="btn_Buscar" onclick="listarVoluntariado()"> Buscar    <i class="fa fa-search"></i> </button>
+    </div>
+    <div class="col-md-2">
+        <label class="control-label">Acta o Reporte:</label>
+        <select tabindex="-1" id="NREPORTE" class="form-control"></select>
+    </div>
+    <div class="col-md-2">
+        <p><button type="button" class="btn btn-red" id="btn_Exportar" onclick="exportarApta()"> Exportar    <i class="fa fa-save"></i> </button></p><br />
+    </div>
+</div>
+<input type="hidden" id="hddRUTADOC" value="@ViewBag.rutaDOC" />
+<div id="divDOC" style="DISPLAY:NONE"></div>
+<div class="row" style="padding-top:10px">
+    <div class="col-lg-12">
+        <div class="table-responsive" style="font-size:10px;">
+            <table class="display compact" id="tbl_voluntariado" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                        <th style="display: none">NIDPROCESO</th>
+                        <th style="text-align:center; width:9%;">CONVOCATORIA</th>
+                        <th style="text-align:center; width:7%;">PROCESO</th>
+                        <th style="text-align:center; width:7%;">POSTULANTE</th>
+                        <th style="text-align:center; width:16%;">ACTIVIDAD</th>
+                        <th style="text-align:center; width:3%;">F.NACIMIENTO</th>
+                        <th style="text-align:center; width:2%;">EDAD</th>
+                        <th style="text-align:center; width:3%;">SEXO</th>
+                        <th style="text-align:center; width:3%;">DOCUMENTO</th>
+                        <th style="text-align:center; width:3%;">RUC</th>
+                        <th style="text-align:center; width:9%;">DEPART. - PROV. - DIST.</th>
+                        <th style="text-align:center; width:9%;">DIRECCIÓN</th>
+                        <th style="text-align:center; width:3%;">TEL.FIJO</th>
+                        <th style="text-align:center; width:3%;">CELULAR</th>
+                        <th style="text-align:center; width:5%;">e-MAIL</th>
+                        <th style="text-align:center; width:5%;">SIGLAS OFI.</th>
+                        <th style="text-align:center; width:7%;">OFICINA</th>
+                        <th style="text-align:center; width:3%;">FECHA_INSC	</th>
+                        <th style="text-align:center; width:3%;">FECHA_ENVIO</th>	
+                        <th style="text-align:center; width:3%;">ESTADO</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="ModalFicha" class="modal fade">
+    <div class="modal-dialog" style="width:80%">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Detalle de la Ficha</h4>
+            </div>
+            <div class="modal-body" style="font-size:12px">
+                <div id="divFicha">
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+    $(window).load(function () {
+        CARGARDDL(15, 'NIDCONVOCATORIA', 0, 0, "Todas", 'T');
+        CARGARDDL(0, 'ddl_Proceso', 0, 0, "Todos", 'V');
+        CARGARDDL(13, 'NREPORTE', 0, 0, "Seleccione");
+        $("#NREPORTE").val(20).trigger("change");
+        $('#NIDCONVOCATORIA').on('change', function (e) {
+            CARGARDDL(0, 'ddl_Proceso', 0, $("#NIDCONVOCATORIA").val(), "Todos", 'V');
+        });
+        $("#ddl_Proceso").select2({
+            placeholder: "Seleccione proceso",
+            allowClear: true
+        });
+        listarVoluntariado();
+    });
+    function exportarApta() {
+        var id = $("#NIDCONVOCATORIA").val();
+        var opt = $("#NREPORTE").val();
+        var pro = $("#ddl_Proceso").val();
+        var tipo = $("#chk_tipo").is(':checked') ? 1 : 2;
+        if (opt == 0) {
+            bootbox.alert("Debe seleccionar una acta o reporte.");
+            return;
+        }
+
+        window.location.href = baseUrl + "Gestion/ExportarAptaExcel?NIDCONVOCATORIA=" + id + "&NOPT=" + opt + "&SP=USP_GENERA_ACTA&NIDPROCESO=" + pro+ "&tipo=" + tipo
+    }
+
+    function listarVoluntariado() {
+        var NOPT = $("#chk_tipo").is(':checked') ? 7 : 6;
+        var dataObject = JSON.stringify({
+            'NOPT': NOPT,
+            'NIDCONVOCATORIA': $("#NIDCONVOCATORIA").val(),
+            'NIDPROCESO': $("#ddl_Proceso").val()
+        });
+        $.ajax({
+            async: false,
+            url: baseUrl + 'Gestion/SP_LISTADO',
+            type: 'POST',
+            datatype: 'json',
+            contentType: 'application/json',
+            data: dataObject,
+            success: function (data) {
+                var inf = data;
+                var t = $('#tbl_voluntariado').DataTable({
+                    dom: 'Bfrtip',
+                    buttons: [
+                         'excel'
+                    ],
+                    data: inf,
+                    "order": [
+                              [1, "desc"],
+                              [2, "desc"]
+                    ],
+                    "columnDefs": [
+                    { "width": "0%", "targets": 0, "orderable": false },
+                    { "width": "20%", "targets": 1, "orderable": true },
+                    { "width": "10%", "targets": 2, "orderable": true },
+                    { "width": "10%", "targets": 3, "orderable": true },
+                    { "width": "12%", "targets": 4, "orderable": true },
+                    { "width": "10%", "targets": 5, "orderable": true },
+                    { "width": "10%", "targets": 6, "orderable": true },
+                    { "width": "10%", "targets": 7, "orderable": true },
+                    { "width": "10%", "targets": 8, "orderable": true },
+                    { "width": "10%", "targets": 9, "orderable": true },
+                    { "width": "10%", "targets": 10, "orderable": true },
+                    { "width": "10%", "targets": 11, "orderable": true },
+                    { "width": "10%", "targets": 12, "orderable": true },
+                    { "width": "10%", "targets": 13, "orderable": true },
+                    { "width": "10%", "targets": 14, "orderable": true },
+                    { "width": "10%", "targets": 15, "orderable": true },
+                    { "width": "10%", "targets": 16, "orderable": true },
+                    { "width": "10%", "targets": 17, "orderable": true },
+                    { "width": "10%", "targets": 18, "orderable": true }    ,
+                    { "width": "10%", "targets": 19, "orderable": true }   , 
+                    { "width": "10%", "targets": 20, "orderable": true }   
+                    ],
+                    "sSwfPath": "http://datatables.net/release-datatables/extensions/TableTools/swf/copy_csv_xls_pdf.swf",
+                    "aButtons": [{
+                        "sExtends": "collection",
+                        "oSelectorOpts": { filter: 'applied', order: 'current' },
+                        "sButtonText": "Export",
+                        "aButtons": ["xls"]
+                    }],
+                    "oLanguage": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "<div style='padding-top:10px'><b>Postulantes</b></div> _MENU_",
+                        "sZeroRecords": "No se encontraron registros coincidentes",
+                        "sEmptyTable": "No hay registros disponibles",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "<a href='#' onclick='descargarDOC()' style='padding-right:10px'>Descargar Adjuntos</a> Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Ãšltimo",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    "lengthMenu": [[15, 20, 30, 40, 50, -1], [15, 20, 30, 40, 50, "Todo"]],
+                    //"lengthMenu": [[5, 10, 15, 20, 25, -1], [5, 10, 15, 20, 25, "Todo"]],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $('td:eq(0)', nRow).css("display", "none");
+                        $('td:eq(1)', nRow).css("display", "none");
+                        $('td:eq(2)', nRow).css("text-align", "left").css("width", "5%");
+                        $('td:eq(3)', nRow).css("text-align", "center").css("width", "9%");
+                        $('td:eq(4)', nRow).css("text-align", "left").css("width", "9%");
+                        $('td:eq(5)', nRow).css("text-align", "justify").css("width", "15%");
+                        $('td:eq(6)', nRow).css("text-align", "center").css("width", "2%");
+                        $('td:eq(7)', nRow).css("text-align", "center").css("width", "1%");
+                        $('td:eq(8)', nRow).css("text-align", "center").css("width", "2%");
+                        $('td:eq(9)', nRow).css("text-align", "center").css("width", "2%");
+                        $('td:eq(10)', nRow).css("text-align", "center").css("width", "1%");
+                        $('td:eq(11)', nRow).css("text-align", "center").css("width", "5%");
+                        $('td:eq(12)', nRow).css("text-align", "center").css("width", "9%");
+                        $('td:eq(13)', nRow).css("text-align", "center").css("width", "2%");
+                        $('td:eq(14)', nRow).css("text-align", "center").css("width", "2%");
+                        $('td:eq(15)', nRow).css("text-align", "center").css("width", "2%");
+                        $('td:eq(16)', nRow).css("text-align", "left").css("width", "5%");
+                        $('td:eq(17)', nRow).css("text-align", "left").css("width", "6%");
+                        $('td:eq(18)', nRow).css("text-align", "left").css("width", "3%");
+                        $('td:eq(19)', nRow).css("text-align", "left").css("width", "3%");
+                        $('td:eq(20)', nRow).css("text-align", "left").css("width", "3%");
+                        return nRow;
+                    },
+                    "bFilter": true,
+                    "scrollX": true,
+                    "bLengthChange": true,
+                    "info": true,
+                    destroy: true,
+
+                    columns: [
+                        { data: 'NIDPROCESOUSU' },
+                        { data: 'NIDPROCESO' },
+                        { data: 'CONVOCATORIA' },
+                        { data: 'SPROCESO' },
+                        { data: 'GANADOR' },
+                        { data: 'SSERVICIO' },
+                        { data: 'F_NACIMIENTO' },
+                        { data: 'EDAD' },
+                        { data: 'DSEXO' },
+                        { data: 'SDNI' },
+                        { data: 'SRUC' },
+                        { data: 'LUGAR_DIR' },
+                        { data: 'DIRECCION' },
+                        { data: 'STELEFONOFIJO' },
+                        { data: 'SCELULAR' },
+                        { data: 'SCORREO' },
+                        { data: 'SIGLAS' },
+                        { data: 'OFICINA' },
+                        { data: 'FECHA_INSC' },    
+                        { data: 'FECHA_ENVIO' },    
+                        { data: 'ESTADO' }
+                    ]
+                });
+                var cont = 0;
+                t.on('order.dt search.dt', function () {
+                    cont += 1;
+                    if (cont == 1) {
+                 
+                        t.column(3, {}).nodes().each(function (cell, i) {
+                            t.column(0, {}).nodes().each(function (cell, j) { if (i == j) { NIDPROCESOUSU = cell.innerHTML; } });
+                            cell.innerHTML = '<div><a href="javascript:void(0)" onclick="verFicha(' + NIDPROCESOUSU + ')" >' +cell.innerHTML + '</a></div>'
+                        });
+                        t.column(4, {}).nodes().each(function (cell, i) {
+                            t.column(0, {}).nodes().each(function (cell, j) { if (i == j) { NIDPROCESOUSU = cell.innerHTML; } });
+                            cell.innerHTML = "<a href='" + baseUrl + "Gestion/ExportarFormato?NIDPROCESO=" + NIDPROCESOUSU + "&NOPT=10' target='_blank' STYLE='PADDING-RIGHT:10PX'>" + cell.innerHTML + "</a>";
+                        });
+                    }
+
+                }).draw();
+            }
+        });
+    }
+    function verFicha(id) {
+        $.ajax({
+            type: 'GET',
+            url: baseUrl + 'Postulacion/FichaDetallePos',
+            data: 'modo=Ver&NIDPROCESOUSU=' + id,
+            success: function (data) {
+                $("#divFicha").html(data);
+                $('#ModalFicha').modal({
+                    "backdrop": "static",
+                    "keyboard": true,
+                    "show": true,
+                });
+                init();
+            },
+            error: function (a, b, e) {
+                bootbox.alert("<p>No se pudo abrir la ventana.</p>");
+            }
+        });
+
+        return false;
+    }
+    function descargarDOC() {
+        var NIDPROCESO = $('#ddl_Proceso').val();
+        var tipo = $("#chk_tipo").is(':checked') ? 1 : 2;
+        var dataObject = JSON.stringify({
+            'NIDTABLA': tipo,
+            'SDATO': 'DV',
+            'NIDPROCESO': NIDPROCESO
+        });
+        $.ajax({
+            async: false,
+            url: baseUrl + 'Postulacion/SP_CONS_TABLA_D',
+            type: 'POST',
+            datatype: 'json',
+            contentType: 'application/json',
+            data: dataObject,
+            success: function (data) {
+                var html = "<div id='idmaxS'>" + data.length + "</div>"
+                for (var i = 0; i < data.length; i++) {
+                    html = html + '<a id="DOC_' + i + '" href="../' + $("#hddRUTADOC").val() + '/' + data[i]["RUTA"] + '" target="_blank" download="' + data[i]["NOMBRE"] + '">ECS</a>'
+                }
+                $("#divDOC").html(html);
+            },
+            error: function (ex) {
+                bootbox.alert('Error, no se cargó la lista de PDF.' + ex);
+            }
+        });
+        var max = $("#idmaxS").html();
+        for (i = 0; i < max; i++) {
+            $('#DOC_' + i)[0].click();
+            var j = 0;
+            for (j = 0; j < 1400000000; j++) {
+                j = j;
+            }
+        }
+    }
+    function descargarECS() {
+        var max = $("#idmaxS").html();
+        for (i = 0; i < max; i++) {
+            $('#ECS_' + i)[0].click();
+        }
+    }
+</script>
+

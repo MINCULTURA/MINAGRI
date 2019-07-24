@@ -1,0 +1,377 @@
+﻿@{
+    ViewBag.Title = "Asistencia";
+}
+<input type="hidden" id="id_p" value="@ViewBag.NIDPERFIL">
+<input type="hidden" id="id_u" value="@ViewBag.NCODIGOUSUARIO">
+<div class="row">
+    <div class="col-lg-5">
+        <h2>Asistencia Voluntariado</h2>
+    </div>
+    <div class="col-lg-2" style="padding-top:10px">
+        Convocatorias:
+        <select tabindex="-1" id="NIDCONVOCATORIA_PG" class="form-control" onchange="ListarProcesos(this.value)"></select>
+    </div>
+    <div class="col-lg-5" style="padding-top:10px">
+        Voluntariados:
+        <select tabindex="-1" id="NIDPROCESO" class="form-control" onchange="ListarActividad(this.value)"></select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-5" style="padding-top:10px">
+        Actividades:
+        <select tabindex="-1" id="NIDACTIVIDAD" class="form-control" onchange="ListarVoluntarios(this.value)"></select>
+    </div>
+    <div class="col-lg-5" style="padding-top:10px">
+        Voluntarios:
+        <select tabindex="-1" id="NIDPROCESOUSU" class="form-control" ></select>
+    </div>
+
+    <div class="col-lg-2" style="padding-top:20px">
+        <button type="button" class="btn btn-green" id="btn_Buscar" onclick="buscarAsistencia();">Buscar&nbsp;&nbsp;<i class="fa fa-search"></i> </button>
+        <button type="button" class="btn btn-red" id="btn_Agregar" onclick="agregarAsistencia();">Agregar</button>
+    </div>
+</div>
+<div class="row" style="margin-top:10px;display:none" id="divfechas">
+    <div class="col-lg-2">
+        <div class="input-append" id="div_fecha_1">
+            <label class="control-label">Fecha Inicial:</label>
+            <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="SFECHA" placeholder="DD/MM/AAAA">
+        </div>
+    </div>
+    <div class="col-lg-2">
+            <label class="control-label">Hora Ingreso:</label>
+        <input type="text" class="form-control time" maxlength="5" id="SHORA1" placeholder="HH:MM">
+    </div>
+    <div class="col-lg-2">
+        <label class="control-label">Hora Salida:</label>
+        <input type="text" class="form-control time" maxlength="5" id="SHORA2" placeholder="HH:MM">
+    </div>
+    <div class="col-lg-6" style="padding-top:20px">
+        <button type="button" class="btn btn-red" id="btn_Cancelar" onclick="cancelarAsistencia(0);">Cancelar</button>
+        <button type="button" class="btn btn-yellow" id="btn_Grabar0" onclick="grabarAsistencia(0);">Grabar y cerrar</button>
+        <button type="button" class="btn btn-green" id="btn_Grabar1" onclick="grabarAsistencia(1);">Grabar y continuar</button>
+    </div>
+</div>
+<div class="row" style="padding-top:20px;display:none" id="tablaAsistencia">
+    <div class="col-lg-12">
+        <div class="table-responsive" style="font-size:11px;">
+            <table class="display compact" id="tbl_voluntarios" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                        <th style="text-align:center; width:10%;">VOLUNTARIO</th>
+                        <th style="text-align:center; width:3%;">FECHA</th>
+                        <th style="text-align:center; width:20%;">HORA ING.</th>
+                        <th style="text-align:center; width:7%;">HARA SAL.</th>
+                        <th style="text-align:center; width:3%;">ESTADO</th>
+                        <th style="text-align:center; width:5%;">ACCIONES</th>
+                        <th style="display:none; text-align:center;">NESTADO</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var NIDU = 0;
+    var NIDP = 0;
+    $(window).load(function () {
+        setCalendar('_1');
+        CARGARDDL(15, 'NIDCONVOCATORIA_PG', 0, '0', '0', 'T');
+        var NIDC = $("#NIDCONVOCATORIA_PG").val(); 
+        NIDP = $("#id_p").val();
+        if (NIDP == 217 || NIDP == 216)
+            NIDU = 0
+        else
+            NIDU = $("#id_u").val();
+        CARGARDDL(NIDC, 'NIDPROCESO', 0, NIDU, '0', 'PR');
+        NIDC = $("#NIDPROCESO").val();
+        if (NIDC > 0) {
+            ListarActividad(NIDC)
+            buscarAsistencia()
+        }
+        $('#tbl_voluntarios').on('click', 'tr', function (event) {
+            if ($(this).hasClass('selected')) {
+
+            }
+            else {
+                $('#tbl_voluntarios').DataTable().$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+    });
+    $(function () {
+        $('.time').mask('00:00');
+    });
+
+    function ListarProcesos(value) {
+        CARGARDDL(value, 'NIDPROCESO', 0, NIDU, '0', 'PR');
+        ListarActividad(0)
+        ListarVoluntarios(0)
+    }
+    function ListarProcesos(value) {
+        CARGARDDL(value, 'NIDPROCESO', 0, NIDU, '0', 'PR');
+        ListarActividad(0)
+        ListarVoluntarios(0)
+    }
+    function ListarActividad(value) {
+        CARGARDDL(value, 'NIDACTIVIDAD', 0, NIDU, 'Todas', 'PR_AC');
+        ListarVoluntarios(0)
+    }
+    function ListarVoluntarios(value) {
+        CARGARDDL(value, 'NIDPROCESOUSU', 0, NIDU, 'Todos', 'PR_AC_VO');
+    }
+    function buscarAsistencia() {
+        var NIDPROCESO = $("#NIDPROCESO").val();
+        var NIDACTIVIDAD = $("#NIDACTIVIDAD").val();
+        var NIDPROCESOUSU = $("#NIDPROCESOUSU").val();
+        if (NIDPROCESO > 0) {
+            var dataObject = JSON.stringify({
+                'NIDPROCESO': NIDPROCESO,
+                'NIDACTIVIDAD': NIDACTIVIDAD,
+                'NIDPROCESOUSU': NIDPROCESOUSU
+            });
+            $("#tablaAsistencia").show();
+            $.ajax({
+                url: baseUrl + 'Gestion/LISTADO_ASISTENCIA',
+                type: 'POST',
+                datatype: 'json',
+                contentType: 'application/json',
+                data: dataObject,
+                success: function (data) {
+                    var inf = data;
+                    var t = $('#tbl_voluntarios').DataTable({
+                        data: inf,
+                        "order": [
+                                  [1, "asc"],
+                                   [2, "desc"]
+                        ],
+                        "oLanguage": {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Listado de Asistencias",
+                            "sZeroRecords": "No se encontraron registros coincidentes",
+                            "sEmptyTable": "No hay registros disponibles",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Buscar:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Ãšltimo",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
+                        },
+                        "lengthMenu": [[25, 30, 40, 50, -1], [25, 30, 40, 50, "Todo"]],
+                        "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                            $('td:eq(0)', nRow).css("text-align", "center").css("display", "none");
+                            $('td:eq(1)', nRow).css("text-align", "left").css("width", "35%");
+                            $('td:eq(2)', nRow).css("text-align", "center").css("width", "10%");
+                            $('td:eq(3)', nRow).css("text-align", "center").css("width", "10%");
+                            $('td:eq(4)', nRow).css("text-align", "center").css("width", "10%");
+                            $('td:eq(5)', nRow).css("text-align", "center").css("width", "10%");
+                            $('td:eq(6)', nRow).css("text-align", "left").css("width", "20%");
+                            $('td:eq(7)', nRow).css("text-align", "center").css("display", "none");
+                            return nRow;
+                        },
+                        "bFilter": true,
+                        //"scrollX": true,
+                        "bLengthChange": true,
+                        "info": true,
+                        destroy: true,
+
+                        columns: [
+                            { data: 'NIDPROCESOUSU' },
+                            { data: 'VOLUNTARIO' },
+                            { data: 'FECHA' },
+                            { data: 'SHORA_ING' },
+                            { data: 'SHORA_SAL' },
+                            { data: 'ESTADO' },
+                            { data: 'NIDASISTENCIA' },
+                            { data: 'NESTADO' }
+                        ]
+                    });
+
+                    var cont = 0;
+
+                    t.on('order.dt search.dt', function () {
+                        cont += 1;
+                        if (cont == 1) {
+
+                            t.column(3, {}).nodes().each(function (cell, i) {
+                                t.column(6, {}).nodes().each(function (cell, j) { if (i == j) { NIDASISTENCIA = cell.innerHTML; } });
+                                cell.innerHTML = '<div id="divHI' + NIDASISTENCIA + '">' + cell.innerHTML + '</div>'
+                            });
+                            t.column(4, {}).nodes().each(function (cell, i) {
+                                t.column(6, {}).nodes().each(function (cell, j) { if (i == j) { NIDASISTENCIA = cell.innerHTML; } });
+                                cell.innerHTML = '<div id="divHF' + NIDASISTENCIA + '">' + cell.innerHTML + '</div>'
+                            });
+                            t.column(6, {}).nodes().each(function (cell, i) {
+                                var idA = cell.innerHTML;
+                                t.column(7, {}).nodes().each(function (cell, j) { if (i == j) { NESTADO = cell.innerHTML; } });
+                                t.column(0, {}).nodes().each(function (cell, j) { if (i == j) { NIDPROCESOUSU = cell.innerHTML; } });
+                                if (NESTADO == 1)
+                                    cell.innerHTML = '<i onclick="actualizarEstado(2,' + idA + ');" style="font-size: 11px;cursor:pointer;color:green;font-weight:bold;padding-left:15px" title="VALIDAR">Validar</i><i onclick="actualizarEstado(3,' + idA + ');" style="font-size: 11px;cursor:pointer;color:red;font-weight:bold;padding-left:15px" title="INVALIDAR">Invalidar</i>'
+                                if (NESTADO == 2)
+                                    cell.innerHTML = '<i onclick="actualizarEstado(0,' + idA + ');" style="font-size: 11px;cursor:pointer;color:red;font-weight:bold;padding-left:15px" title="ELIMINAR">Eliminar</i><i onclick="actualizarEstado(3,' + idA + ');" style="font-size: 11px;cursor:pointer;color:red;font-weight:bold;padding-left:15px" title="INVALIDAR">Invalidar</i>'
+                                if (NESTADO == 3)
+                                    cell.innerHTML = '<i onclick="actualizarEstado(0,' + idA + ');" style="font-size: 11px;cursor:pointer;color:red;font-weight:bold;padding-left:15px" title="ELIMINAR">Eliminar</i><i onclick="actualizarEstado(2,' + idA + ');" style="font-size: 11px;cursor:pointer;color:green;font-weight:bold;padding-left:15px" title="VALIDAR">Validar</i>'
+                                cell.innerHTML = '<div id="botonesP' + idA + '"><i onclick="EditarAsistencia(' + idA + ',' + NIDPROCESOUSU + ');" style="font-size: 11px;cursor:pointer;color:green;font-weight:bold" title="EDITAR">Editar</i>' + cell.innerHTML + '</div><div id="botonesS' + idA + '" style="display:none"><i onclick="CancelarEdicion(' + idA + ');" style="font-size: 11px;cursor:pointer;color:red;font-weight:bold" title="CANCELAR">Cancelar</i><i onclick="grabarEdicion(' + idA + ',' + NIDPROCESOUSU + ');" style="font-size: 11px;cursor:pointer;color:green;font-weight:bold;padding-left:20px" title="GRABAR">Grabar</i></div>'
+                            });
+                        }
+                    }).draw();
+                }
+            });
+        }
+    }
+    function actualizarEstado(idE, idA) {
+        bootbox.confirm("¿Está seguro que desea realizar este proceso?", function (resultado) {
+            if (resultado != true) {
+                return;
+            } else {
+                var dataObject = JSON.stringify({
+                    'NIDASISTENCIA': idA,
+                    'NESTADO': idE
+                });
+                $.ajax({
+                    url: baseUrl + 'Postulacion/SP_GUARDAR_ASISTENCIA',
+                    type: 'POST',
+                    datatype: 'json',
+                    contentType: 'application/json',
+                    data: dataObject,
+                    success: function (result) {
+                        if (result.SMENSAJE == "OK") {
+                            buscarAsistencia()
+                        }
+                        else
+                            bootbox.alert(result.SMENSAJE);
+                    }
+                });
+            }
+        });
+    }
+    function EditarAsistencia(idA, idPU) {
+        $("#botonesS" + idA).show()
+        $("#botonesP" + idA).hide()
+        var HI = $("#divHI" + idA).html();
+        var HF = $("#divHF" + idA).html();
+        $("#txtHI_m").val(HI)
+        $("#txtHF_m").val(HF)
+        var html = '<input type="text" id="txtHI' + idA + '" class="time" maxlength="5" style="text-align:center;font-weight:bold" value="' + HI + '" placeholder="HH:MM"/><input type="hidden" id="txtHI_m' + idA + '" value="' + HI + '">';
+        $("#divHI" + idA).html(html);
+        html = '<input type="text" id="txtHF' + idA + '" class="time" maxlength="5" style="text-align:center;font-weight:bold" value="' + HF + '" placeholder="HH:MM"/><input type="hidden" id="txtHF_m' + idA + '" value="' + HF + '">';
+        $("#divHF" + idA).html(html);
+    }
+    function grabarEdicion(idA, idPU) {
+        var SHORA1 = $("#txtHI" + idA).val()
+        var SHORA2 = $("#txtHF" + idA).val()
+        if (SHORA1.length != 5)
+            bootbox.alert("Debe ingresar HORA DE INGRESO como mínimo.");
+        else {
+            var dataObject = JSON.stringify({
+                'NIDASISTENCIA': idA,
+                'NIDPROCESOUSU': idPU,
+                'NTIPO_MARCA': 2,
+                'NESTADO': 2,
+                'NTIPO_HORA': 1,
+                'SLONGITUD': "",
+                'SLATITUD': "",
+                'SERROR': "",
+                'SHORA': SHORA1,
+                'SHORA2': SHORA2,
+                'DFECHA': ""
+            });
+            $.ajax({
+                url: baseUrl + 'Postulacion/SP_GUARDAR_ASISTENCIA',
+                type: 'POST',
+                datatype: 'json',
+                contentType: 'application/json',
+                data: dataObject,
+                success: function (result) {
+                    if (result.SMENSAJE == "OK") {
+                        $("#botonesS" + idA).hide()
+                        $("#botonesP" + idA).show()
+                        $("#divHI" + idA).html(SHORA1);
+                        $("#divHF" + idA).html(SHORA2);
+                    }
+                    else
+                        bootbox.alert(result.SMENSAJE);
+                }
+            });
+
+        }
+    }
+    function CancelarEdicion(idA) {
+        $("#botonesS" + idA).hide()
+        $("#botonesP" + idA).show()
+        $("#divHI" + idA).html($("#txtHI_m" + idA).val());
+        $("#divHF" + idA).html($("#txtHF_m" + idA).val());
+    }
+    function agregarAsistencia() {
+        var NIDPROCESOUSU = $("#NIDPROCESOUSU").val();
+        if (NIDPROCESOUSU > 0) {
+            $("#divfechas").show()
+            $("#btn_Agregar").hide()
+        }else
+            bootbox.alert("Debe seleccionar a un voluntario.");
+    }
+    function cancelarAsistencia(tipo) {
+        if (tipo == 0) {
+            $("#divfechas").hide()
+            $("#btn_Agregar").show()
+        }
+        $("#SFECHA").val("")
+        $("#SHORA1").val("")
+        $("#SHORA2").val("")
+    }
+    function grabarAsistencia(tipo) {
+        var NIDPROCESOUSU = $("#NIDPROCESOUSU").val();
+        if (NIDPROCESOUSU > 0) {
+            var DFECHA = $("#SFECHA").val()
+            var SHORA1 = $("#SHORA1").val()
+            var SHORA2 = $("#SHORA2").val()
+            if (DFECHA.length != 10 || SHORA1.length != 5 )
+                bootbox.alert("Debe ingresar FECHA, HORA DE INGRESO como mínimo.");
+            else{
+                var dataObject = JSON.stringify({
+                'NIDASISTENCIA': 0,
+                'NIDPROCESOUSU': NIDPROCESOUSU,
+                'NTIPO_MARCA': 2,
+                'NESTADO': 2,
+                'NTIPO_HORA': 1,
+                'SLONGITUD': "",
+                'SLATITUD': "",
+                'SERROR': "",
+                'SHORA': SHORA1,
+                'SHORA2': SHORA2,
+                'DFECHA': DFECHA
+                });
+                $.ajax({
+                    url: baseUrl + 'Postulacion/SP_GUARDAR_ASISTENCIA',
+                    type: 'POST',
+                    datatype: 'json',
+                    contentType: 'application/json',
+                    data: dataObject,
+                    success: function (result) {
+                        if (result.SMENSAJE == "OK") {
+                            cancelarAsistencia(tipo)
+                            buscarAsistencia()
+                        }
+                        else
+                            bootbox.alert(result.SMENSAJE);
+                    }
+                });
+            }
+        } else
+            bootbox.alert("Debe seleccionar a un voluntario.");
+    }
+        
+    </script>
