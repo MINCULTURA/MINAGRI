@@ -1,0 +1,641 @@
+﻿@{
+    ViewBag.Title = "Voluntariado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model AppMC.Models.PostulacionModels.ProcesoUsuario
+<input type="hidden" id="tipoModal">
+
+<div class="row">
+    <div class="col-lg-3"><h2>Voluntariado</h2>
+</div>
+    <div class="col-lg-4" style="padding-top:30px"><select tabindex="-1" id="NIDCONVOCATORIA_PG" class="form-control" onchange="ListarProceso()"></select>
+    </div>
+</div>
+<input type="hidden" id="NCODIGO">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="table-responsive" style="font-size:11px;">
+            <table class="display compact" id="tbl_Proceso" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="display:none;">NIDPROCESO</th>
+                        <th style="display:none;">NIDCONVOCATORIA</th>
+                        <th style="display:none;">IDOFICODIGO</th>
+                        <th style="text-align:center; width:20%;">CONVOCATORIA</th>
+                        <th style="text-align:center; width:70%;">VOLUNTARIADO</th>
+                        <th style="text-align:center; width:70%;">OFICINA</th>
+                        <th style="text-align:center; width:5%;">EDIT.</th>
+                        <th style="text-align:center; width:5%;">ELIM.</th>
+                        <th style="display:none;">VER ACT.</th>
+                        <th style="display:none;">FECHA</th>
+                        <th style="display:none;">DURACION</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        &nbsp;
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-9">
+        <input type="hidden" id="NIDPROCESO" value="0" />
+        <input type="hidden" id="NIDACTIVIDAD" value="0" />
+        <div id="divNombre" style="font-weight:bold"></div>
+        <div class="table-responsive" style="font-size:11px;">
+            <table class="display compact" id="tbl_Actividades" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="display:none">NIDPROCESO</th>
+                        <th style="display:none">NIDACTIVIDAD</th>
+                        <th style="display:none">IDOFICODIGO</th>
+                        <th style="text-align: center; width: 35%;">OFICINA</th>
+                        <th style="text-align: center; width: 35%;">ACTIVIDAD</th>
+                        <th style="text-align: center; width: 45%;">DESCRIPCION</th>
+                        <th style="text-align: center; width: 10%;">VAC.</th>
+                        <th style="text-align:center; width:5%;">EDIT.</th>
+                        <th style="text-align:center; width:5%;">ELIM.</th>
+                        <th style="display:none">SPERFIL</th>
+                        <th style="display:none">SACCIONES</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+        <div class="col-lg-3" style="display:none;margin-top:10px;" id="divComite">
+            <div class="row">
+                <div class="col-lg-8">
+                    <b>COORDINADORES:</b>
+                </div>
+                <div class="col-lg-4" style="text-align:right">
+                    <button type="button" class="btn btn-dark-grey" id="btn_AgregarMiembro" onclick="NuevoModalMI()" style="padding: 6px; font-size:13px; "> Agregar&nbsp;&nbsp;<i class="fa fa-plus"></i> </button>
+                </div>
+                <div class="col-lg-12" style="padding-top:8px">
+                    <div class="table-responsive" style="font-size:11px;">
+                        <table class="display compact" id="tbl_Comite" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th style="display:none; text-align:center;">NIDCOMITE</th>
+                                    <th style="display:none; text-align:center;">NIDPERSONAL</th>
+                                    <th style="display:none; text-align:center;">NIDPROCESO</th>
+                                    <th style="display:none; text-align:center;">NIDACTIVIDAD</th>
+                                    <th style="text-align: center; width: 95%;">NOMBRES</th>
+                                    <th style="text-align:center; width:5%;">ELIM.</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<div id="ModalComite" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content" style="width:700px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Asignar coordinador</h4>
+            </div>
+            <div class="modal-body" style="font-size:12px;">
+                    <div class="row">
+                        <label class="control-label col-lg-1">Proceso:</label>
+                        <div class="col-lg-11">
+                            <label class="control-label" id="lblproceso" style="font-size:12px;font-weight:bold"></label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:10px;">
+                        <label class="control-label col-lg-1">Actividad:</label>
+                        <div class="col-lg-11">
+                            <label class="control-label" id="lblactividad" style="font-size: 12px; font-weight: bold"></label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px; ">
+                        <div class="col-lg-1 checkbox checkbox-primary">
+                        </div>
+
+                        <div class="col-lg-8 checkbox checkbox-primary">
+                            <input id="ID_ALL_C" type="checkbox" /><label for="ID_ALL_C">Todas las actividades de este proceso</label>
+                        </div>
+                        <div class="col-lg-3 checkbox checkbox-primary">
+                            <input id="NPRINCIPAL" type="checkbox" checked /><label for="NPRINCIPAL">Principal</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label class="control-label">Coordinador:</label>
+                            <select id="ddl_Personal" class="form-control search-select select2-offscreen"></select>
+                        </div>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar&nbsp;&nbsp;<i class="clip-close"></i> </button>
+                <button type="button" class="btn btn-dark-grey" id="btn_guardar" onclick="GuardarComite();">Guardar&nbsp;&nbsp;<i class="fa fa-save"></i> </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+    $(window).load(function () {
+        CARGARDDL(15, 'NIDCONVOCATORIA_PG', 0, '0', '0','T');
+        ListarProceso();
+        ListarActividades(0)
+    });
+    function CargarPersonal() {
+        $.ajax({
+            url: baseUrl + 'Gestion/SP_LISTA_PERSONAL',
+            type: 'POST',
+            datatype: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({ 'NOPT': 1 }),
+            success: function (data) {
+                $(".modal-body #ddl_Personal").empty();
+                $(".modal-body #ddl_Personal").append('<option value="0" >Seleccione</option>');
+
+                for (var i = 0; i < data.length; i++) {
+                    $(".modal-body #ddl_Personal").append('<option value="' + data[i]["NCODIGOPERSONA"] + '">' +
+                         data[i]["SNOMBREPERSONA"] + ' (' + data[i]["STIPODOCUMENTO"] + ' ' + data[i]["SNUMERODOCUMENTO"] + ')' + '</option>');
+                }
+
+                $(".modal-body #ddl_Personal").select2({
+                    placeholder: "Seleccione personal",
+                    allowClear: true
+                });
+            },
+
+            error: function (ex) {
+                alert('Error, no se cargó la lista de personal.' + ex);
+            }
+        });
+    }
+    function NuevoModalMI() {
+        if ($("#NIDPROCESO").val() != 0 && $("#NIDACTIVIDAD").val() != 0) {
+            $('#ModalComite').modal({
+                "backdrop": "static",
+                "keyboard": true,
+                "show": true
+            });
+           CargarPersonal();
+        }
+        else {
+            bootbox.alert("Debe seleccionar un proceso y una activadad.");
+        }
+        $("#NIDPERSONAL").val(0);
+    }
+    function ListarProceso() {
+        $("#divComite").hide();
+        ListarActividades(0)
+        var dataObject = JSON.stringify({
+            'NOPT': 1,
+            'NIDCONVOCATORIA': $("#NIDCONVOCATORIA_PG").val()
+        });
+        $.ajax({
+            async: false,
+            url: baseUrl + 'Gestion/SP_LISTADO',
+            type: 'POST',
+            datatype: 'json',
+            contentType: 'application/json',
+            data: dataObject,
+            success: function (data) {
+                var inf = data;
+                var t = $('#tbl_Proceso').DataTable({
+                    data: inf,
+                    "order": [
+                                 [3, "desc"], [4, "asc"]
+                    ],
+                    "columnDefs": [
+                        { "width": "0%", "targets": 0, "orderable": false },
+                        { "width": "0%", "targets": 1, "orderable": false },
+                        { "width": "0%", "targets": 2, "orderable": false },
+                        { "width": "5%", "targets": 6, "orderable": false },
+                        { "width": "5%", "targets": 7, "orderable": false },
+                        { "width": "5%", "targets": 8, "orderable": false },
+                        { "width": "0%", "targets": 9, "orderable": false },
+                        { "width": "0%", "targets": 10, "orderable": false },
+                    ],
+                    "oLanguage": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "<div style='padding-top:10px'><b>PROCESOS</b></div>",
+                        "sZeroRecords": "No se encontraron registros coincidentes",
+                        "sEmptyTable": "No hay registros disponibles",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": '<button type="button" class="btn btn-dark-grey" onclick="AbrirModal(\'PV\',\'VOLUNTARIADO\',0)" style="margin-right: 10px; font-size:13px; "> Agregar&nbsp;&nbsp;<i class="fa fa-plus"></i> </button>Buscar:',
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Ãšltimo",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    "lengthMenu": [[10, 20, 30, 40, 50, -1], [10, 20, 30, 40, 50, "Todo"]],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $('td:eq(0)', nRow).css("display", "none");
+                        $('td:eq(1)', nRow).css("display", "none");
+                        $('td:eq(2)', nRow).css("display", "none");
+                        $('td:eq(3)', nRow).css("text-align", "left").css("width", "14%");
+                        $('td:eq(4)', nRow).css("text-align", "left").css("width", "44%");
+                        $('td:eq(5)', nRow).css("text-align", "left").css("width", "34%");
+                        $('td:eq(6)', nRow).css("text-align", "center").css("width", "4%").attr("class", "edit");
+                        $('td:eq(7)', nRow).css("text-align", "center").css("width", "4%");
+                        $('td:eq(8)', nRow).css("display", "none");
+                        $('td:eq(9)', nRow).css("display", "none");
+                        $('td:eq(10)', nRow).css("display", "none");
+                        return nRow;
+                    },
+                    "bFilter": true,
+                    //"scrollX": true,
+                    "bLengthChange": true,
+                    "info": true,
+                    destroy: true,
+
+                    columns: [
+                        { data: 'NIDPROCESO' },
+                        { data: 'NIDCONVOCATORIA' },
+                        { data: 'IDOFICODIGO' },
+                        { data: 'DCONVOCATORIA' },
+                        { data: 'SSERVICIO' },
+                        { data: 'OFICINA' },
+                        { data: 'NIDPROCESO' },
+                        { data: 'NIDPROCESO' },
+                        { data: 'NIDPROCESO' },
+                        { data: 'FFIN_VOL' },
+                        { data: 'SDURACION' }
+
+                    ]
+                });
+                var cont = 0;
+                t.on('order.dt search.dt', function () {
+                    cont += 1;
+                    if (cont == 1) {
+                        t.column(6, {}).nodes().each(function (cell, i) {
+                            cell.innerHTML = '<div id><i class="fa fa-pencil" onclick="" style="font-size: 20px;" title="Editar"></i></div>'
+                        });
+                        t.column(7, {}).nodes().each(function (cell, i) {
+                            cell.innerHTML = '<div><i class="fa fa-trash-o" onclick="EliminarProceso(' + cell.innerHTML + ');" style="font-size: 20px;" title="Eliminar registro"></i></div>'
+                        });
+                        t.column(8, {}).nodes().each(function (cell, i) {
+                            cell.innerHTML = '<div><i class="fa fa-eye" onclick="ListarActividades(' + cell.innerHTML + ');" style="font-size: 20px;" title="Ver actividades"></i></div>'
+                        });
+                    }
+
+                }).draw();
+            }
+        });
+    }
+    $('#tbl_Proceso').on('click', 'tr', function (event) {
+        if ($(this).hasClass('selected')) {
+
+        }
+        else {
+            $('#tbl_Proceso').DataTable().$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+            ListarActividades($(this).closest('tr').find('td:eq(0)').text())
+            $('#divNombre').html($(this).closest('tr').find('td:eq(4)').text());
+            $('#lblproceso').html($(this).closest('tr').find('td:eq(4)').text());
+            $("#divComite").hide();
+            
+        }
+    }).on('click', 'tbody td.edit i', function (event) {
+        AbrirModal('PV', 'VOLUNTARIADO', $(this).closest('tr').find('td:eq(0)').text());
+        $('#NIDCONVOCATORIA').val($(this).closest('tr').find('td:eq(1)').text());
+        $('#SDURACION').val($(this).closest('tr').find('td:eq(10)').text());
+        $('#IDOFICODIGO').val($(this).closest('tr').find('td:eq(2)').text()).trigger("change");
+        $('#SSERVICIO_M').val($(this).closest('tr').find('td:eq(4)').text());
+        $('#DFECHA_CIERRE').val($(this).closest('tr').find('td:eq(9)').text());
+    });
+    function EliminarProceso(id) {
+        bootbox.confirm("¿Está seguro que desea eliminar este registro?", function (resultado) {
+            if (resultado != true) {
+                return;
+            } else {
+                var dataObject = JSON.stringify({
+                    'NIDPROCESO': id,
+                    'BACTIVO': 0,
+                });
+
+                $.ajax({
+                    url: baseUrl + 'Gestion/SP_GUARDAR_PVOLUNTARIADO',
+                    type: 'POST',
+                    datatype: 'json',
+                    contentType: 'application/json',
+                    data: dataObject,
+                    success: function (result) {
+                        if (result.SMENSAJE == "OK") {
+                            ListarProceso();
+                            bootbox.alert("Se emilinó el registro con éxito.!");
+                        }
+                        else {
+                            bootbox.alert(result.SMENSAJE);
+                        }
+                    }
+                });
+            }
+        });
+    }
+    function ListarActividades(idProceso) {
+        $("#NIDPROCESO").val(idProceso)
+        var dataObject = JSON.stringify({
+            'NOPT': 2,
+            'NIDPROCESO': idProceso
+        });
+        $.ajax({
+            async: false,
+            url: baseUrl + 'Gestion/SP_LISTADO',
+            type: 'POST',
+            datatype: 'json',
+            contentType: 'application/json',
+            data: dataObject,
+            success: function (data) {
+                var inf = data;
+                var t = $('#tbl_Actividades').DataTable({
+                    data: inf,
+                    "order": [
+                                 [2, "asc"]
+                    ],
+                    "columnDefs": [
+                        { "width": "0%", "targets": 0, "orderable": false },
+                        { "width": "0%", "targets": 1, "orderable": false },
+                        { "width": "5%", "targets": 5, "orderable": false },
+                        { "width": "5%", "targets": 6, "orderable": false },
+                        { "width": "5%", "targets": 7, "orderable": false },
+                        { "width": "5%", "targets": 8, "orderable": false },
+                        { "width": "5%", "targets": 9, "orderable": false },
+                        { "width": "5%", "targets": 10, "orderable": false },
+                    ],
+                    "oLanguage": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "<div style='padding-top:10px'><b>ACTIVIDADES</b></div>",
+                        "sZeroRecords": "No se encontraron registros coincidentes",
+                        "sEmptyTable": "No hay registros disponibles",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": '<button type="button" class="btn btn-dark-grey" onclick="AbrirModal(\'AC\',\'ACTIVIDADES\',0)" style="margin-right: 10px; font-size:13px; "> Agregar&nbsp;&nbsp;<i class="fa fa-plus"></i> </button>Buscar:',
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Ãšltimo",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    "lengthMenu": [[10, 20, 30, 40, 50, -1], [10, 20, 30, 40, 50, "Todo"]],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $('td:eq(0)', nRow).css("display", "none");
+                        $('td:eq(1)', nRow).css("display", "none");
+                        $('td:eq(2)', nRow).css("display", "none");
+                        $('td:eq(3)', nRow).css("text-align", "left").css("width", "20%");
+                        $('td:eq(4)', nRow).css("text-align", "left").css("width", "30%");
+                        $('td:eq(5)', nRow).css("text-align", "justify").css("width", "38%");
+                        $('td:eq(6)', nRow).css("text-align", "center").css("width", "4%");
+                        $('td:eq(7)', nRow).css("text-align", "center").css("width", "4%").attr("class", "edit");
+                        $('td:eq(8)', nRow).css("text-align", "center").css("width", "4%");
+                        $('td:eq(9)', nRow).css("display", "none");
+                        $('td:eq(10)', nRow).css("display", "none");
+                        return nRow;
+                    },
+                    "bFilter": true,
+                    //"scrollX": true,
+                    "bLengthChange": true,
+                    "info": false,
+                    destroy: true,
+
+                    columns: [
+                        { data: 'NIDACTIVIDAD' },
+                        { data: 'NIDPROCESO' },
+                        { data: 'IDOFICODIGO' },
+                        { data: 'OFICINA' },
+                        { data: 'SNOMBRE' },
+                        { data: 'SDESCRIPCION' },
+                        { data: 'NVACANTES' },
+                        { data: 'NIDACTIVIDAD' },
+                        { data: 'NIDACTIVIDAD' },
+                        { data: 'SPERFIL' },
+                        { data: 'SACCIONES' }
+                    ]
+                });
+                var cont = 0;
+                t.on('order.dt search.dt', function () {
+                    cont += 1;
+                    if (cont == 1) {
+                        t.column(7, {}).nodes().each(function (cell, i) {
+                            cell.innerHTML = '<div id><i class="fa fa-pencil" onclick="" style="font-size: 20px;" title="Editar"></i></div>'
+                        });
+                        t.column(8, {}).nodes().each(function (cell, i) {
+                            cell.innerHTML = '<div><i class="fa fa-trash-o" onclick="EliminarActividad(' + cell.innerHTML + ');" style="font-size: 20px;" title="Eliminar registro"></i></div>'
+                        });
+                    }
+
+                }).draw();
+            }
+        });
+    }
+    function EliminarActividad(id) {
+        var NIDPROCESO = $('#NIDPROCESO').val();
+        bootbox.confirm("¿Está seguro que desea eliminar este registro?", function (resultado) {
+            if (resultado != true) {
+                return;
+            } else {
+                var dataObject = JSON.stringify({
+                    'NIDACTIVIDAD': id,
+                    'BACTIVO': 0,
+                });
+
+                $.ajax({
+                    url: baseUrl + 'Gestion/SP_GUARDAR_ACTIVIDAD',
+                    type: 'POST',
+                    datatype: 'json',
+                    contentType: 'application/json',
+                    data: dataObject,
+                    success: function (result) {
+                        if (result.SMENSAJE == "OK") {
+                            ListarActividades(NIDPROCESO);
+                            bootbox.alert("Se emilinó el registro con éxito.!");
+                        }
+                        else {
+                            bootbox.alert(result.SMENSAJE);
+                        }
+                    }
+                });
+            }
+        });
+    }
+    $('#tbl_Actividades').on('click', 'tr', function (event) {
+        if ($(this).hasClass('selected')) {
+
+        }
+        else {
+            $('#tbl_Actividades').DataTable().$('tr.selected').removeClass('selected');
+            ListarComite($(this).closest('tr').find('td:eq(0)').text())
+            $(this).addClass('selected');
+            $('#lblactividad').html($(this).closest('tr').find('td:eq(4)').text());
+        }
+    }).on('click', 'tbody td.edit i', function (event) {
+        AbrirModal('AC', 'ACTIVIDADES', $(this).closest('tr').find('td:eq(0)').text());
+
+        $('#NVACANTES').val($(this).closest('tr').find('td:eq(6)').text());
+        $('#IDOFICODIGO').val($(this).closest('tr').find('td:eq(2)').text()).trigger("change");
+        $('#SNOMBRE').val($(this).closest('tr').find('td:eq(4)').text());
+        $('#SDESCRIPCION').val($(this).closest('tr').find('td:eq(5)').text());
+        $('#SPERFIL').val($(this).closest('tr').find('td:eq(9)').text());
+        $('#SACCIONES').val($(this).closest('tr').find('td:eq(10)').text());
+    });
+    function ListarComite(NIDACTIVIDAD) {
+        $("#divComite").show();
+            $("#NIDACTIVIDAD").val(NIDACTIVIDAD);
+        var dataObject = JSON.stringify({
+            'NOPT': 4, 'NIDPROCESO': NIDACTIVIDAD, 'SP': 'SP_LISTA_PROCESOCOMITE'
+        });
+
+        $.ajax({
+            url: baseUrl + 'Gestion/LISTA_PROCESOCOMITE',
+            type: 'POST',
+            datatype: 'json',
+            contentType: 'application/json',
+            data: dataObject,
+            success: function (data) {
+                var inf = data;
+                var t = $('#tbl_Comite').DataTable({
+                    data: inf,
+                    "columnDefs": [
+                    { "width": "5%", "targets": 5, "orderable": false }
+                    ],
+                    "oLanguage": {
+                        "sProcessing": "Procesando...",
+                        "sEmptyTable": "No hay registros disponibles",
+                        "sInfoPostFix": ""
+                    },
+                    "lengthMenu": [[ 10, 15, 20, 25, -1], [ 10, 15, 20, 25, "Todo"]],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $('td:eq(0)', nRow).css("text-align", "center").css("display", "none");
+                        $('td:eq(1)', nRow).css("text-align", "center").css("display", "none");
+                        $('td:eq(2)', nRow).css("text-align", "center").css("display", "none");
+                        $('td:eq(3)', nRow).css("text-align", "center").css("display", "none");
+                        $('td:eq(4)', nRow).css("text-align", "left").css("width", "40%");
+                        $('td:eq(5)', nRow).css("text-align", "center").css("width", "5%");
+                        return nRow;
+                    },
+                    "bFilter": false,
+                    //"scrollX": true,
+                    "bLengthChange": false,
+                    "info": false,
+                    "paging": false,
+                    destroy: true,
+                    columns: [
+                        { data: 'NIDCOMITE' },
+                        { data: 'NIDPERSONAL' },
+                        { data: 'NIDPROCESO' },
+                        { data: 'NIDACTIVIDAD' },
+                        { data: 'SNOMBREPERSONA' },
+                        { data: 'NIDCOMITE' }
+                    ]
+                });
+                var cont = 0;
+                t.on('order.dt search.dt', function () {
+                    cont += 1;
+                    if (cont == 1) {
+                        t.column(5, {}).nodes().each(function (cell, i) {
+                            cell.innerHTML = '<div style="cursor: pointer;"><i class="fa fa-trash-o" onclick="EliminarMiembroComite(' + cell.innerHTML + ');" style="font-size: 20px;" title="Eliminar registro"></i></div>'
+                        });
+                    }
+
+                }).draw();
+            }
+        });
+    }
+    function GuardarComite() {
+        var NIDESTADO = $("#ID_ALL_C").is(':checked') ? 1 : 0;
+        var NPRINCIPAL = $("#NPRINCIPAL").is(':checked') ? 1 : 0;
+        var NIDPROCESO = $('#NIDPROCESO').val();
+        var NIDACTIVIDAD = $('#NIDACTIVIDAD').val();
+        var NIDPERSONAL = $('#ddl_Personal').val();
+        var BACTIVO = 1;
+        var error = "";
+        if (NIDPROCESO == "0") {
+            error += "proceso, ";
+        }
+        if (NIDPROCESO == "0") {
+            error += "actividad, ";
+        }
+        if (NIDPERSONAL == "0") {
+            error += "personal, ";
+        }
+        error = error.substring(0, error.length - 2);
+        if (error != '') {
+            error = 'El campo ' + error + ' debe ser válido. ';
+            bootbox.alert(error);
+        } else {
+            var dataObject = JSON.stringify({
+                'NIDPROCESO': NIDPROCESO,
+                'NIDPERSONAL': NIDPERSONAL,
+                'NIDACTIVIDAD': NIDACTIVIDAD,
+                'BACTIVO': BACTIVO,
+                'NIDESTADO': NIDESTADO,
+                'NRESULTADO': NPRINCIPAL
+            });
+            bootbox.confirm("Está seguro que realizar la operación?", function (resultado) {
+                if (resultado != true) {
+                    return;
+                } else {
+                    $.ajax({
+                        url: baseUrl + 'Gestion/SP_GUARDAR_PROCESOCOMITE',
+                        type: 'POST',
+                        datatype: 'json',
+                        contentType: 'application/json',
+                        data: dataObject,
+                        success: function (result) {
+                            ListarComite(NIDACTIVIDAD)
+                            $('#ModalComite').modal('hide');
+                            bootbox.alert(result.SMENSAJE);
+                        }
+                    });
+                }
+            });
+        }
+    }
+    function EliminarMiembroComite(NIDCOMITE) {
+        var NIDACTIVIDAD = $('#NIDACTIVIDAD').val();
+        bootbox.confirm("¿Está seguro que desea eliminar este registro?", function (resultado) {
+            if (resultado != true) {
+                return;
+            } else {
+                var dataObject = JSON.stringify({
+                    'NIDCOMITE': NIDCOMITE,
+                    'BACTIVO': 0,
+                });
+                $.ajax({
+                    url: baseUrl + 'Gestion/SP_GUARDAR_PROCESOCOMITE',
+                    type: 'POST',
+                    datatype: 'json',
+                    contentType: 'application/json',
+                    data: dataObject,
+                    success: function (result) {
+                        bootbox.alert(result.SMENSAJE);
+                        ListarComite(NIDACTIVIDAD)
+                    }
+                });
+            }
+        });
+    }
+</script>

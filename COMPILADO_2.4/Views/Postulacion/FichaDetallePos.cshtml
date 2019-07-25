@@ -1,0 +1,751 @@
+﻿@{
+    ViewBag.Title = "Detalle de la Ficha";
+    if (ViewBag.modo == "Ver")
+    {
+        Layout = "~/Views/Shared/_Modal.cshtml";
+    }
+    else { Layout = "~/Views/Shared/_Layout.cshtml"; }
+    var display = ViewBag.modo != "Editar" ? "display:none;" : "";
+}
+<input type="hidden" id="hddNIDFACADEMICA" value="0" />
+<input type="hidden" id="hddRUTADOC" value="@ViewBag.rutaDOC" />
+<input type="hidden" id="hddMAX_SIZE" value="4097152" />
+<input type="hidden" id="NENF" value="@ViewBag.NENFERMEDAD" />
+<input type="hidden" id="SENF" value="@ViewBag.SENFERMEDAD" />
+<input type="hidden" id="NSEG" value="@ViewBag.NSEGURO" />
+<input type="hidden" id="SSEG" value="@ViewBag.SSEGURO" />
+<input type="hidden" id="FLG_UPLOAD" value="S" />
+<input type="hidden" id="SRUTADOC" />
+<input type="hidden" id="NCODIGO" value="0">
+<!-- INICIO ESTILOS NAVEGADOR TAB -->
+<style>
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+        color: white;
+        background-color: #962a17;
+        font-size: 14px;
+        font-family: Arial;
+        font-weight: bold;
+    }
+
+    .nav-pills > li > a {
+        color: white;
+        font-size: 14px;
+        font-family: Arial;
+    }
+
+    .nav-pills > li.active > a:hover {
+        background-color: rgba(150,42,23,0.0901981);
+        color: rgb(255,255,255);
+    }
+
+    .nav-pills > li > a:hover {
+        background-color: rgba(255,255,255, 0.0901961);
+        color: rgb(255,255,255);
+    }
+</style>
+<!-- FIN ESTILOS NAVEGADOR TAB -->
+<!-- INICIO DATOS DEL PROCESO DE CONVOCATORIA -->
+<div class="row" id="DatosProceso" style="background-color:white; color: darkblue; padding: 10px; ">
+    <div class="col-md-6">
+        <p style="font-size: 14px"><b>@ViewBag.SCONVOCATORIA</b></p>
+    </div>
+    <div class="col-md-4">
+        <p style="font-size: 14px"><b>@ViewBag.SNOMBREPOSTULANTE</b></p>
+    </div>
+    <div class="col-md-2" style="text-align:right">
+        @if (ViewBag.modo != "Ver")
+        {
+            <a href="../Postulacion/Ficha" id="backPage">
+                <p style="font-size:15px; font-family:arial; color:black; ">
+                    <i class=" fa fa-arrow-circle-left">
+                    </i>  <b>Regresar</b>
+                </p>
+            </a>
+        }
+    </div>
+        
+            <input type="hidden" id="txtcodusu" class="form-control" value="@ViewBag.NCODIGOUSUARIO" />
+            <input type="hidden" id="txtcodusureg" class="form-control" value="@ViewBag.NIDUSUARIOREGIS" />
+            <input type="hidden" id="txtperfil" class="form-control" value="@ViewBag.NIDPERFIL" />
+            <input type="hidden" id="txtidproceso" class="form-control" value="@ViewBag.NIDPROCESO" />
+            <input type="hidden" id="txtidprocesousu" class="form-control" value="@ViewBag.NIDPROCESOUSU" />
+            <input type="hidden" id="modo" class="form-control" value="@ViewBag.modo" />
+    </div>
+<div class="row" style="background-color:white; color: darkblue; padding: 10px; ">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <p style='padding-top:10px;font-size: 12px;color:darkblue;font-weight:bold'>INFORMACIÓN ACADÉMICA</p>
+            </div>
+            <div class="col-md-6" style="text-align:right">
+                <button id="btn_agregar1" type="button" class="btn btn-dark-grey" onclick="AbrirModal('IA','INFORMACIÓN ACADÉMICA',0)" style="margin-right: 10px; font-size:13px; "> Agregar&nbsp;<i class="fa fa-plus"></i></button></div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="display compact" id="tbl_academica" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th style="display:none">NIDPROCESOUSU</th>
+                                    <th style="display:none">NIDINSTITUCION</th>
+                                    <th style="display:none">NIDFACADEMICA</th>
+                                    <th style="display:none">NIDTIPOFORMACION</th>
+                                    <th style="text-align: center; width: 10%;">TIPO DE FORM.</th>
+                                    <th style="text-align: center; width: 15%;">NOMBRE DE LA INSTITUCIÓN</th>
+                                    <th style="text-align: center; width: 10%;">GRADO ACADÉMICO</th>
+                                    <th style="text-align: center; width: 15%;">CARRERA O ESPECIALIDAD</th>
+                                    <th style="text-align: center; width: 10%;">CICLO </th>
+                                    <th style="text-align: center; width: 5%; @display">EDITAR</th>
+                                    <th style="text-align: center;width: 5%;@display">ELIMINAR</th>
+                                    <th style="display:none; text-align:center;">NIDGRADOACADEMICO</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="row" style="background-color:white; color: darkblue; padding: 10px; ">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p style='padding-top:10px;font-size: 12px;color:darkblue;font-weight:bold'>DISPONIBILIDAD Y HABILIDADES</p>
+                    </div>
+                    <div class="col-md-10" style="text-align:right" id="btn_agregar2">
+                        <button id="btn_agregar21" type="button" class="btn btn-dark-grey" onclick="AbrirModalTipo('DH', 'DISPONIBILIDAD Y HABILIDADES', 0,1)" style="margin: 5px; font-size:13px; "> Agregar Disponibilidad&nbsp;<i class="fa fa-plus"></i> </button>
+                        <button id="btn_agregar22" type="button" class="btn btn-dark-grey" onclick="AbrirModalTipo('DH', 'DISPONIBILIDAD Y HABILIDADES', 0,2)" style="margin: 5px; font-size:13px; "> Agregar Idioma&nbsp;<i class="fa fa-plus"></i> </button>
+                        <button id="btn_agregar23" type="button" class="btn btn-dark-grey" onclick="AbrirModalTipo('DH', 'DISPONIBILIDAD Y HABILIDADES', 0,3)" style="margin: 5px; font-size:13px; "> Agregar Herramienta Informática&nbsp;<i class="fa fa-plus"></i> </button>
+                        <button id="btn_agregar24" type="button" class="btn btn-dark-grey" onclick="AbrirModalTipo('DH', 'DISPONIBILIDAD Y HABILIDADES', 0,4)" style="margin: 5px; font-size:13px; "> Agregar Competencias Personales&nbsp;<i class="fa fa-plus"></i> </button>
+                        <button id="btn_agregar25" type="button" class="btn btn-dark-grey" onclick="AbrirModalTipo('DH', 'DISPONIBILIDAD Y HABILIDADES', 0,5)" style="margin: 5px; font-size: 13px; "> Agregar Hobbie&nbsp;<i class="fa fa-plus"></i> </button>
+                    </div>
+</div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="display compact" id="tbl_disponibilidad" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th style="display:none">NIDPROCESOUSU</th>
+                                    <th style="display:none">NIDPROCESO</th>
+                                    <th style="display:none">NTIPO_INFO</th>
+                                    <th style="display:none">NIDINFORMACION</th>
+                                    <th style="text-align: center; width: 50%;">TIPO DE INFORMACIÓN</th>
+                                    <th style="text-align: center; width: 50%;">DÍA / IDIOMA / HERR.INF. (HORARIO / NIVEL)</th>
+                                    <th style="text-align: center; width: 50%;">DESCRIPCIÓN / INF.ADICIONAL</th>
+                                    <th style="text-align: center; width: 5%; @display">EDITAR</th>
+                                    <th style="text-align: center; width: 5%; @display">ELIMINAR</th>
+                                    <th style="display:none">SDETALLE</th>
+                                    <th style="display:none">NIDIOMA</th>
+                                    <th style="display:none">SDATO</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+</div>
+<div class="row" style="background-color:white; color: darkblue; padding: 10px; ">
+    <div class="col-md-7">
+        <div class="row">
+            <div class="col-md-1">
+                <p style='padding-top:10px;font-size: 12px;color:darkblue;font-weight:bold'>ADJUNTOS</p>
+            </div>
+            <div class="col-md-11" style="text-align:right;" id="btn_agregar3">
+                <button id="btn_agregar31" type="button" class="btn btn-dark-grey" onclick="AbrirModalTipo('AD', 'ADJUNTOS', 0, 1)" style="margin: 5px; font-size:13px; "> Agregar CV&nbsp;<i class="fa fa-plus"></i> </button>
+                <button id="btn_agregar32" type="button" class="btn btn-dark-grey" onclick="AbrirModalTipo('AD', 'ADJUNTOS', 0, 2)" style="margin: 5px; font-size:13px; "> Agregar CARTA &nbsp;<i class="fa fa-plus"></i> </button>
+                <button id="btn_agregar33" type="button" class="btn btn-dark-grey" onclick="AbrirModalTipo('AD', 'ADJUNTOS', 0, 3)" style="margin: 5px; font-size:13px; "> Agregar SEGURO DE SALUD&nbsp;<i class="fa fa-plus"></i> </button>
+                <button id="btn_agregar34" type="button" class="btn btn-dark-grey" onclick="AbrirModalTipo('AD', 'ADJUNTOS', 0, 4)" style="margin: 5px; font-size:13px; "> Agregar PAS O CE&nbsp;<i class="fa fa-plus"></i> </button>
+            </div>
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="display compact" id="tbl_adjunto" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th style="display:none">NIDPROCESOUSU</th>
+                                <th style="display:none">NIDPROCESO</th>
+                                <th style="display:none">NTIPO_ADJUNTO</th>
+                                <th style="display:none">NIDADJUNTO</th>
+                                <th style="text-align: center; width: 50%;">ADJUNTO</th>
+                                <th style="text-align: center; width: 5%; @display">ELIMINAR</th>
+                                <th style="display:none">SRUTADOC</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="row">
+            <div class="col-lg-12">
+                <p style='padding-top:10px;font-size: 12px;color:darkblue;font-weight:bold'>INFORMACIÓN ADICIONAL</p>
+            </div>
+            <div class="col-lg-12" id="divENF">
+                <p>Sufre de alguna enfermedad o alergia?</p>
+                <div class="col-lg-4">
+                    <select id="BENFERMEDAD" class="form-control" onchange="habilitaDiv(this.value,1)">
+                        <option value="0" selected>Seleccione</option>
+                        <option value="2">NO</option>
+                        <option value="1">SI</option>
+                    </select>
+                </div>
+                <div id="divSN1" style="display:none">
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control letras" id="DENFERMEDAD" placeholder="Describa la enfermedad o alergia">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12" id="divSEG">
+                <p>Cuenta con un seguro de salud?</p>
+                <div class="col-lg-4">
+                    <select id="BSEGURO" class="form-control" onchange="habilitaDiv(this.value,2)">
+                        <option value="0" selected>Seleccione</option>
+                        <option value="2" selected>NO</option>
+                        <option value="1">SI</option>
+                    </select>
+                </div>
+                <div id="divSN2" style="display:none">
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control letras" id="DSEGURO" placeholder="Ingrese la descripción del seguro">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+       
+
+        <div class="row" style="font-size:13px;padding-top:10px">
+            <div class="col-lg-9" id="divTC">
+                <input type="checkbox" id="chk_TC"><b style="margin-left:10px">Acepto las condiciones que el Ministerio de Cultura determina para la actividad a desarrollar.</b>
+
+            </div>
+            <div class="col-lg-3" style="text-align:right">
+                <button type="button" class="btn btn-red" onclick="enviarFicha()" style="margin-right: 10px; font-size:13px; " id="btn_enviar"> Enviar Ficha <i class="fa fa-plus" style="margin-left:5px"></i> </button>
+            </div>
+
+        </div>
+        <script type="text/javascript">
+            $(window).load(function () {
+                init();
+            });
+
+            function AbrirModalTipo(tipo, titulo, id, item) {
+                AbrirModal(tipo, titulo, id);
+                $("#NIDTIPO").val(item);
+                if (tipo!="AD")
+                    setDatoTipo()
+            }
+            function init() {
+                ListarInformacion();
+                ListarAcademica();
+                ListarAdjuntos();
+                if ($('#modo').val() != "Editar") {
+                    $('#btn_enviar').hide();
+                    $('#btn_agregar1').hide();
+                    $('#btn_agregar2').hide();
+                    $('#btn_agregar3').hide();
+                    $("#chk_TC").prop("checked", "checked");
+                }
+                $('#BENFERMEDAD').val($('#NENF').val());
+                if ($('#NENF').val() == "1") {
+                    $('#DENFERMEDAD').val($('#SENF').val());
+                    $('#divSN1').show();
+                }
+                $('#BSEGURO').val($('#NSEG').val());
+                if ($('#NSEG').val() == "1") {
+                    $('#DSEGURO').val($('#SSEG').val());
+                    $('#divSN2').show();
+                }
+            }
+            function ListarAcademica() {
+                var modo = $('#modo').val();
+                if (modo == "Editar") {
+                    modo = "show";
+                } else {
+                    modo = "none";
+                }
+                var dataObject = JSON.stringify({
+                    'NOPT': 4,
+                    'NIDPROCESO': $('#txtidprocesousu').val()
+                });
+                $.ajax({
+                    async: false,
+                    url: baseUrl + 'Gestion/SP_LISTADO',
+                    type: 'POST',
+                    datatype: 'json',
+                    contentType: 'application/json',
+                    data: dataObject,
+                    success: function (data) {
+                        var inf = data;
+                        var t = $('#tbl_academica').DataTable({
+                            data: inf,
+                            "order": [
+                                         [2, "asc"]
+                            ],
+                            "columnDefs": [
+                               { "width": "0%", "targets": 0, "orderable": false },
+                            { "width": "0%", "targets": 1, "orderable": false },
+                            { "width": "0%", "targets": 2, "orderable": false },
+                            { "width": "0%", "targets": 3, "orderable": false },
+                            { "width": "0%", "targets": 4, "orderable": false },
+                            { "width": "10%", "targets": 5, "orderable": true },
+                            { "width": "15%", "targets": 6, "orderable": true },
+                            { "width": "10%", "targets": 7, "orderable": true },
+                            { "width": "15%", "targets": 8, "orderable": true },
+                            { "width": "10%", "targets": 9, "orderable": true },
+                            { "width": "10%", "targets": 10, "orderable": true },
+                            { "width": "10%", "targets": 11, "orderable": true },
+                            ],
+                            "oLanguage": {
+                                "sProcessing": "Procesando...",
+                                "sZeroRecords": "No se encontraron registros coincidentes",
+                                "sEmptyTable": "No hay registros disponibles",
+                                "sInfoPostFix": "",
+                                "sUrl": "",
+                                "sInfoThousands": ",",
+                                "sLoadingRecords": "Cargando..."
+                            },
+                            "lengthMenu": [[10, 20, 30, 40, 50, -1], [10, 20, 30, 40, 50, "Todo"]],
+                            "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                                $('td:eq(0)', nRow).css("text-align", "center").css("display", "none");
+                                $('td:eq(1)', nRow).css("text-align", "center").css("display", "none");
+                                $('td:eq(2)', nRow).css("text-align", "center").css("display", "none");
+                                $('td:eq(3)', nRow).css("text-align", "center").css("display", "none");
+                                $('td:eq(4)', nRow).css("text-align", "left").css("width", "15%");
+                                $('td:eq(5)', nRow).css("text-align", "left").css("width", "30%");
+                                $('td:eq(6)', nRow).css("text-align", "left").css("width", "10%");
+                                $('td:eq(7)', nRow).css("text-align", "center").css("width", "30%");
+                                $('td:eq(8)', nRow).css("text-align", "center").css("width", "5%");
+                                $('td:eq(9)', nRow).css("text-align", "center").css("width", "5%").attr("class", "edit").css("display", modo);;
+                                $('td:eq(10)', nRow).css("text-align", "center").css("width", "5%").attr("class", "delete").css("display", modo);;
+                                $('td:eq(11)', nRow).css("text-align", "center").css("display", "none");
+                                return nRow;
+
+                            },
+                            "bFilter": false,
+                            //"scrollX": true,
+                            "info": false,
+                            "bPaginate": false,
+                            "bLengthChange": false,
+                            destroy: true,
+
+                            columns: [
+                                { data: 'NIDPROCESOUSU' },
+                                { data: 'NIDINSTITUCION' },
+                                { data: 'NIDACADEMICO' },
+                                { data: 'NTIPO_FORMACION' },
+                                { data: 'STIPOFORMACION' },
+                                { data: 'SINSTITUCION' },
+                                { data: 'SGRADOACADEMICO' },
+                                { data: 'DCARRERA' },
+                                { data: 'NCICLO' },
+                                { data: 'NIDACADEMICO' },
+                                { data: 'NIDACADEMICO' },
+                                { data: 'NGRADO_ACADEMICO' }
+                            ]
+                        });
+
+                        var cont = 0;
+
+                        t.on('order.dt search.dt', function () {
+                            cont += 1;
+                            if (cont == 1) {
+                                if (modo != "none") {
+                                    t.column(9, {}).nodes().each(function (cell, i) {
+                                        cell.innerHTML = '<div><i class="fa fa-pencil" style="cursor: pointer;font-size: 20px;" title="EDITAR"></i></div>'
+                                    });
+
+                                    t.column(10, {}).nodes().each(function (cell, i) {
+                                        cell.innerHTML = '<div><i class="fa fa-trash-o" onclick="EliminarR(' + cell.innerHTML + ',1);" style="cursor: pointer;font-size: 20px;" title="ELIMINAR"></i></div>'
+                                    });
+                                }
+                            }
+                        }).draw();
+                    }
+                });
+            }
+            function ListarInformacion() {
+                $('#btn_agregar21').show();
+                $('#btn_agregar22').show();
+                $('#btn_agregar23').show();
+                $('#btn_agregar24').show();
+                $('#btn_agregar25').show();
+                var modo = $('#modo').val();
+                if (modo == "Editar") {
+                    modo = "show";
+                } else {
+                    modo = "none";
+                }
+                var dataObject = JSON.stringify({
+                    'NOPT': 3,
+                    'NIDPROCESO': $('#txtidprocesousu').val()
+                });
+                $.ajax({
+                    async: false,
+                    url: baseUrl + 'Gestion/SP_LISTADO',
+                    type: 'POST',
+                    datatype: 'json',
+                    contentType: 'application/json',
+                    data: dataObject,
+                    success: function (data) {
+                        var inf = data;
+                        var t = $('#tbl_disponibilidad').DataTable({
+                            data: inf,
+                            "order": [
+                                         [2, "asc"]
+                            ],
+                            "columnDefs": [
+                               { "width": "0%", "targets": 7, "orderable": false },
+                            { "width": "0%", "targets": 8, "orderable": false }]
+                            ,
+                            "oLanguage": {
+                                "sProcessing": "Procesando...",
+                                "sZeroRecords": "No se encontraron registros coincidentes",
+                                "sEmptyTable": "No hay registros disponibles",
+                                "sInfoThousands": ",",
+                                "sLoadingRecords": "Cargando..."
+                            },
+                            "lengthMenu": [[20, 30, 40, 50, -1], [20, 30, 40, 50, "Todo"]],
+                            "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                                $('td:eq(0)', nRow).css("display", "none");
+                                $('td:eq(1)', nRow).css("display", "none");
+                                $('td:eq(2)', nRow).css("display", "none");
+                                $('td:eq(3)', nRow).css("display", "none");
+                                $('td:eq(4)', nRow).css("text-align", "center").css("width", "15%");
+                                $('td:eq(5)', nRow).css("text-align", "left").css("width", "25%");
+                                $('td:eq(6)', nRow).css("text-align", "left").css("width", "40%");
+                                $('td:eq(7)', nRow).css("text-align", "center").css("width", "10%").attr("class", "edit").css("display", modo);
+                                $('td:eq(8)', nRow).css("text-align", "center").css("width", "10%").attr("class", "delete").css("display", modo);
+                                $('td:eq(9)', nRow).css("display", "none");
+                                $('td:eq(10)', nRow).css("display", "none");
+                                $('td:eq(11)', nRow).css("display", "none");
+                                return nRow;
+                            },
+                            "bFilter": false,
+                            //"scrollX": true,
+                            "bLengthChange": false,
+                            "paging": false,
+                            "info": false,
+                            destroy: true,
+
+                            columns: [
+                                { data: 'NIDPROCESOUSU' },
+                                { data: 'SDATO' },
+                                { data: 'NTIPO_DATO' },
+                                { data: 'NIDVOLUNTARIADO' },
+                                { data: 'TIPO_INFO' },
+                                { data: 'DIA_NIVEL' },
+                                { data: 'SDETALLE' },
+                                { data: 'NIDVOLUNTARIADO' },
+                                { data: 'NIDVOLUNTARIADO' },
+                                { data: 'SDESCRIPCION' },
+                                { data: 'NIDIDIOMA' },
+                                { data: 'DIA_NIVEL' }
+                            ]
+                        });
+
+                        var cont = 0;
+
+                        t.on('order.dt search.dt', function () {
+                            cont += 1;
+                            if (cont == 1) {
+                                t.column(5, {}).nodes().each(function (cell, i) {
+                                    t.column(9, {}).nodes().each(function (cell, j) { if (i == j) { SDESCRIPCION = cell.innerHTML; } });
+                                    t.column(2, {}).nodes().each(function (cell, j) { if (i == j) { NTIPO_DATO = cell.innerHTML; } });
+                                    if (NTIPO_DATO < 4)
+                                        cell.innerHTML = cell.innerHTML + ' (' + SDESCRIPCION + ')'
+                                });
+                                if (modo != "none") {
+                                    t.column(7, {}).nodes().each(function (cell, i) {
+                                        t.column(2, {}).nodes().each(function (cell, j) { if (i == j) { NTIPO_DATO = cell.innerHTML; } });
+                                        if (NTIPO_DATO > 3)
+                                            $('#btn_agregar2' + NTIPO_DATO).hide();
+                                        cell.innerHTML = '<div><i class="fa fa-pencil" style="cursor: pointer;font-size: 20px;" title="EDITAR"></i></div>'
+                                    });
+
+                                    t.column(8, {}).nodes().each(function (cell, i) {
+                                        cell.innerHTML = '<div><i class="fa fa-trash-o" onclick="EliminarR(' + cell.innerHTML + ',2);" style="cursor: pointer;font-size: 20px;" title="ELIMINAR"></i></div>'
+                                    });
+
+                                    
+                                }
+                            }
+                        }).draw();
+                    }
+                });
+            }
+            function ListarAdjuntos() {
+                $('#btn_agregar31').show();
+                $('#btn_agregar32').show();
+                $('#btn_agregar33').show();
+                $('#btn_agregar34').show();
+                var modo = $('#modo').val();
+                if (modo == "Editar") {
+                    modo = "show";
+                } else {
+                    modo = "none";
+                }
+                var dataObject = JSON.stringify({
+                    'NOPT': 5,
+                    'NIDPROCESO': $('#txtidprocesousu').val()
+                });
+                $.ajax({
+                    async: false,
+                    url: baseUrl + 'Gestion/SP_LISTADO',
+                    type: 'POST',
+                    datatype: 'json',
+                    contentType: 'application/json',
+                    data: dataObject,
+                    success: function (data) {
+                        var inf = data;
+                        var t = $('#tbl_adjunto').DataTable({
+                            data: inf,
+                            "order": [
+                                         [2, "asc"]
+                            ],
+                            "columnDefs": [
+                                { "width": "0%", "targets": 0, "orderable": false },
+                                { "width": "0%", "targets": 1, "orderable": false },
+                                { "width": "0%", "targets": 2, "orderable": true },
+                                { "width": "5%", "targets": 3, "orderable": true },
+                                { "width": "5%", "targets": 4, "orderable": true },
+                                { "width": "5%", "targets": 5, "orderable": false },
+                                { "width": "5%", "targets": 6, "orderable": false },
+                            ],
+                            "oLanguage": {
+                                "sProcessing": "Procesando...",
+                                "sZeroRecords": "No se encontraron registros coincidentes",
+                                "sEmptyTable": "No hay registros disponibles",
+                                "sInfoPostFix": "",
+                                "sUrl": "",
+                                "sInfoThousands": ",",
+                                "sLoadingRecords": "Cargando..."
+                            },
+                            "lengthMenu": [[10, 20, 30, 40, 50, -1], [10, 20, 30, 40, 50, "Todo"]],
+                            "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                                $('td:eq(0)', nRow).css("display", "none");
+                                $('td:eq(1)', nRow).css("display", "none");
+                                $('td:eq(2)', nRow).css("display", "none");
+                                $('td:eq(3)', nRow).css("display", "none");
+                                $('td:eq(4)', nRow).css("text-align", "center").css("width", "70%");
+                                $('td:eq(5)', nRow).css("display", "none");
+                                $('td:eq(6)', nRow).css("text-align", "center").css("width", "10%").attr("class", "delete").css("display", modo);
+                                return nRow;
+                            },
+                            "bFilter": false,
+                            //"scrollX": true,
+                            "bLengthChange": false,
+                            "info": false,
+                            "paging": false,
+                            destroy: true,
+
+                            columns: [
+                                { data: 'NIDPROCESOUSU' },
+                                { data: 'NIDPROCESOUSU' },
+                                { data: 'NIDTIPO' },
+                                { data: 'NIDADJUNTO' },
+                                { data: 'ADJUNTO' },
+                                { data: 'SRUTADOC' },
+                                { data: 'NIDADJUNTO' }
+                            ]
+                        });
+
+                        var cont = 0;
+
+                        t.on('order.dt search.dt', function () {
+                            cont += 1;
+                            if (cont == 1) {
+                                if (modo != "none") {
+                                    t.column(6, {}).nodes().each(function (cell, i) {
+                                        t.column(2, {}).nodes().each(function (cell, j) { if (i == j) { NTIPO_DATO = cell.innerHTML; } });
+                                            $('#btn_agregar3' + NTIPO_DATO).hide();
+                                        cell.innerHTML = '<div><i class="fa fa-trash-o" onclick="EliminarR(' + cell.innerHTML + ',3);" style="cursor: pointer;font-size: 20px;" title="ELIMINAR"></i></div>'
+                                    });
+                                }
+                                t.column(4, {}).nodes().each(function (cell, i) {
+                                    t.column(5, {}).nodes().each(function (cell, j) { if (i == j) { SRUTADOC = cell.innerHTML; } });
+                                    if (SRUTADOC != "")
+                                        cell.innerHTML = '<div><a href="../' + $("#hddRUTADOC").val() + '/' + SRUTADOC + '" target="_blank">' + cell.innerHTML + '</a></div>'
+                                });
+                            }
+                        }).draw();
+                    }
+                });
+            }
+            function EliminarR(id, tipo) {
+                var action = "";
+                var dataObject
+                switch (tipo) {
+                    case 1: action = "SP_GUARDAR_ACADEMICO";
+                        nombre_id = "NIDFACADEMICA";
+                        var dataObject = JSON.stringify({
+                            'NIDFACADEMICA': id,
+                            'BACTIVO': 0,
+                        });
+                        break;
+                    case 2: action = "SP_GUARDAR_VOLUNTARIADO";
+                        nombre_id = "CODIGO";
+                        var dataObject = JSON.stringify({
+                            'CODIGO': id,
+                            'BACTIVO': 0,
+                        });
+                        break;
+                    case 3: action = "SP_GUARDAR_ADJUNTO";
+                        var dataObject = JSON.stringify({
+                            'CODIGO': id,
+                            'BACTIVO': 0,
+                        });
+                        break;
+                };
+                bootbox.confirm("¿Está seguro que desea eliminar este registro?", function (resultado) {
+                    if (resultado != true) {
+                        return;
+                    } else {
+                        $.ajax({
+                            url: baseUrl + 'Postulacion/' + action,
+                            type: 'POST',
+                            datatype: 'json',
+                            contentType: 'application/json',
+                            data: dataObject,
+                            success: function (result) {
+                                if (result.SMENSAJE == "OK") {
+                                    switch (tipo) {
+                                        case 1:
+                                            ListarAcademica(); break;
+                                        case 2:
+                                            ListarInformacion(); break;
+                                        case 3:
+                                            ListarAdjuntos(); break;
+                                    };
+                                    bootbox.alert("Se emilinó el registro con éxito.!");
+                                }
+                                else {
+                                    bootbox.alert(result.SMENSAJE);
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+            $('#tbl_disponibilidad').on('click', 'tr', function (event) {
+                if ($(this).hasClass('selected')) {
+
+                }
+                else {
+                    $('#tbl_disponibilidad').DataTable().$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            }).on('click', 'tbody td.edit i', function (event) {
+                AbrirModal('DH', 'DISPONIBILIDAD Y HABILIDADES', $(this).closest('tr').find('td:eq(3)').text());
+                console.log($(this).closest('tr').find('td:eq(2)').text());
+                $('#NIDTIPO').val($(this).closest('tr').find('td:eq(2)').text());
+                setDatoTipo();
+                if ($('#NIDTIPO').val() == "1") {
+                    var dias = $(this).closest('tr').find('td:eq(11)').text();
+                    var dia = dias.split("-")
+                    var i;
+                    for (i = 0; i < dia.length; i++) {
+                        $("#" + dia[i]).prop("checked", "checked");
+                    }
+                    var horario = $(this).closest('tr').find('td:eq(9)').text();
+                    var hora = horario.split("-")
+                    $('#SHORA_INI').val(hora[0])
+                    $('#SHORA_FIN').val(hora[1])
+                }
+                if ($('#NIDTIPO').val() == "2") {
+                    $('#NIDIDIOMA').val($(this).closest('tr').find('td:eq(10)').text());
+                    $('#SDESCRIPCION').val($(this).closest('tr').find('td:eq(9)').text());
+                }
+                if ($('#NIDTIPO').val() == "3") {
+                    $('#SHERRAMIENTA').val($(this).closest('tr').find('td:eq(11)').text());
+                    $('#SDESCRIPCION').val($(this).closest('tr').find('td:eq(9)').text());
+                }
+                $('#SDETALLE').val($(this).closest('tr').find('td:eq(6)').text());
+            });
+            $('#tbl_academica').on('click', 'tr', function (event) {
+                if ($(this).hasClass('selected')) {
+
+                }
+                else {
+                    $('#tbl_academica').DataTable().$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            }).on('click', 'tbody td.edit i', function (event) {
+                AbrirModal('IA', 'INFORMACIÓN ACADÉMICA', $(this).closest('tr').find('td:eq(2)').text());
+
+                $('#NIDTIPOFORMACION').val($(this).closest('tr').find('td:eq(3)').text());
+                $('#NIDGRADOACADEMICO').val($(this).closest('tr').find('td:eq(11)').text());
+                $('#ddl_Academica').val($(this).closest('tr').find('td:eq(1)').text()).trigger('change');
+                $('#SPROFESION').val($(this).closest('tr').find('td:eq(7)').text());
+                $('#NCICLO').val($(this).closest('tr').find('td:eq(8)').text());
+            });
+            function habilitaDiv(value, id) {
+                if (value == "1") {
+                    $('#divSN' + id).show();
+                } else {
+                    $('#divSN' + id).hide();
+                }
+            }
+            function enviarFicha() {
+                $("#btn_enviar").hide();
+                var nseguro = $("#BSEGURO").val();
+                var dseguro = $("#DSEGURO").val();
+                var nenfermedad = $('#BENFERMEDAD').val();
+                var denfermedad = $('#DENFERMEDAD').val();
+                if (nseguro == "0" || (nseguro == "1" && dseguro == "")) {
+                    $("#btn_enviar").show();
+                    $('#divSEG').css('border', 'solid 1px red');
+                    bootbox.alert("Para completar la postulación debe completar la información sobre su seguro de salud.");
+                    return false;
+                }
+                if (nenfermedad == "0" || (nenfermedad == "1" && denfermedad == "")) {
+                    $("#btn_enviar").show();
+                    $('#divENF').css('border', 'solid 1px red');
+                    bootbox.alert("Para completar la postulación debe completar la información requerida.");
+                    return false;
+                }
+                if (!($("#chk_TC").is(':checked'))) {
+                    $("#btn_enviar").show();
+                    $('#divTC').css('border', 'solid 1px red');
+                    bootbox.alert("Para completar la postulación debe indicar que acepta las condiciones.");
+                    return false;
+                }
+                bootbox.confirm("¿Está seguro que desea enviar su ficha?", function (resultado) {
+                    if (resultado != true) {
+                        return;
+                    } else {
+                        var dataObject = JSON.stringify({
+                            'NIDPROCESOUSU': $('#txtidprocesousu').val(),
+                            'NENFERMEDAD': nenfermedad,
+                            'SENFERMEDAD': denfermedad,
+                            'NSEGURO': nseguro,
+                            'SSEGURO': dseguro
+                        });
+                        $.ajax({
+                            url: baseUrl + 'Postulacion/SP_ENVIAR_FICHA_VOL',
+                            type: 'POST',
+                            datatype: 'json',
+                            contentType: 'application/json',
+                            data: dataObject,
+                            success: function (result) {
+                                if (result.SMENSAJE == "OK") {
+                                    bootbox.alert("Se envió su ficha con éxito.!");
+                                }
+                                else {
+                                    bootbox.alert(result.SMENSAJE);
+                                    $("#btn_enviar").show();
+                                }
+                            }
+                        });
+                    }
+                });
+
+            }
+        </script>

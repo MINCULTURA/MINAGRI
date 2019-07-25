@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "Academica_D";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-4">
+        <label class="control-label">Tipo de formación:</label>
+        <select tabindex="-1" id="NIDTIPOFORMACION" class="form-control"></select>
+    </div>
+    <div class="col-lg-8">
+        <label class="control-label">Nombre de la institución:</label>
+        <select id="ddl_Academica" tabindex="-1" class="form-control search-select select2-offscreen"></select>
+    </div>
+</div>
+<div class="row" style="padding-top:10px">
+    <div class="col-lg-4">
+        <label class="control-label">Grado académico: </label>
+        <select tabindex="-1" id="NIDGRADOACADEMICO" class="form-control"></select>
+    </div>
+    <div class="col-lg-6">
+        <label class="control-label">Carrera o especialidad:</label>
+        <input type="text" class="form-control letras" id="SPROFESION" maxlength="200">
+    </div>
+    <div class="col-lg-2">
+        <label class="control-label">Ciclo:</label>
+        <input type="number" class="form-control" id="NCICLO" min="1" max="11" >
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        CARGARDDL(20, 'ddl_Academica', 0);
+        $("#ddl_Academica").select2({
+            placeholder: "Seleccione Institución",
+            allowClear: true
+        });
+        CARGARDDL(1, 'NIDTIPOFORMACION', 0);
+        CARGARDDL(2, 'NIDGRADOACADEMICO', 0);
+    });
+    function guardarModal() {
+        var NIDPROCESOUSU = $('#txtidprocesousu').val();
+        var NIDACADEMICO = $('#NCODIGO').val();
+        var NIDTIPOFORMACION = $('#NIDTIPOFORMACION').val();
+        var NIDGRADOACADEMICO = $('#NIDGRADOACADEMICO').val();
+        var NIDINSTITUCION = $('#ddl_Academica').val();
+        var SPROFESION = $('#SPROFESION').val();
+        var NCICLO = $('#NCICLO').val();
+        var BACTIVO = 1;
+        var error = "";
+        if (NIDTIPOFORMACION == 0) error += "tipo de formación, ";
+        if (NIDGRADOACADEMICO == 0) error += "grado académico, ";
+        if (NIDINSTITUCION == 0) error += "institución, ";
+        if (SPROFESION == "") error += "carrera, ";
+        if (error != '') {
+            error = error.substring(0, error.length - 2);
+            error = 'El campo ' + error + ' debe ser válido. ';
+            bootbox.alert(error);
+        } else {
+            bootbox.confirm("Está seguro que realizar la operación?", function (resultado) {
+                if (resultado != true) {
+                    bootbox.alert("Operación Cancelada.");
+                    return;
+                } else {
+                    var dataObject = JSON.stringify({
+                        'NIDPROCESOUSU': NIDPROCESOUSU,
+                        'NIDFACADEMICA': NIDACADEMICO,
+                        'NIDTIPOFORMACION': NIDTIPOFORMACION,
+                        'BACTIVO': BACTIVO,
+                        'NIDGRADOACADEMICO': NIDGRADOACADEMICO,
+                        'NINSTITUCION': NIDINSTITUCION,
+                        'SPROFESION': SPROFESION,
+                        'NCICLO': NCICLO
+                    });
+
+                    $.ajax({
+                        url: baseUrl + 'Postulacion/SP_GUARDAR_ACADEMICO',
+                        type: 'POST',
+                        datatype: 'json',
+                        contentType: 'application/json',
+                        data: dataObject,
+                        success: function (result) {
+                            if (result.SMENSAJE == "OK") {
+                                ListarAcademica();
+                                $('#ModalGeneral').modal('hide');
+                                bootbox.alert("Se grabó con éxito.")
+                            }
+                            else {
+                                bootbox.alert(result.SMENSAJE);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+</script>
