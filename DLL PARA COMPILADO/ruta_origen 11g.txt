@@ -1,0 +1,2 @@
+ruta donde fué extraido:
+C:\oracle\odp.net\bin\2.x
