@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AppMC.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="AppMC_ws_DNI_ReniecConsultaDni" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://ws5.pide.gob.pe/services/ReniecConsultaDni.ReniecConsultaDniHttpsSoap11Endpoint</Value>
+    </Setting>
+    <Setting Name="AppMC_SR_CE_MigraCarnetdeExtrajeria" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://ws3.pide.gob.pe/services/MigraCarnetdeExtrajeria.MigraCarnetdeExtrajeriaHttpsSoap11Endpoint</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

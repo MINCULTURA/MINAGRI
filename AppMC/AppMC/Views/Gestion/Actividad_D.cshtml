@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Actividad_D";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+<div class="row" style="margin-top:10px;">
+    <div class="col-lg-10">
+        <label class="control-label">Oficina:</label>
+        <select tabindex="-1" id="IDOFICODIGO" class="form-control search-select select2-offscreen"></select>
+    </div>
+    <div class="col-lg-2">
+        <label class="control-label">Vacantes:</label>
+        <input type="text" class="form-control solo-numero" id="NVACANTES" maxlength="5" style="text-align:right">
+    </div>
+</div>
+<div class="row" style="margin-top:10px;">
+    <div class="col-lg-12">
+        <label class="control-label">Nombre:</label>
+        <textarea id="SNOMBRE" name="SNOMBRE" maxlength="1000" style="height:45px" class="form-control"></textarea>
+    </div>
+</div>
+<div class="row" style="margin-top:10px;">
+    <div class="col-lg-6">
+        <label class="control-label">Descripción:</label>
+        <textarea id="SDESCRIPCION" name="SDESCRIPCION" maxlength="2000" style="height:90px" class="form-control"></textarea>
+    </div>
+    <div class="col-lg-6">
+        <label class="control-label">Perfil y competencias:</label>
+        <textarea id="SPERFIL" name="SPERFIL" maxlength="2000" style="height:90px" class="form-control"></textarea>
+    </div>
+</div>
+
+<div class="row" style="margin-top:10px;">
+    <div class="col-lg-12">
+        <label class="control-label">Acciones a realizar:</label>
+        <textarea id="SACCIONES" name="SACCIONES" maxlength="1000" style="height:45px" class="form-control"></textarea>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        CARGARDDL(0, 'IDOFICODIGO', '0', 0, 'Seleccione', 'O001','S');
+    });
+    function guardarModal() {
+        var NIDPROCESO = $('#NIDPROCESO').val();
+        var NIDACTIVIDAD = $('#NCODIGO').val();
+        var NVACANTES = $('#NVACANTES').val();
+        var IDOFICODIGO = $('#IDOFICODIGO').val();
+        var SNOMBRE = $('#SNOMBRE').val();
+        var SDESCRIPCION = $('#SDESCRIPCION').val();
+        var SPERFIL = $('#SPERFIL').val();
+        var SACCIONES = $('#SACCIONES').val();
+        var NESTADO = 1;
+        var error = "";
+        if (NVACANTES == 0 || NVACANTES == "") error += "número de vacantes, ";
+        if (IDOFICODIGO == 0) error += "oficina, ";
+        if (SNOMBRE == "") error += "nombre, ";
+        if (SDESCRIPCION == "") error += "descripción, ";
+        if (SPERFIL == "") error += "perfil, ";
+        if (error != '') {
+            error = error.substring(0, error.length - 2);
+            error = 'El campo ' + error + ' debe ser válido. ';
+            bootbox.alert(error);
+        } else {
+            bootbox.confirm("Está seguro que realizar la operación?", function (resultado) {
+                if (resultado != true) {
+                    bootbox.alert("Operación Cancelada.");
+                    return;
+                } else {
+                    var dataObject = JSON.stringify({
+                        'NIDPROCESO': NIDPROCESO,
+                        'NIDACTIVIDAD': NIDACTIVIDAD,
+                        'NVACANTES': NVACANTES,
+                        'IDOFICODIGO': IDOFICODIGO,
+                        'SNOMBRE': SNOMBRE,
+                        'SDESCRIPCION': SDESCRIPCION,
+                        'SPERFIL': SPERFIL,
+                        'SACCIONES': SACCIONES,
+                        'NESTADO': NESTADO
+                    });
+                    $.ajax({
+                        url: baseUrl + 'Gestion/SP_GUARDAR_ACTIVIDAD',
+                        type: 'POST',
+                        datatype: 'json',
+                        contentType: 'application/json',
+                        data: dataObject,
+                        success: function (result) {
+                            if (result.SMENSAJE == "OK") {
+                                ListarActividades(NIDPROCESO);
+                                $('#ModalGeneral').modal('hide');
+                                bootbox.alert("Se grabó con éxito.")
+                            }
+                            else {
+                                bootbox.alert(result.SMENSAJE);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+    </script>

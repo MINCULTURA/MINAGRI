@@ -1,0 +1,816 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://servicios/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="SessionService" targetNamespace="http://servicios/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://apps.mcultura.gob.pe:80/wsCIRASeguridad/SessionService?xsd=1" namespace="http://servicios/" />
+    </xsd:schema>
+  </types>
+  <message name="sesionIniciarWeb">
+    <part name="parameters" element="tns:sesionIniciarWeb" />
+  </message>
+  <message name="sesionIniciarWebResponse">
+    <part name="parameters" element="tns:sesionIniciarWebResponse" />
+  </message>
+  <message name="sesionIniciarWebEmpresa">
+    <part name="parameters" element="tns:sesionIniciarWebEmpresa" />
+  </message>
+  <message name="sesionIniciarWebEmpresaResponse">
+    <part name="parameters" element="tns:sesionIniciarWebEmpresaResponse" />
+  </message>
+  <message name="leerSesionPorNumero">
+    <part name="parameters" element="tns:leerSesionPorNumero" />
+  </message>
+  <message name="leerSesionPorNumeroResponse">
+    <part name="parameters" element="tns:leerSesionPorNumeroResponse" />
+  </message>
+  <message name="leerSesionEmpresaPorNumero">
+    <part name="parameters" element="tns:leerSesionEmpresaPorNumero" />
+  </message>
+  <message name="leerSesionEmpresaPorNumeroResponse">
+    <part name="parameters" element="tns:leerSesionEmpresaPorNumeroResponse" />
+  </message>
+  <message name="cambiarContrasenaUsuario">
+    <part name="parameters" element="tns:cambiarContrasenaUsuario" />
+  </message>
+  <message name="cambiarContrasenaUsuarioResponse">
+    <part name="parameters" element="tns:cambiarContrasenaUsuarioResponse" />
+  </message>
+  <message name="cambiarContrasenaUsuarioEmpresa">
+    <part name="parameters" element="tns:cambiarContrasenaUsuarioEmpresa" />
+  </message>
+  <message name="cambiarContrasenaUsuarioEmpresaResponse">
+    <part name="parameters" element="tns:cambiarContrasenaUsuarioEmpresaResponse" />
+  </message>
+  <message name="leerUsuarioPorLogin">
+    <part name="parameters" element="tns:leerUsuarioPorLogin" />
+  </message>
+  <message name="leerUsuarioPorLoginResponse">
+    <part name="parameters" element="tns:leerUsuarioPorLoginResponse" />
+  </message>
+  <message name="leerUsuarioEmpresaPorLogin">
+    <part name="parameters" element="tns:leerUsuarioEmpresaPorLogin" />
+  </message>
+  <message name="leerUsuarioEmpresaPorLoginResponse">
+    <part name="parameters" element="tns:leerUsuarioEmpresaPorLoginResponse" />
+  </message>
+  <message name="leerPersonaPorDocumento">
+    <part name="parameters" element="tns:leerPersonaPorDocumento" />
+  </message>
+  <message name="leerPersonaPorDocumentoResponse">
+    <part name="parameters" element="tns:leerPersonaPorDocumentoResponse" />
+  </message>
+  <message name="leerAdministradoPorNombre">
+    <part name="parameters" element="tns:leerAdministradoPorNombre" />
+  </message>
+  <message name="leerAdministradoPorNombreResponse">
+    <part name="parameters" element="tns:leerAdministradoPorNombreResponse" />
+  </message>
+  <message name="insertarPersona">
+    <part name="parameters" element="tns:insertarPersona" />
+  </message>
+  <message name="insertarPersonaResponse">
+    <part name="parameters" element="tns:insertarPersonaResponse" />
+  </message>
+  <message name="insertarUsuario">
+    <part name="parameters" element="tns:insertarUsuario" />
+  </message>
+  <message name="insertarUsuarioResponse">
+    <part name="parameters" element="tns:insertarUsuarioResponse" />
+  </message>
+  <message name="insertarUsuarioEmpresa">
+    <part name="parameters" element="tns:insertarUsuarioEmpresa" />
+  </message>
+  <message name="insertarUsuarioEmpresaResponse">
+    <part name="parameters" element="tns:insertarUsuarioEmpresaResponse" />
+  </message>
+  <message name="insertarPerfilUsuario">
+    <part name="parameters" element="tns:insertarPerfilUsuario" />
+  </message>
+  <message name="insertarPerfilUsuarioResponse">
+    <part name="parameters" element="tns:insertarPerfilUsuarioResponse" />
+  </message>
+  <message name="insertarPerfilUsuarioEmpresa">
+    <part name="parameters" element="tns:insertarPerfilUsuarioEmpresa" />
+  </message>
+  <message name="insertarPerfilUsuarioEmpresaResponse">
+    <part name="parameters" element="tns:insertarPerfilUsuarioEmpresaResponse" />
+  </message>
+  <message name="leerPerfilUsuario">
+    <part name="parameters" element="tns:leerPerfilUsuario" />
+  </message>
+  <message name="leerPerfilUsuarioResponse">
+    <part name="parameters" element="tns:leerPerfilUsuarioResponse" />
+  </message>
+  <message name="leerPerfilUsuarioEmpresa">
+    <part name="parameters" element="tns:leerPerfilUsuarioEmpresa" />
+  </message>
+  <message name="leerPerfilUsuarioEmpresaResponse">
+    <part name="parameters" element="tns:leerPerfilUsuarioEmpresaResponse" />
+  </message>
+  <message name="buscarUsuarioPorDocumento">
+    <part name="parameters" element="tns:buscarUsuarioPorDocumento" />
+  </message>
+  <message name="buscarUsuarioPorDocumentoResponse">
+    <part name="parameters" element="tns:buscarUsuarioPorDocumentoResponse" />
+  </message>
+  <message name="buscarUsuarioEmpresaPorDocumento">
+    <part name="parameters" element="tns:buscarUsuarioEmpresaPorDocumento" />
+  </message>
+  <message name="buscarUsuarioEmpresaPorDocumentoResponse">
+    <part name="parameters" element="tns:buscarUsuarioEmpresaPorDocumentoResponse" />
+  </message>
+  <message name="insertarEmpresa">
+    <part name="parameters" element="tns:insertarEmpresa" />
+  </message>
+  <message name="insertarEmpresaResponse">
+    <part name="parameters" element="tns:insertarEmpresaResponse" />
+  </message>
+  <message name="buscarEmpresaPorNroRuc">
+    <part name="parameters" element="tns:buscarEmpresaPorNroRuc" />
+  </message>
+  <message name="buscarEmpresaPorNroRucResponse">
+    <part name="parameters" element="tns:buscarEmpresaPorNroRucResponse" />
+  </message>
+  <message name="DesbloquearUsuario">
+    <part name="parameters" element="tns:DesbloquearUsuario" />
+  </message>
+  <message name="DesbloquearUsuarioResponse">
+    <part name="parameters" element="tns:DesbloquearUsuarioResponse" />
+  </message>
+  <message name="DeshabilitarUsuario">
+    <part name="parameters" element="tns:DeshabilitarUsuario" />
+  </message>
+  <message name="DeshabilitarUsuarioResponse">
+    <part name="parameters" element="tns:DeshabilitarUsuarioResponse" />
+  </message>
+  <message name="DeshabilitarUsuarioEmpresa">
+    <part name="parameters" element="tns:DeshabilitarUsuarioEmpresa" />
+  </message>
+  <message name="DeshabilitarUsuarioEmpresaResponse">
+    <part name="parameters" element="tns:DeshabilitarUsuarioEmpresaResponse" />
+  </message>
+  <message name="HabilitarUsuario">
+    <part name="parameters" element="tns:HabilitarUsuario" />
+  </message>
+  <message name="HabilitarUsuarioResponse">
+    <part name="parameters" element="tns:HabilitarUsuarioResponse" />
+  </message>
+  <message name="HabilitarUsuarioEmpresa">
+    <part name="parameters" element="tns:HabilitarUsuarioEmpresa" />
+  </message>
+  <message name="HabilitarUsuarioEmpresaResponse">
+    <part name="parameters" element="tns:HabilitarUsuarioEmpresaResponse" />
+  </message>
+  <message name="insertarCorreoTelefono">
+    <part name="parameters" element="tns:insertarCorreoTelefono" />
+  </message>
+  <message name="insertarCorreoTelefonoResponse">
+    <part name="parameters" element="tns:insertarCorreoTelefonoResponse" />
+  </message>
+  <message name="leerEmpresaPorCodigo">
+    <part name="parameters" element="tns:leerEmpresaPorCodigo" />
+  </message>
+  <message name="leerEmpresaPorCodigoResponse">
+    <part name="parameters" element="tns:leerEmpresaPorCodigoResponse" />
+  </message>
+  <message name="leerEmpresaPorNombreyAplicativo">
+    <part name="parameters" element="tns:leerEmpresaPorNombreyAplicativo" />
+  </message>
+  <message name="leerEmpresaPorNombreyAplicativoResponse">
+    <part name="parameters" element="tns:leerEmpresaPorNombreyAplicativoResponse" />
+  </message>
+  <message name="leerEmpresaPorCodigoyAplicativo">
+    <part name="parameters" element="tns:leerEmpresaPorCodigoyAplicativo" />
+  </message>
+  <message name="leerEmpresaPorCodigoyAplicativoResponse">
+    <part name="parameters" element="tns:leerEmpresaPorCodigoyAplicativoResponse" />
+  </message>
+  <message name="leerPersonaPorCodigoEmpresa">
+    <part name="parameters" element="tns:leerPersonaPorCodigoEmpresa" />
+  </message>
+  <message name="leerPersonaPorCodigoEmpresaResponse">
+    <part name="parameters" element="tns:leerPersonaPorCodigoEmpresaResponse" />
+  </message>
+  <message name="leerPersonaPorCodigoEmpresayAplicativo">
+    <part name="parameters" element="tns:leerPersonaPorCodigoEmpresayAplicativo" />
+  </message>
+  <message name="leerPersonaPorCodigoEmpresayAplicativoResponse">
+    <part name="parameters" element="tns:leerPersonaPorCodigoEmpresayAplicativoResponse" />
+  </message>
+  <message name="insertarPersonaEmpresa">
+    <part name="parameters" element="tns:insertarPersonaEmpresa" />
+  </message>
+  <message name="insertarPersonaEmpresaResponse">
+    <part name="parameters" element="tns:insertarPersonaEmpresaResponse" />
+  </message>
+  <message name="actualizarInformacionEmpresa">
+    <part name="parameters" element="tns:actualizarInformacionEmpresa" />
+  </message>
+  <message name="actualizarInformacionEmpresaResponse">
+    <part name="parameters" element="tns:actualizarInformacionEmpresaResponse" />
+  </message>
+  <message name="actualizarInformacionPersonaEmpresa">
+    <part name="parameters" element="tns:actualizarInformacionPersonaEmpresa" />
+  </message>
+  <message name="actualizarInformacionPersonaEmpresaResponse">
+    <part name="parameters" element="tns:actualizarInformacionPersonaEmpresaResponse" />
+  </message>
+  <message name="actualizarAdministrado">
+    <part name="parameters" element="tns:actualizarAdministrado" />
+  </message>
+  <message name="actualizarAdministradoResponse">
+    <part name="parameters" element="tns:actualizarAdministradoResponse" />
+  </message>
+  <message name="listarAplicativosActivo">
+    <part name="parameters" element="tns:listarAplicativosActivo" />
+  </message>
+  <message name="listarAplicativosActivoResponse">
+    <part name="parameters" element="tns:listarAplicativosActivoResponse" />
+  </message>
+  <message name="listarPerfilesPorAplicativo">
+    <part name="parameters" element="tns:listarPerfilesPorAplicativo" />
+  </message>
+  <message name="listarPerfilesPorAplicativoResponse">
+    <part name="parameters" element="tns:listarPerfilesPorAplicativoResponse" />
+  </message>
+  <message name="listarAplicativoPorCodigo">
+    <part name="parameters" element="tns:listarAplicativoPorCodigo" />
+  </message>
+  <message name="listarAplicativoPorCodigoResponse">
+    <part name="parameters" element="tns:listarAplicativoPorCodigoResponse" />
+  </message>
+  <message name="listarAplicativoPorUsuario">
+    <part name="parameters" element="tns:listarAplicativoPorUsuario" />
+  </message>
+  <message name="listarAplicativoPorUsuarioResponse">
+    <part name="parameters" element="tns:listarAplicativoPorUsuarioResponse" />
+  </message>
+  <message name="listarPerfilesxUsuarioAplicativo">
+    <part name="parameters" element="tns:listarPerfilesxUsuarioAplicativo" />
+  </message>
+  <message name="listarPerfilesxUsuarioAplicativoResponse">
+    <part name="parameters" element="tns:listarPerfilesxUsuarioAplicativoResponse" />
+  </message>
+  <message name="eliminatodosperfilesaplicativosusuario">
+    <part name="parameters" element="tns:eliminatodosperfilesaplicativosusuario" />
+  </message>
+  <message name="eliminatodosperfilesaplicativosusuarioResponse">
+    <part name="parameters" element="tns:eliminatodosperfilesaplicativosusuarioResponse" />
+  </message>
+  <portType name="SessionService">
+    <operation name="sesionIniciarWeb">
+      <input wsam:Action="http://servicios/SessionService/sesionIniciarWebRequest" message="tns:sesionIniciarWeb" />
+      <output wsam:Action="http://servicios/SessionService/sesionIniciarWebResponse" message="tns:sesionIniciarWebResponse" />
+    </operation>
+    <operation name="sesionIniciarWebEmpresa">
+      <input wsam:Action="http://servicios/SessionService/sesionIniciarWebEmpresaRequest" message="tns:sesionIniciarWebEmpresa" />
+      <output wsam:Action="http://servicios/SessionService/sesionIniciarWebEmpresaResponse" message="tns:sesionIniciarWebEmpresaResponse" />
+    </operation>
+    <operation name="leerSesionPorNumero">
+      <input wsam:Action="http://servicios/SessionService/leerSesionPorNumeroRequest" message="tns:leerSesionPorNumero" />
+      <output wsam:Action="http://servicios/SessionService/leerSesionPorNumeroResponse" message="tns:leerSesionPorNumeroResponse" />
+    </operation>
+    <operation name="leerSesionEmpresaPorNumero">
+      <input wsam:Action="http://servicios/SessionService/leerSesionEmpresaPorNumeroRequest" message="tns:leerSesionEmpresaPorNumero" />
+      <output wsam:Action="http://servicios/SessionService/leerSesionEmpresaPorNumeroResponse" message="tns:leerSesionEmpresaPorNumeroResponse" />
+    </operation>
+    <operation name="cambiarContrasenaUsuario">
+      <input wsam:Action="http://servicios/SessionService/cambiarContrasenaUsuarioRequest" message="tns:cambiarContrasenaUsuario" />
+      <output wsam:Action="http://servicios/SessionService/cambiarContrasenaUsuarioResponse" message="tns:cambiarContrasenaUsuarioResponse" />
+    </operation>
+    <operation name="cambiarContrasenaUsuarioEmpresa">
+      <input wsam:Action="http://servicios/SessionService/cambiarContrasenaUsuarioEmpresaRequest" message="tns:cambiarContrasenaUsuarioEmpresa" />
+      <output wsam:Action="http://servicios/SessionService/cambiarContrasenaUsuarioEmpresaResponse" message="tns:cambiarContrasenaUsuarioEmpresaResponse" />
+    </operation>
+    <operation name="leerUsuarioPorLogin">
+      <input wsam:Action="http://servicios/SessionService/leerUsuarioPorLoginRequest" message="tns:leerUsuarioPorLogin" />
+      <output wsam:Action="http://servicios/SessionService/leerUsuarioPorLoginResponse" message="tns:leerUsuarioPorLoginResponse" />
+    </operation>
+    <operation name="leerUsuarioEmpresaPorLogin">
+      <input wsam:Action="http://servicios/SessionService/leerUsuarioEmpresaPorLoginRequest" message="tns:leerUsuarioEmpresaPorLogin" />
+      <output wsam:Action="http://servicios/SessionService/leerUsuarioEmpresaPorLoginResponse" message="tns:leerUsuarioEmpresaPorLoginResponse" />
+    </operation>
+    <operation name="leerPersonaPorDocumento">
+      <input wsam:Action="http://servicios/SessionService/leerPersonaPorDocumentoRequest" message="tns:leerPersonaPorDocumento" />
+      <output wsam:Action="http://servicios/SessionService/leerPersonaPorDocumentoResponse" message="tns:leerPersonaPorDocumentoResponse" />
+    </operation>
+    <operation name="leerAdministradoPorNombre">
+      <input wsam:Action="http://servicios/SessionService/leerAdministradoPorNombreRequest" message="tns:leerAdministradoPorNombre" />
+      <output wsam:Action="http://servicios/SessionService/leerAdministradoPorNombreResponse" message="tns:leerAdministradoPorNombreResponse" />
+    </operation>
+    <operation name="insertarPersona">
+      <input wsam:Action="http://servicios/SessionService/insertarPersonaRequest" message="tns:insertarPersona" />
+      <output wsam:Action="http://servicios/SessionService/insertarPersonaResponse" message="tns:insertarPersonaResponse" />
+    </operation>
+    <operation name="insertarUsuario">
+      <input wsam:Action="http://servicios/SessionService/insertarUsuarioRequest" message="tns:insertarUsuario" />
+      <output wsam:Action="http://servicios/SessionService/insertarUsuarioResponse" message="tns:insertarUsuarioResponse" />
+    </operation>
+    <operation name="insertarUsuarioEmpresa">
+      <input wsam:Action="http://servicios/SessionService/insertarUsuarioEmpresaRequest" message="tns:insertarUsuarioEmpresa" />
+      <output wsam:Action="http://servicios/SessionService/insertarUsuarioEmpresaResponse" message="tns:insertarUsuarioEmpresaResponse" />
+    </operation>
+    <operation name="insertarPerfilUsuario">
+      <input wsam:Action="http://servicios/SessionService/insertarPerfilUsuarioRequest" message="tns:insertarPerfilUsuario" />
+      <output wsam:Action="http://servicios/SessionService/insertarPerfilUsuarioResponse" message="tns:insertarPerfilUsuarioResponse" />
+    </operation>
+    <operation name="insertarPerfilUsuarioEmpresa">
+      <input wsam:Action="http://servicios/SessionService/insertarPerfilUsuarioEmpresaRequest" message="tns:insertarPerfilUsuarioEmpresa" />
+      <output wsam:Action="http://servicios/SessionService/insertarPerfilUsuarioEmpresaResponse" message="tns:insertarPerfilUsuarioEmpresaResponse" />
+    </operation>
+    <operation name="leerPerfilUsuario">
+      <input wsam:Action="http://servicios/SessionService/leerPerfilUsuarioRequest" message="tns:leerPerfilUsuario" />
+      <output wsam:Action="http://servicios/SessionService/leerPerfilUsuarioResponse" message="tns:leerPerfilUsuarioResponse" />
+    </operation>
+    <operation name="leerPerfilUsuarioEmpresa">
+      <input wsam:Action="http://servicios/SessionService/leerPerfilUsuarioEmpresaRequest" message="tns:leerPerfilUsuarioEmpresa" />
+      <output wsam:Action="http://servicios/SessionService/leerPerfilUsuarioEmpresaResponse" message="tns:leerPerfilUsuarioEmpresaResponse" />
+    </operation>
+    <operation name="buscarUsuarioPorDocumento">
+      <input wsam:Action="http://servicios/SessionService/buscarUsuarioPorDocumentoRequest" message="tns:buscarUsuarioPorDocumento" />
+      <output wsam:Action="http://servicios/SessionService/buscarUsuarioPorDocumentoResponse" message="tns:buscarUsuarioPorDocumentoResponse" />
+    </operation>
+    <operation name="buscarUsuarioEmpresaPorDocumento">
+      <input wsam:Action="http://servicios/SessionService/buscarUsuarioEmpresaPorDocumentoRequest" message="tns:buscarUsuarioEmpresaPorDocumento" />
+      <output wsam:Action="http://servicios/SessionService/buscarUsuarioEmpresaPorDocumentoResponse" message="tns:buscarUsuarioEmpresaPorDocumentoResponse" />
+    </operation>
+    <operation name="insertarEmpresa">
+      <input wsam:Action="http://servicios/SessionService/insertarEmpresaRequest" message="tns:insertarEmpresa" />
+      <output wsam:Action="http://servicios/SessionService/insertarEmpresaResponse" message="tns:insertarEmpresaResponse" />
+    </operation>
+    <operation name="buscarEmpresaPorNroRuc">
+      <input wsam:Action="http://servicios/SessionService/buscarEmpresaPorNroRucRequest" message="tns:buscarEmpresaPorNroRuc" />
+      <output wsam:Action="http://servicios/SessionService/buscarEmpresaPorNroRucResponse" message="tns:buscarEmpresaPorNroRucResponse" />
+    </operation>
+    <operation name="DesbloquearUsuario">
+      <input wsam:Action="http://servicios/SessionService/DesbloquearUsuarioRequest" message="tns:DesbloquearUsuario" />
+      <output wsam:Action="http://servicios/SessionService/DesbloquearUsuarioResponse" message="tns:DesbloquearUsuarioResponse" />
+    </operation>
+    <operation name="DeshabilitarUsuario">
+      <input wsam:Action="http://servicios/SessionService/DeshabilitarUsuarioRequest" message="tns:DeshabilitarUsuario" />
+      <output wsam:Action="http://servicios/SessionService/DeshabilitarUsuarioResponse" message="tns:DeshabilitarUsuarioResponse" />
+    </operation>
+    <operation name="DeshabilitarUsuarioEmpresa">
+      <input wsam:Action="http://servicios/SessionService/DeshabilitarUsuarioEmpresaRequest" message="tns:DeshabilitarUsuarioEmpresa" />
+      <output wsam:Action="http://servicios/SessionService/DeshabilitarUsuarioEmpresaResponse" message="tns:DeshabilitarUsuarioEmpresaResponse" />
+    </operation>
+    <operation name="HabilitarUsuario">
+      <input wsam:Action="http://servicios/SessionService/HabilitarUsuarioRequest" message="tns:HabilitarUsuario" />
+      <output wsam:Action="http://servicios/SessionService/HabilitarUsuarioResponse" message="tns:HabilitarUsuarioResponse" />
+    </operation>
+    <operation name="HabilitarUsuarioEmpresa">
+      <input wsam:Action="http://servicios/SessionService/HabilitarUsuarioEmpresaRequest" message="tns:HabilitarUsuarioEmpresa" />
+      <output wsam:Action="http://servicios/SessionService/HabilitarUsuarioEmpresaResponse" message="tns:HabilitarUsuarioEmpresaResponse" />
+    </operation>
+    <operation name="insertarCorreoTelefono">
+      <input wsam:Action="http://servicios/SessionService/insertarCorreoTelefonoRequest" message="tns:insertarCorreoTelefono" />
+      <output wsam:Action="http://servicios/SessionService/insertarCorreoTelefonoResponse" message="tns:insertarCorreoTelefonoResponse" />
+    </operation>
+    <operation name="leerEmpresaPorCodigo">
+      <input wsam:Action="http://servicios/SessionService/leerEmpresaPorCodigoRequest" message="tns:leerEmpresaPorCodigo" />
+      <output wsam:Action="http://servicios/SessionService/leerEmpresaPorCodigoResponse" message="tns:leerEmpresaPorCodigoResponse" />
+    </operation>
+    <operation name="leerEmpresaPorNombreyAplicativo">
+      <input wsam:Action="http://servicios/SessionService/leerEmpresaPorNombreyAplicativoRequest" message="tns:leerEmpresaPorNombreyAplicativo" />
+      <output wsam:Action="http://servicios/SessionService/leerEmpresaPorNombreyAplicativoResponse" message="tns:leerEmpresaPorNombreyAplicativoResponse" />
+    </operation>
+    <operation name="leerEmpresaPorCodigoyAplicativo">
+      <input wsam:Action="http://servicios/SessionService/leerEmpresaPorCodigoyAplicativoRequest" message="tns:leerEmpresaPorCodigoyAplicativo" />
+      <output wsam:Action="http://servicios/SessionService/leerEmpresaPorCodigoyAplicativoResponse" message="tns:leerEmpresaPorCodigoyAplicativoResponse" />
+    </operation>
+    <operation name="leerPersonaPorCodigoEmpresa">
+      <input wsam:Action="http://servicios/SessionService/leerPersonaPorCodigoEmpresaRequest" message="tns:leerPersonaPorCodigoEmpresa" />
+      <output wsam:Action="http://servicios/SessionService/leerPersonaPorCodigoEmpresaResponse" message="tns:leerPersonaPorCodigoEmpresaResponse" />
+    </operation>
+    <operation name="leerPersonaPorCodigoEmpresayAplicativo">
+      <input wsam:Action="http://servicios/SessionService/leerPersonaPorCodigoEmpresayAplicativoRequest" message="tns:leerPersonaPorCodigoEmpresayAplicativo" />
+      <output wsam:Action="http://servicios/SessionService/leerPersonaPorCodigoEmpresayAplicativoResponse" message="tns:leerPersonaPorCodigoEmpresayAplicativoResponse" />
+    </operation>
+    <operation name="insertarPersonaEmpresa">
+      <input wsam:Action="http://servicios/SessionService/insertarPersonaEmpresaRequest" message="tns:insertarPersonaEmpresa" />
+      <output wsam:Action="http://servicios/SessionService/insertarPersonaEmpresaResponse" message="tns:insertarPersonaEmpresaResponse" />
+    </operation>
+    <operation name="actualizarInformacionEmpresa">
+      <input wsam:Action="http://servicios/SessionService/actualizarInformacionEmpresaRequest" message="tns:actualizarInformacionEmpresa" />
+      <output wsam:Action="http://servicios/SessionService/actualizarInformacionEmpresaResponse" message="tns:actualizarInformacionEmpresaResponse" />
+    </operation>
+    <operation name="actualizarInformacionPersonaEmpresa">
+      <input wsam:Action="http://servicios/SessionService/actualizarInformacionPersonaEmpresaRequest" message="tns:actualizarInformacionPersonaEmpresa" />
+      <output wsam:Action="http://servicios/SessionService/actualizarInformacionPersonaEmpresaResponse" message="tns:actualizarInformacionPersonaEmpresaResponse" />
+    </operation>
+    <operation name="actualizarAdministrado">
+      <input wsam:Action="http://servicios/SessionService/actualizarAdministradoRequest" message="tns:actualizarAdministrado" />
+      <output wsam:Action="http://servicios/SessionService/actualizarAdministradoResponse" message="tns:actualizarAdministradoResponse" />
+    </operation>
+    <operation name="listarAplicativosActivo">
+      <input wsam:Action="http://servicios/SessionService/listarAplicativosActivoRequest" message="tns:listarAplicativosActivo" />
+      <output wsam:Action="http://servicios/SessionService/listarAplicativosActivoResponse" message="tns:listarAplicativosActivoResponse" />
+    </operation>
+    <operation name="listarPerfilesPorAplicativo">
+      <input wsam:Action="http://servicios/SessionService/listarPerfilesPorAplicativoRequest" message="tns:listarPerfilesPorAplicativo" />
+      <output wsam:Action="http://servicios/SessionService/listarPerfilesPorAplicativoResponse" message="tns:listarPerfilesPorAplicativoResponse" />
+    </operation>
+    <operation name="listarAplicativoPorCodigo">
+      <input wsam:Action="http://servicios/SessionService/listarAplicativoPorCodigoRequest" message="tns:listarAplicativoPorCodigo" />
+      <output wsam:Action="http://servicios/SessionService/listarAplicativoPorCodigoResponse" message="tns:listarAplicativoPorCodigoResponse" />
+    </operation>
+    <operation name="listarAplicativoPorUsuario">
+      <input wsam:Action="http://servicios/SessionService/listarAplicativoPorUsuarioRequest" message="tns:listarAplicativoPorUsuario" />
+      <output wsam:Action="http://servicios/SessionService/listarAplicativoPorUsuarioResponse" message="tns:listarAplicativoPorUsuarioResponse" />
+    </operation>
+    <operation name="listarPerfilesxUsuarioAplicativo">
+      <input wsam:Action="http://servicios/SessionService/listarPerfilesxUsuarioAplicativoRequest" message="tns:listarPerfilesxUsuarioAplicativo" />
+      <output wsam:Action="http://servicios/SessionService/listarPerfilesxUsuarioAplicativoResponse" message="tns:listarPerfilesxUsuarioAplicativoResponse" />
+    </operation>
+    <operation name="eliminatodosperfilesaplicativosusuario">
+      <input wsam:Action="http://servicios/SessionService/eliminatodosperfilesaplicativosusuarioRequest" message="tns:eliminatodosperfilesaplicativosusuario" />
+      <output wsam:Action="http://servicios/SessionService/eliminatodosperfilesaplicativosusuarioResponse" message="tns:eliminatodosperfilesaplicativosusuarioResponse" />
+    </operation>
+  </portType>
+  <binding name="SessionServicePortBinding" type="tns:SessionService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="sesionIniciarWeb">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="sesionIniciarWebEmpresa">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="leerSesionPorNumero">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="leerSesionEmpresaPorNumero">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="cambiarContrasenaUsuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="cambiarContrasenaUsuarioEmpresa">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="leerUsuarioPorLogin">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="leerUsuarioEmpresaPorLogin">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="leerPersonaPorDocumento">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="leerAdministradoPorNombre">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="insertarPersona">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="insertarUsuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="insertarUsuarioEmpresa">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="insertarPerfilUsuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="insertarPerfilUsuarioEmpresa">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="leerPerfilUsuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="leerPerfilUsuarioEmpresa">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="buscarUsuarioPorDocumento">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="buscarUsuarioEmpresaPorDocumento">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="insertarEmpresa">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="buscarEmpresaPorNroRuc">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="DesbloquearUsuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="DeshabilitarUsuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="DeshabilitarUsuarioEmpresa">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="HabilitarUsuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="HabilitarUsuarioEmpresa">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="insertarCorreoTelefono">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="leerEmpresaPorCodigo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="leerEmpresaPorNombreyAplicativo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="leerEmpresaPorCodigoyAplicativo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="leerPersonaPorCodigoEmpresa">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="leerPersonaPorCodigoEmpresayAplicativo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="insertarPersonaEmpresa">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="actualizarInformacionEmpresa">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="actualizarInformacionPersonaEmpresa">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="actualizarAdministrado">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="listarAplicativosActivo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="listarPerfilesPorAplicativo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="listarAplicativoPorCodigo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="listarAplicativoPorUsuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="listarPerfilesxUsuarioAplicativo">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="eliminatodosperfilesaplicativosusuario">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="SessionService">
+    <port name="SessionServicePort" binding="tns:SessionServicePortBinding">
+      <soap:address location="http://apps.mcultura.gob.pe:80/wsCIRASeguridad/SessionService" />
+    </port>
+  </service>
+</definitions>

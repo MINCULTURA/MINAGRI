@@ -1,0 +1,767 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://servicios/" targetNamespace="http://servicios/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="DesbloquearUsuario" type="tns:DesbloquearUsuario" />
+  <xs:element name="DesbloquearUsuarioResponse" type="tns:DesbloquearUsuarioResponse" />
+  <xs:element name="DeshabilitarUsuario" type="tns:DeshabilitarUsuario" />
+  <xs:element name="DeshabilitarUsuarioEmpresa" type="tns:DeshabilitarUsuarioEmpresa" />
+  <xs:element name="DeshabilitarUsuarioEmpresaResponse" type="tns:DeshabilitarUsuarioEmpresaResponse" />
+  <xs:element name="DeshabilitarUsuarioResponse" type="tns:DeshabilitarUsuarioResponse" />
+  <xs:element name="HabilitarUsuario" type="tns:HabilitarUsuario" />
+  <xs:element name="HabilitarUsuarioEmpresa" type="tns:HabilitarUsuarioEmpresa" />
+  <xs:element name="HabilitarUsuarioEmpresaResponse" type="tns:HabilitarUsuarioEmpresaResponse" />
+  <xs:element name="HabilitarUsuarioResponse" type="tns:HabilitarUsuarioResponse" />
+  <xs:element name="actualizarAdministrado" type="tns:actualizarAdministrado" />
+  <xs:element name="actualizarAdministradoResponse" type="tns:actualizarAdministradoResponse" />
+  <xs:element name="actualizarInformacionEmpresa" type="tns:actualizarInformacionEmpresa" />
+  <xs:element name="actualizarInformacionEmpresaResponse" type="tns:actualizarInformacionEmpresaResponse" />
+  <xs:element name="actualizarInformacionPersonaEmpresa" type="tns:actualizarInformacionPersonaEmpresa" />
+  <xs:element name="actualizarInformacionPersonaEmpresaResponse" type="tns:actualizarInformacionPersonaEmpresaResponse" />
+  <xs:element name="buscarEmpresaPorNroRuc" type="tns:buscarEmpresaPorNroRuc" />
+  <xs:element name="buscarEmpresaPorNroRucResponse" type="tns:buscarEmpresaPorNroRucResponse" />
+  <xs:element name="buscarUsuarioEmpresaPorDocumento" type="tns:buscarUsuarioEmpresaPorDocumento" />
+  <xs:element name="buscarUsuarioEmpresaPorDocumentoResponse" type="tns:buscarUsuarioEmpresaPorDocumentoResponse" />
+  <xs:element name="buscarUsuarioPorDocumento" type="tns:buscarUsuarioPorDocumento" />
+  <xs:element name="buscarUsuarioPorDocumentoResponse" type="tns:buscarUsuarioPorDocumentoResponse" />
+  <xs:element name="cambiarContrasenaUsuario" type="tns:cambiarContrasenaUsuario" />
+  <xs:element name="cambiarContrasenaUsuarioEmpresa" type="tns:cambiarContrasenaUsuarioEmpresa" />
+  <xs:element name="cambiarContrasenaUsuarioEmpresaResponse" type="tns:cambiarContrasenaUsuarioEmpresaResponse" />
+  <xs:element name="cambiarContrasenaUsuarioResponse" type="tns:cambiarContrasenaUsuarioResponse" />
+  <xs:element name="eliminatodosperfilesaplicativosusuario" type="tns:eliminatodosperfilesaplicativosusuario" />
+  <xs:element name="eliminatodosperfilesaplicativosusuarioResponse" type="tns:eliminatodosperfilesaplicativosusuarioResponse" />
+  <xs:element name="insertarCorreoTelefono" type="tns:insertarCorreoTelefono" />
+  <xs:element name="insertarCorreoTelefonoResponse" type="tns:insertarCorreoTelefonoResponse" />
+  <xs:element name="insertarEmpresa" type="tns:insertarEmpresa" />
+  <xs:element name="insertarEmpresaResponse" type="tns:insertarEmpresaResponse" />
+  <xs:element name="insertarPerfilUsuario" type="tns:insertarPerfilUsuario" />
+  <xs:element name="insertarPerfilUsuarioEmpresa" type="tns:insertarPerfilUsuarioEmpresa" />
+  <xs:element name="insertarPerfilUsuarioEmpresaResponse" type="tns:insertarPerfilUsuarioEmpresaResponse" />
+  <xs:element name="insertarPerfilUsuarioResponse" type="tns:insertarPerfilUsuarioResponse" />
+  <xs:element name="insertarPersona" type="tns:insertarPersona" />
+  <xs:element name="insertarPersonaEmpresa" type="tns:insertarPersonaEmpresa" />
+  <xs:element name="insertarPersonaEmpresaResponse" type="tns:insertarPersonaEmpresaResponse" />
+  <xs:element name="insertarPersonaResponse" type="tns:insertarPersonaResponse" />
+  <xs:element name="insertarUsuario" type="tns:insertarUsuario" />
+  <xs:element name="insertarUsuarioEmpresa" type="tns:insertarUsuarioEmpresa" />
+  <xs:element name="insertarUsuarioEmpresaResponse" type="tns:insertarUsuarioEmpresaResponse" />
+  <xs:element name="insertarUsuarioResponse" type="tns:insertarUsuarioResponse" />
+  <xs:element name="leerAdministradoPorNombre" type="tns:leerAdministradoPorNombre" />
+  <xs:element name="leerAdministradoPorNombreResponse" type="tns:leerAdministradoPorNombreResponse" />
+  <xs:element name="leerEmpresaPorCodigo" type="tns:leerEmpresaPorCodigo" />
+  <xs:element name="leerEmpresaPorCodigoResponse" type="tns:leerEmpresaPorCodigoResponse" />
+  <xs:element name="leerEmpresaPorCodigoyAplicativo" type="tns:leerEmpresaPorCodigoyAplicativo" />
+  <xs:element name="leerEmpresaPorCodigoyAplicativoResponse" type="tns:leerEmpresaPorCodigoyAplicativoResponse" />
+  <xs:element name="leerEmpresaPorNombreyAplicativo" type="tns:leerEmpresaPorNombreyAplicativo" />
+  <xs:element name="leerEmpresaPorNombreyAplicativoResponse" type="tns:leerEmpresaPorNombreyAplicativoResponse" />
+  <xs:element name="leerPerfilUsuario" type="tns:leerPerfilUsuario" />
+  <xs:element name="leerPerfilUsuarioEmpresa" type="tns:leerPerfilUsuarioEmpresa" />
+  <xs:element name="leerPerfilUsuarioEmpresaResponse" type="tns:leerPerfilUsuarioEmpresaResponse" />
+  <xs:element name="leerPerfilUsuarioResponse" type="tns:leerPerfilUsuarioResponse" />
+  <xs:element name="leerPersonaPorCodigoEmpresa" type="tns:leerPersonaPorCodigoEmpresa" />
+  <xs:element name="leerPersonaPorCodigoEmpresaResponse" type="tns:leerPersonaPorCodigoEmpresaResponse" />
+  <xs:element name="leerPersonaPorCodigoEmpresayAplicativo" type="tns:leerPersonaPorCodigoEmpresayAplicativo" />
+  <xs:element name="leerPersonaPorCodigoEmpresayAplicativoResponse" type="tns:leerPersonaPorCodigoEmpresayAplicativoResponse" />
+  <xs:element name="leerPersonaPorDocumento" type="tns:leerPersonaPorDocumento" />
+  <xs:element name="leerPersonaPorDocumentoResponse" type="tns:leerPersonaPorDocumentoResponse" />
+  <xs:element name="leerSesionEmpresaPorNumero" type="tns:leerSesionEmpresaPorNumero" />
+  <xs:element name="leerSesionEmpresaPorNumeroResponse" type="tns:leerSesionEmpresaPorNumeroResponse" />
+  <xs:element name="leerSesionPorNumero" type="tns:leerSesionPorNumero" />
+  <xs:element name="leerSesionPorNumeroResponse" type="tns:leerSesionPorNumeroResponse" />
+  <xs:element name="leerUsuarioEmpresaPorLogin" type="tns:leerUsuarioEmpresaPorLogin" />
+  <xs:element name="leerUsuarioEmpresaPorLoginResponse" type="tns:leerUsuarioEmpresaPorLoginResponse" />
+  <xs:element name="leerUsuarioPorLogin" type="tns:leerUsuarioPorLogin" />
+  <xs:element name="leerUsuarioPorLoginResponse" type="tns:leerUsuarioPorLoginResponse" />
+  <xs:element name="listarAplicativoPorCodigo" type="tns:listarAplicativoPorCodigo" />
+  <xs:element name="listarAplicativoPorCodigoResponse" type="tns:listarAplicativoPorCodigoResponse" />
+  <xs:element name="listarAplicativoPorUsuario" type="tns:listarAplicativoPorUsuario" />
+  <xs:element name="listarAplicativoPorUsuarioResponse" type="tns:listarAplicativoPorUsuarioResponse" />
+  <xs:element name="listarAplicativosActivo" type="tns:listarAplicativosActivo" />
+  <xs:element name="listarAplicativosActivoResponse" type="tns:listarAplicativosActivoResponse" />
+  <xs:element name="listarPerfilesPorAplicativo" type="tns:listarPerfilesPorAplicativo" />
+  <xs:element name="listarPerfilesPorAplicativoResponse" type="tns:listarPerfilesPorAplicativoResponse" />
+  <xs:element name="listarPerfilesxUsuarioAplicativo" type="tns:listarPerfilesxUsuarioAplicativo" />
+  <xs:element name="listarPerfilesxUsuarioAplicativoResponse" type="tns:listarPerfilesxUsuarioAplicativoResponse" />
+  <xs:element name="sesionIniciarWeb" type="tns:sesionIniciarWeb" />
+  <xs:element name="sesionIniciarWebEmpresa" type="tns:sesionIniciarWebEmpresa" />
+  <xs:element name="sesionIniciarWebEmpresaResponse" type="tns:sesionIniciarWebEmpresaResponse" />
+  <xs:element name="sesionIniciarWebResponse" type="tns:sesionIniciarWebResponse" />
+  <xs:complexType name="listarPerfilesPorAplicativo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intCodAplicativo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="listarPerfilesPorAplicativoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:perfilUsuarioTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="perfilUsuarioTemp">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="codigoPerfil" type="xs:int" />
+      <xs:element minOccurs="0" name="codigoAplicativo" type="xs:int" />
+      <xs:element minOccurs="0" name="nombrePerfil" type="xs:string" />
+      <xs:element minOccurs="0" name="habilitado" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="listarAplicativosActivo">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:complexType name="listarAplicativosActivoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:aplicativoTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="aplicativoTemp">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoAplicativo" type="xs:int" />
+      <xs:element minOccurs="0" name="nombre" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcion" type="xs:string" />
+      <xs:element minOccurs="0" name="abreviatura" type="xs:string" />
+      <xs:element minOccurs="0" name="mantenimiento" type="xs:int" />
+      <xs:element minOccurs="0" name="habilitado" type="xs:int" />
+      <xs:element minOccurs="0" name="administrado" type="xs:int" />
+      <xs:element minOccurs="0" name="paginaInicio" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cambiarContrasenaUsuarioEmpresa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="login" type="xs:string" />
+      <xs:element minOccurs="0" name="nuevaContrasena" type="xs:string" />
+      <xs:element name="numeroSesion" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cambiarContrasenaUsuarioEmpresaResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarCorreoTelefono">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intcodigoEntidad" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strtipoEntidad_Telef" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strreferencia_Telef" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strnumeroTelefonico" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strranexo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strtipoEntidad_Correo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strreferencia_Correo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strCorreo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intnumeroSesion" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intauditoriaOrigen" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarCorreoTelefonoResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actualizarInformacionEmpresa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intCodigoEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strCorreo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intNumeroSesion" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intHabilitado" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intBloqueado" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actualizarInformacionEmpresaResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sesionIniciarWebEmpresa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="user" type="xs:string" />
+      <xs:element minOccurs="0" name="pass" type="xs:string" />
+      <xs:element minOccurs="0" name="app" type="xs:string" />
+      <xs:element minOccurs="0" name="version" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sesionIniciarWebEmpresaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:sesionTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sesionTemp">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="numeroSesion" type="xs:int" />
+      <xs:element minOccurs="0" name="codigoUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="loginUsuario" type="xs:string" />
+      <xs:element minOccurs="0" name="paternoUsuario" type="xs:string" />
+      <xs:element minOccurs="0" name="maternoUsuario" type="xs:string" />
+      <xs:element minOccurs="0" name="nombreUsuario" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoAplicativo" type="xs:int" />
+      <xs:element minOccurs="0" name="nombreAplicativo" type="xs:string" />
+      <xs:element minOccurs="0" name="abreviaturaAplicativo" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoControl" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoVersion" type="xs:int" />
+      <xs:element minOccurs="0" name="numeroVersion" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoPerfil" type="xs:int" />
+      <xs:element minOccurs="0" name="nombrePerfil" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoUsuRed" type="xs:int" />
+      <xs:element minOccurs="0" name="nombreUsuRed" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoEquipo" type="xs:int" />
+      <xs:element minOccurs="0" name="nombreEquipo" type="xs:string" />
+      <xs:element minOccurs="0" name="descripcionEquipo" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoIp" type="xs:int" />
+      <xs:element minOccurs="0" name="numeroIp" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoMac" type="xs:int" />
+      <xs:element minOccurs="0" name="direccionMac" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoSistemaOpe" type="xs:int" />
+      <xs:element minOccurs="0" name="descripcionSistemaOpe" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoNavegador" type="xs:int" />
+      <xs:element minOccurs="0" name="descripcionNavegador" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaInicio" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="fechaFin" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="codigoTipoSalida" type="xs:int" />
+      <xs:element minOccurs="0" name="descripcionTipoSalida" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DeshabilitarUsuarioEmpresa">
+    <xs:sequence>
+      <xs:element name="codigoUsuario" type="xs:int" />
+      <xs:element name="numeroSesion" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DeshabilitarUsuarioEmpresaResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actualizarInformacionPersonaEmpresa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intCodigoPersona" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intCodigoEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intAplicativo" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strFlagActivo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strFlagUltimo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intSesion" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actualizarInformacionPersonaEmpresaResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="buscarUsuarioEmpresaPorDocumento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_strnumeroDocumento" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="buscarUsuarioEmpresaPorDocumentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:usuarioTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="usuarioTemp">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="codigoOrganigrama" type="xs:int" />
+      <xs:element minOccurs="0" name="nombreOrganigrama" type="xs:string" />
+      <xs:element minOccurs="0" name="login" type="xs:string" />
+      <xs:element minOccurs="0" name="clave" type="xs:string" />
+      <xs:element minOccurs="0" name="cambioClave" type="xs:int" />
+      <xs:element minOccurs="0" name="fechaCambio" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="vigenciaUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="vigenciaClave" type="xs:int" />
+      <xs:element minOccurs="0" name="accesosFallidos" type="xs:int" />
+      <xs:element minOccurs="0" name="externo" type="xs:int" />
+      <xs:element minOccurs="0" name="bloqueado" type="xs:int" />
+      <xs:element minOccurs="0" name="habilitado" type="xs:int" />
+      <xs:element minOccurs="0" name="observacion" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaActual" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoPerfil" type="xs:int" />
+      <xs:element minOccurs="0" name="nombrePerfil" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string" />
+      <xs:element minOccurs="0" name="apellidoPaterno" type="xs:string" />
+      <xs:element minOccurs="0" name="apellidoMaterno" type="xs:string" />
+      <xs:element minOccurs="0" name="nombres" type="xs:string" />
+      <xs:element minOccurs="0" name="datosCompletos" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="eliminatodosperfilesaplicativosusuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intCodigoPersona" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intSesion" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intAuditoria" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="eliminatodosperfilesaplicativosusuarioResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actualizarAdministrado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intCodigoPersona" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strTelefono" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strCorreo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intSesion" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intHabilitado" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intBloqueado" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="actualizarAdministradoResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="buscarEmpresaPorNroRuc">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_strnumeroRuc" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="buscarEmpresaPorNroRucResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:empresaTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="empresaTemp">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="codigoPais" type="xs:int" />
+      <xs:element minOccurs="0" name="nombrePais" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroRuc" type="xs:string" />
+      <xs:element minOccurs="0" name="razonSocial" type="xs:string" />
+      <xs:element minOccurs="0" name="abreviatura" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoTipoOrganizacional" type="xs:int" />
+      <xs:element minOccurs="0" name="nombreTipoOrganizacional" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoPadre" type="xs:int" />
+      <xs:element minOccurs="0" name="prefijoTramite" type="xs:string" />
+      <xs:element minOccurs="0" name="datoCorreo" type="xs:string" />
+      <xs:element minOccurs="0" name="login" type="xs:string" />
+      <xs:element minOccurs="0" name="habilitado" type="xs:int" />
+      <xs:element minOccurs="0" name="codAplicativo" type="xs:int" />
+      <xs:element minOccurs="0" name="nombreAplicativo" type="xs:string" />
+      <xs:element minOccurs="0" name="bloqueado" type="xs:int" />
+      <xs:element minOccurs="0" name="accessosFallidos" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerSesionEmpresaPorNumero">
+    <xs:sequence>
+      <xs:element name="numeroSesion" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerSesionEmpresaPorNumeroResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:sesionTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerSesionPorNumero">
+    <xs:sequence>
+      <xs:element name="numeroSesion" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerSesionPorNumeroResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:sesionTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarUsuarioEmpresa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intcodigoPersona" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intCodigoEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strCargo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strlogin" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strclave" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intvigenciaUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intvigenciaClave" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strobservacion" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intCambioClave" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intnumeroSesion" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intaplicativo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarUsuarioEmpresaResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HabilitarUsuarioEmpresa">
+    <xs:sequence>
+      <xs:element name="codigoUsuario" type="xs:int" />
+      <xs:element name="numeroSesion" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HabilitarUsuarioEmpresaResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarEmpresa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_strnumeroRuc" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strrazonSocial" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strabreviatura" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intcodigoTipoOrganizacional" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intcodigoPadre" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strprefijoTramite" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strtipoEntidad" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intcodigoEntidad" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strcodigoUbigeo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strreferencia" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strdireccion" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strtipoEntidad_Telef" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intcodigoEntidad_Telef" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strreferencia_Telef" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strnumeroTelefonico" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strranexo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strtipoEntidad_Correo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intcodigoEntidad_Correo" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strreferencia_Correo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strCorreo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intnumeroSesion" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intauditoriaOrigen" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarEmpresaResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DesbloquearUsuario">
+    <xs:sequence>
+      <xs:element name="codigoUsuario" type="xs:int" />
+      <xs:element name="numeroSesion" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DesbloquearUsuarioResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="listarPerfilesxUsuarioAplicativo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intCodUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intCodAplicativo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="listarPerfilesxUsuarioAplicativoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:perfilUsuarioTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerPersonaPorCodigoEmpresayAplicativo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intCodEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intCodPersona" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intAplicativo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerPersonaPorCodigoEmpresayAplicativoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:personaTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="personaTemp">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoPersona" type="xs:int" />
+      <xs:element minOccurs="0" name="codigoEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="nombreEmpresa" type="xs:string" />
+      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string" />
+      <xs:element minOccurs="0" name="paternoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="maternoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="nombresPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="fechaNacimiento" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="sexoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="datoDireccion" type="xs:string" />
+      <xs:element minOccurs="0" name="datoTelefono" type="xs:string" />
+      <xs:element minOccurs="0" name="datoCorreo" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoParentesco" type="xs:int" />
+      <xs:element minOccurs="0" name="personaSecundaria" type="xs:int" />
+      <xs:element minOccurs="0" name="tutor" type="xs:string" />
+      <xs:element minOccurs="0" name="flagActivo" type="xs:string" />
+      <xs:element minOccurs="0" name="flagUltimo" type="xs:string" />
+      <xs:element minOccurs="0" name="codigoAplicativo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sesionIniciarWeb">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="user" type="xs:string" />
+      <xs:element minOccurs="0" name="pass" type="xs:string" />
+      <xs:element minOccurs="0" name="app" type="xs:string" />
+      <xs:element minOccurs="0" name="version" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="sesionIniciarWebResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:sesionTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="listarAplicativoPorCodigo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intCodAplicativo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="listarAplicativoPorCodigoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:aplicativoTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cambiarContrasenaUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="login" type="xs:string" />
+      <xs:element minOccurs="0" name="nuevaContrasena" type="xs:string" />
+      <xs:element name="numeroSesion" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cambiarContrasenaUsuarioResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DeshabilitarUsuario">
+    <xs:sequence>
+      <xs:element name="codigoUsuario" type="xs:int" />
+      <xs:element name="numeroSesion" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DeshabilitarUsuarioResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarPerfilUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intcodigoUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intcodigoPerfil" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intcodigoAplicativo" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intnumeroSesion" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarPerfilUsuarioResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="listarAplicativoPorUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intCodAplicativo" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intCodUsuario" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="listarAplicativoPorUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:aplicativoTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HabilitarUsuario">
+    <xs:sequence>
+      <xs:element name="codigoUsuario" type="xs:int" />
+      <xs:element name="numeroSesion" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HabilitarUsuarioResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerEmpresaPorCodigoyAplicativo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intAplicativo" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intEmpresa" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerEmpresaPorCodigoyAplicativoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:empresaTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarPersona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intCodigoEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strTipoDocumento" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strNumeroDocumento" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strPaternoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strMaternoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strNombresPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strFechaNacimiento" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strSexoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strtipoEntidad" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intcodigoEntidad" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strcodigoUbigeo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strreferencia" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strdireccion" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strtipoEntidad_Telef" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intcodigoEntidad_Telef" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strreferencia_Telef" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strnumeroTelefonico" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strranexo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strtipoEntidad_Correo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intcodigoEntidad_Correo" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strreferencia_Correo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strCorreo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intnumeroSesion" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intauditoriaOrigen" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarPersonaResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerUsuarioEmpresaPorLogin">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="login" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerUsuarioEmpresaPorLoginResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:usuarioTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarPerfilUsuarioEmpresa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intcodigoUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intcodigoPerfil" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intcodigoAplicativo" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intnumeroSesion" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarPerfilUsuarioEmpresaResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerPerfilUsuarioEmpresa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intcodigoUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intcodigoPerfil" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerPerfilUsuarioEmpresaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:perfilUsuarioTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerEmpresaPorCodigo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codEmpresaDocumento" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerEmpresaPorCodigoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:empresaTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerPerfilUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intcodigoUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intcodigoPerfil" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerPerfilUsuarioResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:perfilUsuarioTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_strTipoDocumento" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strNumeroDocumento" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intcodigoPersona" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intCodigoEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strPaternoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strMaternoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strNombresPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strFechaNacimiento" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strSexoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intcodigoUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intcodigoOrganigrama" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strlogin" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strclave" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intvigenciaUsuario" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intvigenciaClave" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strobservacion" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intCambioClave" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intnumeroSesion" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarUsuarioResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerEmpresaPorNombreyAplicativo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intAplicativo" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strEmpresa" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerEmpresaPorNombreyAplicativoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:empresaTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerPersonaPorDocumento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="tipoDocumento" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDocumento" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerPersonaPorDocumentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:personaTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerUsuarioPorLogin">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="login" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerUsuarioPorLoginResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:usuarioTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="buscarUsuarioPorDocumento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_strtipoDocumento" type="xs:string" />
+      <xs:element minOccurs="0" name="p_strnumeroDocumento" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="buscarUsuarioPorDocumentoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:usuarioTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerPersonaPorCodigoEmpresa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intCodEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strFlagActivo" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerPersonaPorCodigoEmpresaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:personaTemp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarPersonaEmpresa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="p_intcodigoPersona" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intCodigoEmpresa" type="xs:int" />
+      <xs:element minOccurs="0" name="p_strCargo" type="xs:string" />
+      <xs:element minOccurs="0" name="p_intnumeroSesion" type="xs:int" />
+      <xs:element minOccurs="0" name="p_intaplicativo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="insertarPersonaEmpresaResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerAdministradoPorNombre">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="paternoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="maternoPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="nombresPersona" type="xs:string" />
+      <xs:element minOccurs="0" name="aplicativo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="leerAdministradoPorNombreResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:usuarioTemp" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

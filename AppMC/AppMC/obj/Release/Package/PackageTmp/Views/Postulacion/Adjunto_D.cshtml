@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Adjunto_D";
+    Layout = "~/Views/Shared/_Modal.cshtml";
+}
+
+<div class="row" style="margin-top:10px;">
+    <div class="col-sm-5">
+        <label>
+            Tipo archivo:
+        </label>
+        <select id="NIDTIPO" class="form-control" disabled></select>
+    </div>
+    <div class="col-md-7">
+        <label>
+            Adjuntar archivo <B>(PDF)</B>:
+        </label>
+        <div data-provides="fileupload" class="fileupload fileupload-new">
+            <span class="btn btn-file btn-warning">
+                <i class="fa fa-folder-open-o"></i> <span class="fileupload-new">Seleccionar archivo</span><span class="fileupload-exists">Cambiar</span>
+                <input type="file" id="txtUploadFile_VOL" multiple="multiple">
+            </span>
+            <span class="fileupload-preview"></span>
+            <a style="float: none" data-dismiss="fileupload" class="close fileupload-exists" href="#">
+                ×
+            </a>
+        </div>
+        <p class="help-block">
+            Éste archivo será cargado al sistema.
+        </p>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        CARGARDDL(23, 'NIDTIPO', 0, $('#txtidprocesousu').val());
+    });
+    $('#txtUploadFile_VOL').on('change', function (e) {
+        return validaExtension("#txtUploadFile_VOL")
+    });
+    function guardarModal() {
+        $("#SRUTADOC").val("");
+        var NIDPROCESOUSU = $('#txtidprocesousu').val();
+        var NCODIGO = $('#NCODIGO').val();
+        var NTIPO_DATO = $('#NIDTIPO').val();
+        var BACTIVO = 1;
+        var error = "";
+
+        if (NTIPO_DATO == 0) error += "tipo de archivo, ";
+        if (error != '') {
+            error = error.substring(0, error.length - 2);
+            error = 'El campo ' + error + ' debe ser válido. ';
+            bootbox.alert(error);
+        } else {
+            if (uploadFile("VOL", NIDPROCESOUSU)) {
+                SRUTADOC = $("#SRUTADOC").val();
+                if (SRUTADOC == "NOK") {
+                    bootbox.alert("Error al intentar subir archivo adjunto.");
+                    return;
+                }
+            }
+            bootbox.confirm("Está seguro que realizar la operación?", function (resultado) {
+                if (resultado != true) {
+                    bootbox.alert("Operación Cancelada.");
+                    return;
+                } else {
+                    var dataObject = JSON.stringify({
+                        'NIDPROCESOUSU': NIDPROCESOUSU,
+                        'CODIGO': NCODIGO,
+                        'NTIPO': NTIPO_DATO,
+                        'BACTIVO': BACTIVO,
+                        'SDATO': $("#SRUTADOC").val()
+                    });
+                    $.ajax({
+                        async: false,
+                        url: baseUrl + 'Postulacion/SP_GUARDAR_ADJUNTO',
+                        type: 'POST',
+                        datatype: 'json',
+                        contentType: 'application/json',
+                        data: dataObject,
+                        success: function (result) {
+                            if (result.SMENSAJE == "OK") {
+                                ListarAdjuntos();
+                                $('#ModalGeneral').modal('hide');
+                                bootbox.alert("Se grabó con éxito.")
+                            }
+                            else {
+                                bootbox.alert(result.SMENSAJE);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+    }
+</script>

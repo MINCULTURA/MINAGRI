@@ -1,0 +1,385 @@
+﻿@{
+    ViewBag.Title = "Resultados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input type="hidden" id="hddNIDPROCESOUSU" value="0" />
+<input type="hidden" id="hddNIDPROCESO" value="0" />
+<input type="hidden" id="NIDCONVOCATORIA_REP" value="0" />
+
+<div class="row">
+    <div class="col-lg-2" style="padding-top:10px">
+        CONVOCATORIA:
+    </div>
+    <div class="col-lg-3" style="padding-top:10px">
+        <select tabindex="-1" id="NIDCONVOCATORIA_PG" class="form-control" onchange="cargarProcesos()"></select>
+    </div>
+    <div class="col-lg-7" style="padding-top:10px">
+    </div>
+</div>
+<div class="row" style="padding-top:20px">
+    <div class="col-lg-5">
+        <div class="table-responsive" style="font-size:11px;">
+            <table class="display compact" id="tbl_Procesos" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="display:none; text-align:center;">NIDPROCESO</th>
+                        <th style="text-align: center; width: 45%;">PROCESO</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="table-responsive" style="font-size:11px;">
+            <table class="display compact" id="tbl_Actividades" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="display:none;">NIDPROCESO</th>
+                        <th style="display:none;">NIDACTIVIDAD</th>
+                        <th style="text-align:center; width:30%;">OFICINA</th>
+                        <th style="text-align:center; width:60%;">ACTIVIDAD</th>
+                        <th style="text-align:center; width:10%;">FORMATOS</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row" style="padding-top:10px;display:none" id="divPost">
+    <div class="col-lg-12">
+        <div class="table-responsive" style="font-size:11px;">
+            <table class="display compact" id="tbl_Postulantes" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                        <th style="text-align:center; width:25%;">POSTULANTE</th>
+                        <th style="text-align:center; width:75%;">CELULAR</th>
+                        <th style="text-align:center; width:75%;">TEL.FIJO</th>
+                        <th style="text-align:center; width:75%;">E-MAIL</th>
+                        <th style="text-align:center; width:75%;">EVALUACIÓN</th>
+                        <th style="text-align:center; width:75%;">ADMITIDO</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(window).load(function () {
+        CARGARDDL(15, 'NIDCONVOCATORIA_PG', 0, '0', '0', 'T');
+        cargarProcesos();
+        ListarActividades(0, "")
+    });
+    function cargarProcesos() {
+        $("#divPost").hide();
+        var dataObject = JSON.stringify({
+            'NIDTABLA': $("#NIDCONVOCATORIA_PG").val(),
+            'SDATO': 'PVOL'
+        });
+        $.ajax({
+            url: baseUrl + 'Postulacion/SP_CONS_TABLA_D',
+            type: 'POST',
+            datatype: 'json',
+            contentType: 'application/json',
+            data: dataObject,
+            success: function (data) {
+                var inf = data;
+                var t = $('#tbl_Procesos').DataTable({
+                    data: inf,
+                    "oLanguage": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Procesos",
+                        "sZeroRecords": "No se encontraron registros coincidentes",
+                        "sEmptyTable": "No hay registros disponibles",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Ãšltimo",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    "lengthMenu": [[10, 20, 30, 40, 50, -1], [10, 20, 30, 40, 50, "Todo"]],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $('td:eq(0)', nRow).css("text-align", "center").css("display", "none");
+                        $('td:eq(1)', nRow).css("text-align", "left").css("width", "100%");
+                        return nRow;
+                    },
+                    "bFilter": true,
+                    //"scrollX": true,
+                    "bLengthChange": true,
+                    "info": true,
+                    destroy: true,
+
+                    columns: [
+                        { data: 'NIDITEM' },
+                        { data: 'SDITEM' }
+                    ]
+                });
+            }
+        });
+    }
+    $('#tbl_Procesos').on('click', 'tr', function (event) {
+        if ($(this).hasClass('selected')) {
+
+        }
+        else {
+            $('#tbl_Procesos').DataTable().$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+        ListarActividades($(this).closest('tr').find('td:eq(0)').text(), $(this).closest('tr').find('td:eq(1)').text());
+        $("#divPost").hide();
+    });
+    function ListarActividades(id, sconv) {
+        var dataObject = JSON.stringify({
+            'NOPT': 4,
+            'NIDCONVOCATORIA': id,
+            'SP': 'SP_LISTA_PROCESO'
+        });
+
+        $("#idconv").val(id);
+        $.ajax({
+            url: baseUrl + 'Gestion/LISTA_PROCESOCOMITE',
+            type: 'POST',
+            datatype: 'json',
+            contentType: 'application/json',
+            data: dataObject,
+            success: function (data) {
+                var inf = data;
+                var t = $('#tbl_Actividades').DataTable({
+                    data: inf,
+                    "order": [
+                              [2, "asc"],
+                              [3, "asc"]
+                    ],
+                    "columnDefs": [
+                    { "width": "10%", "targets": 4, "orderable": false }
+                    ],
+                    "oLanguage": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "<div style='padding-top:10px'><b>" + sconv + "</b></div>",
+                        "sZeroRecords": "No se encontraron registros coincidentes",
+                        "sEmptyTable": "No hay registros disponibles",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Ãšltimo",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    //"lengthMenu": [[10, 20, 30, 40, 50, -1], [10, 20, 30, 40, 50, "Todo"]],
+                    "lengthMenu": [[5, 10, 15, 20, 25, -1], [5, 10, 15, 20, 25, "Todo"]],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $('td:eq(0)', nRow).css("display", "none");
+                        $('td:eq(1)', nRow).css("display", "none");
+                        $('td:eq(2)', nRow).css("text-align", "left").css("width", "30%");
+                        $('td:eq(3)', nRow).css("text-align", "justify").css("width", "60%");
+                        $('td:eq(4)', nRow).css("text-align", "center").css("width", "10%");
+                        return nRow;
+                    },
+                    "bFilter": true,
+                    //"scrollX": true,
+                    "bLengthChange": true,
+                    "info": true,
+                    destroy: true,
+
+                    columns: [
+                        { data: 'NIDPROCESO' },
+                        { data: 'NIDACTIVIDAD' },
+                        { data: 'OFICINA' },
+                        { data: 'SNOMBRE' },
+                        { data: 'NIDACTIVIDAD' }
+                    ]
+                });
+                var cont = 0;
+                t.on('order.dt search.dt', function () {
+                    cont += 1;
+                    if (cont == 1) {
+                        t.column(4, {}).nodes().each(function (cell, i) {
+                            cell.innerHTML = "<a href='" + baseUrl + "Gestion/ExportarFormato?NIDPROCESO=" + cell.innerHTML + "&NOPT=60' target='_blank' STYLE='PADDING-RIGHT:10PX'>F_EP</a>";
+                        });
+
+                    }
+                }).draw();
+            }
+        });
+
+    }
+    $('#tbl_Actividades').on('click', 'tr', function (event) {
+        if ($(this).hasClass('selected')) {
+
+        }
+        else {
+            $('#tbl_Actividades').DataTable().$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+        listarPostulantesEval($(this).closest('tr').find('td:eq(1)').text());
+        $("#divPost").show();
+    });
+    function listarPostulantesEval(value) {
+        var id = 0;
+        var dataObject = JSON.stringify({
+            'NOPT': 2,
+            'NIDPROCESO': value,
+            'SP': 'SP_LISTA_POST_RESULT'
+        });
+        $("#hddNIDPROCESO").val(id);
+        $.ajax({
+            url: baseUrl + 'Gestion/LISTA_PROCESOCOMITE',
+            type: 'POST',
+            datatype: 'json',
+            contentType: 'application/json',
+            data: dataObject,
+            success: function (data) {
+                var inf = data;
+                var t = $('#tbl_Postulantes').DataTable({
+                    data: inf,
+                    "order": [
+                              [5, "asc"],
+                              [1, "asc"]
+                    ],
+                    "columnDefs": [
+                    { "width": "0%", "targets": 0, "orderable": false },
+                    ],
+                    "oLanguage": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "<div style='padding-top:10px'><b>Postulantes</b></div> _MENU_",
+                        "sZeroRecords": "No se encontraron registros coincidentes",
+                        "sEmptyTable": "No hay registros disponibles",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Ãšltimo",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    "lengthMenu": [[10, 20, 30, 40, 50, -1], [10, 20, 30, 40, 50, "Todo"]],
+                    //"lengthMenu": [[5, 10, 15, 20, 25, -1], [5, 10, 15, 20, 25, "Todo"]],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $('td:eq(0)', nRow).css("display", "none");
+                        $('td:eq(1)', nRow).css("text-align", "left").css("width", "30%");
+                        $('td:eq(2)', nRow).css("text-align", "left").css("width", "10%");
+                        $('td:eq(3)', nRow).css("text-align", "left").css("width", "10%");
+                        $('td:eq(4)', nRow).css("text-align", "left").css("width", "30%");
+                        $('td:eq(5)', nRow).css("text-align", "center").css("width", "10%").css("font-weight", "bold");
+                        $('td:eq(6)', nRow).css("text-align", "center").css("width", "10%").attr("class", "win");
+                        return nRow;
+                    },
+                    "bFilter": true,
+                    //"scrollX": true,
+                    "bLengthChange": true,
+                    "info": true,
+                    destroy: true,
+
+                    columns: [
+                        { data: 'NIDPROCESOUSU' },
+                        { data: 'POSTULANTE' },
+                        { data: 'SCELULAR' },
+                        { data: 'STELEFONOFIJO' },
+                        { data: 'SCORREO' },
+                        { data: 'NEVAL_CUR' },
+                        { data: 'NGANADOR' }
+                    ]
+                });
+                var cont = 0;
+                t.on('order.dt search.dt', function () {
+                    cont += 1;
+                    if (cont == 1) {
+                        t.column(6, {}).nodes().each(function (cell, i) {
+                            id = id + 1;
+                            t.column(0, {}).nodes().each(function (cell, j) { if (i == j) { NIDPROCESOUSU = cell.innerHTML; } });
+                            t.column(5, {}).nodes().each(function (cell, j) { if (i == j) { EVALUACION = cell.innerHTML; } });
+                            t.column(6, {}).nodes().each(function (cell, j) { if (i == j) { NGANADOR = cell.innerHTML; } });
+                            var checked = NGANADOR == 0 ? "" : "checked";
+                            if (EVALUACION == "APTO")
+                                cell.innerHTML = '<div class="checkbox checkbox-primary"><input id="cb_admitido' + id + '" type="checkbox" ' + checked + ' onchange="setGanador(' + value + ',' + NIDPROCESOUSU + ',' + id + ')" /><label for="cb_admitido' + id + '"></label></div>';
+                            else
+                                cell.innerHTML = '';
+                        });
+                        t.column(1, {}).nodes().each(function (cell, i) {
+                            t.column(0, {}).nodes().each(function (cell, j) { if (i == j) { NIDPROCESOUSU = cell.innerHTML; } });
+                            cell.innerHTML = "<a href='" + baseUrl + "Gestion/ExportarFormato?NIDPROCESO=" + NIDPROCESOUSU + "&NOPT=10' target='_blank' STYLE='PADDING-RIGHT:10PX'>" + cell.innerHTML + "</a>";
+                        });
+
+                    }
+                }).draw();
+            }
+        });
+
+    }
+    function setGanador(nact, id, id_control) {
+        var valor = $("#cb_admitido" + id_control).is(':checked') ? 1 : 0;;
+        if (valor == 0) {
+            bootbox.confirm("¿Está seguro que desea quitar la ADMISIÓN a este postulante?", function (resultado) {
+                if (resultado != true) {
+                    $("#cb_admitido" + id_control).prop("checked", "checked");
+                    return;
+                }
+            });
+        }
+
+        var dataObject = JSON.stringify({
+            'NIDPROCESOUSU': id,
+            'BESTADO': valor
+        });
+        $.ajax({
+            url: baseUrl + 'Gestion/SP_ADMITIR_POSTULANTE',
+            type: 'POST',
+            datatype: 'json',
+            contentType: 'application/json',
+            data: dataObject,
+            success: function (result) {
+                if (result.SMENSAJE == "OK")
+                    listarPostulantesEval(nact)
+                else {
+                    if (valor == 0)
+                        $("#cb_admitido" + id_control).prop("checked", "checked");
+                    else
+                        $("#cb_admitido" + id_control).prop("checked", "");
+                    bootbox.alert(result.SMENSAJE);
+
+                }
+            }
+        });
+
+    }
+</script>
+

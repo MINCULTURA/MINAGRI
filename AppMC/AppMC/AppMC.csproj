@@ -1,0 +1,1099 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9CE90C1E-273C-4A67-8C7E-B340E2F39210}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AppMC</RootNamespace>
+    <AssemblyName>AppMC</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libreria\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="HtmlToOpenXml">
+      <HintPath>..\..\libreria\HtmlToOpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Oracle.DataAccess, Version=4.112.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Oracle.DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="OracleHelper">
+      <HintPath>..\OracleHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="ReportesMC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ReportesMC\ReportesMC\ReportesMC\bin\Debug\ReportesMC.dll</HintPath>
+    </Reference>
+    <Reference Include="SautinSoft.PdfVision">
+      <HintPath>..\packages\SautinSoft.libreria\SautinSoft.PdfVision.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Reporting, Version=6.0.12.215, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Telerik.Reporting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Telerik.ReportViewer.WebForms, Version=6.0.12.215, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Telerik.ReportViewer.WebForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.30506.0\lib\net40\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.30506.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.30506.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.1.4.12333\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.OData, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.OData.4.0.30506\lib\net40\System.Web.Http.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Data.Edm.5.2.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Data.OData.5.2.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Spatial, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GestionController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostulacionController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DTL\CLS_User.cs" />
+    <Compile Include="DTL\OracleHelper.cs" />
+    <Compile Include="DTL\wsPideDAL.cs" />
+    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\GestionModels.cs" />
+    <Compile Include="Models\PerfilEL.cs" />
+    <Compile Include="Models\PersonaEL.cs" />
+    <Compile Include="Models\PostulacionModels.cs" />
+    <Compile Include="Models\SessionUsuarioModels.cs" />
+    <Compile Include="Models\UserModels.cs" />
+    <Compile Include="Models\UsuarioEL.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RPT_FICHA.aspx.cs">
+      <DependentUpon>RPT_FICHA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\RPT_FICHA.aspx.designer.cs">
+      <DependentUpon>RPT_FICHA.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\SR_AUT\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\SR_DNI\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\wsAcceso\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SR_CE\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ws_DNI\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\css\bootstrap.css" />
+    <Content Include="assets\css\general.css" />
+    <Content Include="assets\css\images\notificaciones\alert-ico.png" />
+    <Content Include="assets\css\images\notificaciones\bg.png" />
+    <Content Include="assets\css\images\notificaciones\chevron-off.png" />
+    <Content Include="assets\css\images\notificaciones\chevron.png" />
+    <Content Include="assets\css\images\notificaciones\edit.gif" />
+    <Content Include="assets\css\images\notificaciones\error-ico.png" />
+    <Content Include="assets\css\images\notificaciones\help.gif" />
+    <Content Include="assets\css\images\notificaciones\ico_buscar.png" />
+    <Content Include="assets\css\images\notificaciones\ico_incompleto.png" />
+    <Content Include="assets\css\images\notificaciones\important.gif" />
+    <Content Include="assets\css\images\notificaciones\info-ico.png" />
+    <Content Include="assets\css\images\notificaciones\info-loader.gif" />
+    <Content Include="assets\css\images\notificaciones\info.gif" />
+    <Content Include="assets\css\images\notificaciones\information-ocre.png" />
+    <Content Include="assets\css\images\notificaciones\legend-bg.png" />
+    <Content Include="assets\css\images\notificaciones\message-icons.png" />
+    <Content Include="assets\css\images\notificaciones\success-ico.png" />
+    <Content Include="assets\css\images\notificaciones\title.gif" />
+    <Content Include="assets\css\images\notificaciones\warning_bt_fechar.gif" />
+    <Content Include="assets\css\images\notificaciones\warning_icons.gif" />
+    <Content Include="assets\css\jquery.alert.css" />
+    <Content Include="assets\css\main-responsive.css" />
+    <Content Include="assets\css\main.css" />
+    <Content Include="assets\css\notificaciones.css" />
+    <Content Include="assets\css\print.css" />
+    <Content Include="assets\css\theme_black_and_white.css" />
+    <Content Include="assets\css\theme_light.css" />
+    <Content Include="assets\css\theme_navy.css" />
+    <Content Include="assets\fonts\fonts\clip-font.svg" />
+    <Content Include="assets\fonts\lte-ie7.js" />
+    <Content Include="assets\fonts\style.css" />
+    <Content Include="assets\images\avatar-1-small.jpg" />
+    <Content Include="assets\images\bg_2.png" />
+    <Content Include="assets\images\bg_3.png" />
+    <Content Include="assets\images\bg_5.png" />
+    <Content Include="assets\images\cabecera.png" />
+    <Content Include="assets\images\Configuration_1.png" />
+    <Content Include="assets\images\Configuration_2.png" />
+    <Content Include="assets\images\Excel.png" />
+    <Content Include="assets\images\Foto_Renato_avatar.jpg" />
+    <Content Include="assets\images\home-20.png" />
+    <Content Include="assets\images\home-24.png" />
+    <Content Include="assets\images\home.png" />
+    <Content Include="assets\images\home_16.png" />
+    <Content Include="assets\images\home_24.png" />
+    <Content Include="assets\images\image04.jpg" />
+    <Content Include="assets\images\lightgrey.png" />
+    <Content Include="assets\images\loading.gif" />
+    <Content Include="assets\images\logo.jpg" />
+    <Content Include="assets\images\logoCabecera - copia.png" />
+    <Content Include="assets\images\logoCabecera.png" />
+    <Content Include="assets\images\logo_ministerio.png" />
+    <Content Include="assets\images\menu-white-arrow-rtl.png" />
+    <Content Include="assets\images\menu-white-arrow.png" />
+    <Content Include="assets\images\moduloAdmision.png" />
+    <Content Include="assets\images\moduloDigi.png" />
+    <Content Include="assets\images\moduloSalida.png" />
+    <Content Include="assets\images\moduloSecretarial.png" />
+    <Content Include="assets\images\new.png" />
+    <Content Include="assets\images\nuevo.png" />
+    <Content Include="assets\images\Renato_min.jpg" />
+    <Content Include="assets\images\Renato_min_2.jpg" />
+    <Content Include="assets\images\siged.png" />
+    <Content Include="assets\images\timer-piece.png" />
+    <Content Include="assets\images\userLogin.png" />
+    <Content Include="assets\images\índice.jpg" />
+    <Content Include="assets\jqGrid\css\ui.jqgrid.css" />
+    <Content Include="assets\jqGrid\js\i18n\grid.locale-es.js" />
+    <Content Include="assets\jqGrid\js\jquery.jqGrid.min.js" />
+    <Content Include="assets\js\form-elements.js" />
+    <Content Include="assets\js\form-validation.js" />
+    <Content Include="assets\js\index.js" />
+    <Content Include="assets\js\main.js" />
+    <Content Include="assets\js\ui-modals.js" />
+    <Content Include="assets\plugins\autosize\jquery.autosize.min.js" />
+    <Content Include="assets\plugins\blockUI\jquery.blockUI.js" />
+    <Content Include="assets\plugins\bootstrap-colorpalette\css\bootstrap-colorpalette.css" />
+    <Content Include="assets\plugins\bootstrap-colorpalette\js\bootstrap-colorpalette.js" />
+    <Content Include="assets\plugins\bootstrap-colorpicker\css\bootstrap-colorpicker.css" />
+    <Content Include="assets\plugins\bootstrap-colorpicker\js\bootstrap-colorpicker.js" />
+    <Content Include="assets\plugins\bootstrap-colorpicker\js\commits.js" />
+    <Content Include="assets\plugins\bootstrap-datepicker\js\bootstrap-datepicker.js" />
+    <Content Include="assets\plugins\bootstrap-daterangepicker\daterangepicker-bs3.css" />
+    <Content Include="assets\plugins\bootstrap-daterangepicker\daterangepicker.js" />
+    <Content Include="assets\plugins\bootstrap-daterangepicker\moment.min.js" />
+    <Content Include="assets\plugins\bootstrap-fileupload\bootstrap-fileupload.min.css" />
+    <Content Include="assets\plugins\bootstrap-fileupload\bootstrap-fileupload.min.js" />
+    <Content Include="assets\plugins\bootstrap-hover-dropdown\bootstrap-hover-dropdown.min.js" />
+    <Content Include="assets\plugins\bootstrap-modal\css\bootstrap-modal-bs3patch.css" />
+    <Content Include="assets\plugins\bootstrap-modal\css\bootstrap-modal.css" />
+    <Content Include="assets\plugins\bootstrap-modal\img\ajax-loader.gif" />
+    <Content Include="assets\plugins\bootstrap-modal\js\bootstrap-modal.js" />
+    <Content Include="assets\plugins\bootstrap-modal\js\bootstrap-modalmanager.js" />
+    <Content Include="assets\plugins\bootstrap-timepicker\js\bootstrap-timepicker.min.js" />
+    <Content Include="assets\plugins\bootstrap\css\bootstrap.min.css" />
+    <Content Include="assets\plugins\bootstrap\css\StyleSheet1.css" />
+    <Content Include="assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\plugins\bootstrap\js\bootstrap-alert.js" />
+    <Content Include="assets\plugins\bootstrap\js\bootstrap.js" />
+    <Content Include="assets\plugins\bootstrap\js\bootstrap.min.js" />
+    <Content Include="assets\plugins\ckeditor\adapters\jquery.js" />
+    <Content Include="assets\plugins\ckeditor\ckeditor.js" />
+    <Content Include="assets\plugins\DataTables\media\css\DT_bootstrap.css" />
+    <Content Include="assets\plugins\DataTables\media\js\DT_bootstrap.js" />
+    <Content Include="assets\plugins\datepicker\css\datepicker.css" />
+    <Content Include="assets\plugins\flot\jquery.flot.js" />
+    <Content Include="assets\plugins\flot\jquery.flot.pie.js" />
+    <Content Include="assets\plugins\flot\jquery.flot.resize.min.js" />
+    <Content Include="assets\plugins\font-awesome\css\font-awesome.css" />
+    <Content Include="assets\plugins\font-awesome\css\font-awesome.min.css" />
+    <Content Include="assets\plugins\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\plugins\fullcalendar\fullcalendar\fullcalendar.css" />
+    <Content Include="assets\plugins\fullcalendar\fullcalendar\fullcalendar.js" />
+    <Content Include="assets\plugins\iCheck\jquery.icheck.min.js" />
+    <Content Include="assets\plugins\iCheck\skins\all.css" />
+    <Content Include="assets\plugins\iCheck\skins\flat\_all.css" />
+    <Content Include="assets\plugins\iCheck\skins\futurico\futurico.css" />
+    <Content Include="assets\plugins\iCheck\skins\line\_all.css" />
+    <Content Include="assets\plugins\iCheck\skins\minimal\_all.css" />
+    <Content Include="assets\plugins\iCheck\skins\polaris\polaris.css" />
+    <Content Include="assets\plugins\iCheck\skins\square\_all.css" />
+    <Content Include="assets\plugins\jquery-address\address.css" />
+    <Content Include="assets\plugins\jquery-address\address.js" />
+    <Content Include="assets\plugins\jquery-cookie\jquery.cookie.js" />
+    <Content Include="assets\plugins\jquery-easy-pie-chart\jquery.easy-pie-chart.js" />
+    <Content Include="assets\plugins\jquery-inputlimiter\jquery.inputlimiter.1.3.1.min.js" />
+    <Content Include="assets\plugins\jQuery-lib\2.0.3\jquery.min.js" />
+    <Content Include="assets\plugins\jquery-maskmoney\jquery.maskMoney.js" />
+    <Content Include="assets\plugins\jQuery-Tags-Input\jquery.tagsinput.css" />
+    <Content Include="assets\plugins\jQuery-Tags-Input\jquery.tagsinput.js" />
+    <Content Include="assets\plugins\jquery-ui-touch-punch\jquery.ui.touch-punch.min.js" />
+    <Content Include="assets\plugins\jquery-ui\images\animated-overlay.gif" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_gloss-wave_55_5c9ccc_500x100_2.jpg" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-icons_222222_256x240.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-icons_454545_256x240.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-icons_888888_256x240.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="assets\plugins\jquery-ui\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="assets\plugins\jquery-ui\jquery-ui-1.10.1.custom.css" />
+    <Content Include="assets\plugins\jquery-ui\jquery-ui-1.10.1.custom.min.css" />
+    <Content Include="assets\plugins\jquery-ui\jquery-ui-1.10.1.custom.min.js" />
+    <Content Include="assets\plugins\jquery-ui\jquery-ui-1.10.2.custom.min.js" />
+    <Content Include="assets\plugins\jquery-ui\jquery-ui-1.8.2.custom.css" />
+    <Content Include="assets\plugins\jquery-validation\dist\jquery.validate.min.js" />
+    <Content Include="assets\plugins\jquery.maskedinput\src\jquery.maskedinput.js" />
+    <Content Include="assets\plugins\jquery.sparkline\jquery.sparkline.js" />
+    <Content Include="assets\plugins\less\less-1.5.0.min.js" />
+    <Content Include="assets\plugins\moment\moment.js" />
+    <Content Include="assets\plugins\perfect-scrollbar\src\jquery.mousewheel.js" />
+    <Content Include="assets\plugins\perfect-scrollbar\src\perfect-scrollbar.css" />
+    <Content Include="assets\plugins\perfect-scrollbar\src\perfect-scrollbar.js" />
+    <Content Include="assets\plugins\select2\select2-spinner.gif" />
+    <Content Include="assets\plugins\select2\select2.css" />
+    <Content Include="assets\plugins\select2\select2.min.js" />
+    <Content Include="assets\plugins\select2\select2.png" />
+    <Content Include="assets\plugins\summernote\build\summernote.css" />
+    <Content Include="assets\plugins\summernote\build\summernote.min.js" />
+    <Content Include="assets\plugins\typeaheadjs\lib\typeahead.js" />
+    <Content Include="assets\plugins\typeaheadjs\lib\typeahead.js-bootstrap.css" />
+    <Content Include="assets\plugins\typeaheadjs\typeaheadjs.js" />
+    <Content Include="assets\plugins\wysihtml5\bootstrap-wysihtml5-0.0.2\bootstrap-wysihtml5-0.0.2.css" />
+    <Content Include="assets\plugins\wysihtml5\bootstrap-wysihtml5-0.0.2\bootstrap-wysihtml5.js" />
+    <Content Include="assets\plugins\wysihtml5\bootstrap-wysihtml5-0.0.2\wysihtml5-0.3.0.min.js" />
+    <Content Include="assets\plugins\wysihtml5\bootstrap-wysihtml5-0.0.2\wysiwyg-color.css" />
+    <Content Include="assets\plugins\wysihtml5\wysihtml5.js" />
+    <Content Include="assets\plugins\x-editable\css\bootstrap-editable.css" />
+    <Content Include="assets\plugins\x-editable\demo-mock.js" />
+    <Content Include="assets\plugins\x-editable\demo.js" />
+    <Content Include="assets\plugins\x-editable\img\clear.png" />
+    <Content Include="assets\plugins\x-editable\img\loading.gif" />
+    <Content Include="assets\plugins\x-editable\js\bootstrap-editable.min.js" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
+    <Content Include="Content\themes\base\jquery.ui.all.css" />
+    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
+    <Content Include="Content\themes\base\jquery.ui.base.css" />
+    <Content Include="Content\themes\base\jquery.ui.button.css" />
+    <Content Include="Content\themes\base\jquery.ui.core.css" />
+    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
+    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
+    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
+    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
+    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
+    <Content Include="Content\themes\base\jquery.ui.slider.css" />
+    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
+    <Content Include="Content\themes\base\jquery.ui.theme.css" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
+    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="css\bootstrap-colorpicker.min.css" />
+    <Content Include="css\bootstrap-select.min.css" />
+    <Content Include="css\bootstrap-switch.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\buttons.dataTables.min.css" />
+    <Content Include="css\ChartStyle.css" />
+    <Content Include="css\dataTables.responsive.css" />
+    <Content Include="css\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="css\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="css\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="css\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="css\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="css\jquery.dataTables.css" />
+    <Content Include="css\pace-theme-corner-indicator.css" />
+    <Content Include="css\pace-theme-flash.css" />
+    <Content Include="css\pace-theme-mac-osx.css" />
+    <Content Include="css\pagination.css" />
+    <Content Include="css\plugins\bootstrap-datetimepicker\bootstrap-datetimepicker.min.css" />
+    <Content Include="css\plugins\bootstrap-timepicker\bootstrap-timepicker.min.css" />
+    <Content Include="css\plugins\dataTables.bootstrap.css" />
+    <Content Include="css\plugins\metisMenu\metisMenu.css" />
+    <Content Include="css\plugins\metisMenu\metisMenu.min.css" />
+    <Content Include="css\plugins\morris.css" />
+    <Content Include="css\plugins\social-buttons.css" />
+    <Content Include="css\plugins\timeline.css" />
+    <Content Include="css\sb-admin-2.css" />
+    <Content Include="css\signin.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="assets\fonts\fonts\clip-font.eot" />
+    <Content Include="assets\fonts\fonts\clip-font.ttf" />
+    <Content Include="assets\fonts\fonts\clip-font.woff" />
+    <Content Include="assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="assets\plugins\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="assets\plugins\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\plugins\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\plugins\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\plugins\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="assets\plugins\font-awesome\less\bordered-pulled.less" />
+    <Content Include="assets\plugins\font-awesome\less\core.less" />
+    <Content Include="assets\plugins\font-awesome\less\fixed-width.less" />
+    <Content Include="assets\plugins\font-awesome\less\font-awesome.less" />
+    <Content Include="assets\plugins\font-awesome\less\icons.less" />
+    <Content Include="assets\plugins\font-awesome\less\larger.less" />
+    <Content Include="assets\plugins\font-awesome\less\list.less" />
+    <Content Include="assets\plugins\font-awesome\less\mixins.less" />
+    <Content Include="assets\plugins\font-awesome\less\path.less" />
+    <Content Include="assets\plugins\font-awesome\less\rotated-flipped.less" />
+    <Content Include="assets\plugins\font-awesome\less\spinning.less" />
+    <Content Include="assets\plugins\font-awesome\less\stacked.less" />
+    <Content Include="assets\plugins\font-awesome\less\variables.less" />
+    <Content Include="assets\plugins\font-awesome\scss\font-awesome.scss" />
+    <Content Include="assets\plugins\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="assets\plugins\font-awesome\scss\_core.scss" />
+    <Content Include="assets\plugins\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="assets\plugins\font-awesome\scss\_icons.scss" />
+    <Content Include="assets\plugins\font-awesome\scss\_larger.scss" />
+    <Content Include="assets\plugins\font-awesome\scss\_list.scss" />
+    <Content Include="assets\plugins\font-awesome\scss\_mixins.scss" />
+    <Content Include="assets\plugins\font-awesome\scss\_path.scss" />
+    <Content Include="assets\plugins\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="assets\plugins\font-awesome\scss\_spinning.scss" />
+    <Content Include="assets\plugins\font-awesome\scss\_stacked.scss" />
+    <Content Include="assets\plugins\font-awesome\scss\_variables.scss" />
+    <Content Include="header.html" />
+    <Content Include="Images\alerta-off.jpg" />
+    <Content Include="Images\alerta-on.jpg" />
+    <Content Include="Images\Alert_Icon.ico" />
+    <Content Include="Images\archivo-off.jpg" />
+    <Content Include="Images\archivo-on.jpg" />
+    <Content Include="Images\Boton_alerta.gif" />
+    <Content Include="Images\cab_vol.jpg" />
+    <Content Include="Images\camera-icon.png" />
+    <Content Include="Images\compromiso-off.jpg" />
+    <Content Include="Images\compromiso-on.jpg" />
+    <Content Include="Images\Consultaprevia2.png" />
+    <Content Include="Images\convetir_doc.jpg" />
+    <Content Include="Images\ejecucion-off.jpg" />
+    <Content Include="Images\ejecucion-on.jpg" />
+    <Content Include="Images\google_dots_suspensivos.gif" />
+    <Content Include="Images\Graphicloads-Filetype-Pdf.ico" />
+    <Content Include="Images\Icono_Chrome.ico" />
+    <Content Include="Images\Icono_Chrome.jpg" />
+    <Content Include="Images\ImgMenuPrincipal-16.png" />
+    <Content Include="Images\ImgMenuPrincipal-20.png" />
+    <Content Include="Images\ImgMenuPrincipal-24.png" />
+    <Content Include="Images\logo-consulta-previa.png" />
+    <Content Include="Images\logo_ConvocatoriasCAS.png" />
+    <Content Include="Images\logo_ministerio.jpg" />
+    <Content Include="Images\Multimedia.png" />
+    <Content Include="Images\participante-off.jpg" />
+    <Content Include="Images\participante-on.jpg" />
+    <Content Include="Images\Popup1.jpg" />
+    <Content Include="Images\print-icon.png" />
+    <Content Include="Images\sort_asc.png" />
+    <Content Include="Images\sort_both.png" />
+    <Content Include="Images\sort_desc.png" />
+    <Content Include="Images\vence-ambar.jpg" />
+    <Content Include="Images\vence-blanco.jpg" />
+    <Content Include="Images\vence-gris.jpg" />
+    <Content Include="Images\vence-marron.jpg" />
+    <Content Include="Images\vence-rojo.jpg" />
+    <Content Include="Images\vence-verde.jpg" />
+    <Content Include="js\Funciones.js" />
+    <Content Include="js\jquery.mask.min.js" />
+    <Content Include="js\plugins\htmltable_export\demo.php" />
+    <Content Include="js\plugins\htmltable_export\simple_html_dom.php" />
+    <Content Include="js\plugins\htmltable_export\tableExtractor.php" />
+    <Content Include="Archivos\ManualUsuario.pdf" />
+    <None Include="Properties\PublishProfiles\MCCAS.pubxml" />
+    <Content Include="Scripts\datatables.min.js" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="js\bootstrap-colorpicker.js" />
+    <Content Include="js\bootstrap-paginator.min.js" />
+    <Content Include="js\bootstrap-select.min.js" />
+    <Content Include="js\bootstrap-switch.js" />
+    <Content Include="js\bootstrap.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\bootstrap3-typeahead.js" />
+    <Content Include="js\dataTables.responsive.js" />
+    <Content Include="js\jquery.js" />
+    <Content Include="js\pace.min.js" />
+    <Content Include="js\pages-gallery.js" />
+    <Content Include="js\plugins\bootbox\bootbox.min.js" />
+    <Content Include="js\plugins\bootstrap-datetimepicker\bootstrap-datetimepicker.es-PE.js" />
+    <Content Include="js\plugins\bootstrap-datetimepicker\bootstrap-datetimepicker.min.js" />
+    <Content Include="js\plugins\bootstrap-timepicker\bootstrap-timepicker.min.js" />
+    <Content Include="js\plugins\Charts\Chart.js" />
+    <Content Include="js\plugins\Charts\Chart.min.js" />
+    <Content Include="js\plugins\dataTables\dataTables.bootstrap.js" />
+    <Content Include="js\plugins\dataTables\jquery.dataTables.js" />
+    <Content Include="js\plugins\flot\excanvas.min.js" />
+    <Content Include="js\plugins\flot\flot-data.js" />
+    <Content Include="js\plugins\flot\jquery.flot.js" />
+    <Content Include="js\plugins\flot\jquery.flot.pie.js" />
+    <Content Include="js\plugins\flot\jquery.flot.resize.js" />
+    <Content Include="js\plugins\flot\jquery.flot.tooltip.min.js" />
+    <Content Include="js\plugins\htmltable_export\html2canvas.js" />
+    <Content Include="js\plugins\htmltable_export\icons\csv.png" />
+    <Content Include="js\plugins\htmltable_export\icons\json.png" />
+    <Content Include="js\plugins\htmltable_export\icons\pdf.png" />
+    <Content Include="js\plugins\htmltable_export\icons\png.png" />
+    <Content Include="js\plugins\htmltable_export\icons\ppt.png" />
+    <Content Include="js\plugins\htmltable_export\icons\sql.png" />
+    <Content Include="js\plugins\htmltable_export\icons\txt.png" />
+    <Content Include="js\plugins\htmltable_export\icons\word.png" />
+    <Content Include="js\plugins\htmltable_export\icons\xls.png" />
+    <Content Include="js\plugins\htmltable_export\icons\xml.png" />
+    <Content Include="js\plugins\htmltable_export\jquery.base64.js" />
+    <Content Include="js\plugins\htmltable_export\jspdf\jspdf.js" />
+    <Content Include="js\plugins\htmltable_export\jspdf\libs\base64.js" />
+    <Content Include="js\plugins\htmltable_export\jspdf\libs\sprintf.js" />
+    <Content Include="js\plugins\htmltable_export\tableExport.js" />
+    <Content Include="js\plugins\jquery-mockjax\jquery.mockjax.js" />
+    <Content Include="js\plugins\metisMenu\metisMenu.js" />
+    <Content Include="js\plugins\metisMenu\metisMenu.min.js" />
+    <Content Include="js\plugins\morris\morris-data.js" />
+    <Content Include="js\plugins\morris\morris.js" />
+    <Content Include="js\plugins\morris\morris.min.js" />
+    <Content Include="js\plugins\morris\raphael.min.js" />
+    <Content Include="js\plugins\select2\select2.min.js" />
+    <Content Include="js\sb-admin-2.js" />
+    <Content Include="js\Vistas\Gestion\Comite.js" />
+    <Content Include="js\Vistas\Gestion\ConsultaGeneral.js" />
+    <Content Include="js\Vistas\Gestion\Evaluacion.js" />
+    <Content Include="js\Vistas\Gestion\Resultados.js" />
+    <Content Include="js\Vistas\Gestion\TablaGeneral.js" />
+    <Content Include="js\Vistas\Postulacion\DatosGen.js" />
+    <Content Include="js\Vistas\Postulacion\Ficha.js" />
+    <Content Include="js\Vistas\Postulacion\FichaDetalle.js" />
+    <Content Include="js\Vistas\User\CambiarContrasena.js" />
+    <Content Include="js\Vistas\User\Login.js" />
+    <Content Include="js\Vistas\User\Menu.js" />
+    <Content Include="Reports\RPT_FICHA.aspx" />
+    <Content Include="Scripts2\autocomplete.js" />
+    <Content Include="Scripts2\inicializacion.js" />
+    <Content Include="Scripts2\jlayout.border.js" />
+    <Content Include="Scripts2\jquery-1.9.1.min.js" />
+    <Content Include="Scripts2\jquery-migrate-1.0.0.js" />
+    <Content Include="Scripts2\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts2\jquery.alerts.js" />
+    <Content Include="Scripts2\jquery.blockUI.js" />
+    <Content Include="Scripts2\jquery.form.js" />
+    <Content Include="Scripts2\jquery.jlayout.js" />
+    <Content Include="Scripts2\jquery.jqGrid.min.js" />
+    <Content Include="Scripts2\jquery.maskedinput-1.3.min.js" />
+    <Content Include="Scripts2\jquery.sizes.js" />
+    <Content Include="Scripts2\jquery.ui.timepicker.min.js" />
+    <Content Include="Scripts2\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts2\jquery.validate.js" />
+    <Content Include="Scripts2\jquery.validate.realTime.js" />
+    <Content Include="Scripts2\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts2\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts2\JSLINQ.js" />
+    <Content Include="Scripts2\js\Asignacion\ArchivosAdjuntos.js" />
+    <Content Include="Scripts2\js\Asignacion\Asignacion.js" />
+    <Content Include="Scripts2\js\General.js" />
+    <Content Include="Scripts2\js\modSecretarial\CorrelativoDocumento.js" />
+    <Content Include="Scripts2\js\modSecretarial\DetalleNuevoDocumento.js" />
+    <Content Include="Scripts2\js\modSecretarial\Documento.js" />
+    <Content Include="Scripts2\modernizr-2.6.2.js" />
+    <Content Include="Scripts2\SITRADOC.js" />
+    <Content Include="Scripts2\ui.datepicker-es.js" />
+    <Content Include="Scripts2\ui.datepicker-pt.js" />
+    <Content Include="Scripts\buttons.colVis.min.js" />
+    <Content Include="Scripts\buttons.html5.min.js" />
+    <Content Include="Scripts\buttons.print.min.js" />
+    <Content Include="Scripts\dataTables.buttons.min.js" />
+    <Content Include="Scripts\jquery-1.8.2.js" />
+    <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jszip.min.js" />
+    <Content Include="Scripts\knockout-2.2.0.debug.js" />
+    <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\pdfmake.min.js" />
+    <Content Include="Scripts\vfs_fonts.js" />
+    <Content Include="Service References\SR_AUT\AppMC.SR_AUT.changePin4Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SR_AUT\AppMC.SR_AUT.getDTD0Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SR_AUT\AppMC.SR_AUT.getSecureCode1Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SR_AUT\AppMC.SR_AUT.getTicket5Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SR_AUT\AppMC.SR_AUT.loginValidation3Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SR_AUT\AppMC.SR_AUT.registerUser2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\SR_AUT\configuration91.svcinfo" />
+    <None Include="Service References\SR_AUT\configuration.svcinfo" />
+    <None Include="Service References\SR_AUT\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\SR_DNI\AppMC.SR_DNI.dataVerification0Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SR_DNI\AppMC.SR_DNI.getDatapersonal2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\SR_DNI\AppMC.SR_DNI.getDatavalidate1Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\SR_DNI\configuration91.svcinfo" />
+    <None Include="Service References\SR_DNI\configuration.svcinfo" />
+    <None Include="Service References\SR_DNI\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.actualizarAdministradoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.actualizarInformacionEmpresaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.actualizarInformacionPersonaEmpresaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.buscarEmpresaPorNroRucResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.buscarUsuarioEmpresaPorDocumentoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.buscarUsuarioPorDocumentoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.cambiarContrasenaUsuarioEmpresaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.cambiarContrasenaUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.DesbloquearUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.DeshabilitarUsuarioEmpresaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.DeshabilitarUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.eliminatodosperfilesaplicativosusuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.HabilitarUsuarioEmpresaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.HabilitarUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.insertarCorreoTelefonoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.insertarEmpresaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.insertarPerfilUsuarioEmpresaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.insertarPerfilUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.insertarPersonaEmpresaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.insertarPersonaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.insertarUsuarioEmpresaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.insertarUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.leerAdministradoPorNombreResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.leerEmpresaPorCodigoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.leerEmpresaPorCodigoyAplicativoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.leerEmpresaPorNombreyAplicativoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.leerPerfilUsuarioEmpresaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.leerPerfilUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.leerPersonaPorCodigoEmpresaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.leerPersonaPorCodigoEmpresayAplicativoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.leerPersonaPorDocumentoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.leerSesionEmpresaPorNumeroResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.leerSesionPorNumeroResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.leerUsuarioEmpresaPorLoginResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.leerUsuarioPorLoginResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.listarAplicativoPorCodigoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.listarAplicativoPorUsuarioResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.listarAplicativosActivoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.listarPerfilesPorAplicativoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.listarPerfilesxUsuarioAplicativoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.sesionIniciarWebEmpresaResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\wsAcceso\AppMC.wsAcceso.sesionIniciarWebResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\SR_AUT\WSAuthentication.wsdl" />
+    <None Include="Service References\SR_DNI\WSDataVerification.wsdl" />
+    <None Include="Service References\wsAcceso\configuration91.svcinfo" />
+    <None Include="Service References\wsAcceso\configuration.svcinfo">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\wsAcceso\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Images\accent.png" />
+    <Content Include="Images\bullet.png" />
+    <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\orderedList0.png" />
+    <Content Include="Images\orderedList1.png" />
+    <Content Include="Images\orderedList2.png" />
+    <Content Include="Images\orderedList3.png" />
+    <Content Include="Images\orderedList4.png" />
+    <Content Include="Images\orderedList5.png" />
+    <Content Include="Images\orderedList6.png" />
+    <Content Include="Images\orderedList7.png" />
+    <Content Include="Images\orderedList8.png" />
+    <Content Include="Images\orderedList9.png" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+    <None Include="Service References\wsAcceso\SessionService.wsdl" />
+    <None Include="Service References\wsAcceso\SessionService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Postulacion\Ficha.cshtml" />
+    <Content Include="Views\Postulacion\DatosGen.cshtml" />
+    <Content Include="Views\User\CambiarContrasena.cshtml" />
+    <Content Include="Views\Gestion\Comite.cshtml" />
+    <Content Include="Views\Gestion\Evaluacion.cshtml" />
+    <Content Include="Views\Shared\_Modal.cshtml" />
+    <Content Include="Views\Gestion\TablaGeneral.cshtml" />
+    <Content Include="Views\Gestion\Resultados.cshtml" />
+    <Content Include="Views\Gestion\ConsultaGeneral.cshtml" />
+    <Content Include="Views\Gestion\Ganadores.cshtml" />
+    <Content Include="Views\Gestion\ListadoVol.cshtml" />
+    <Content Include="Views\Gestion\Voluntariado.cshtml" />
+    <Content Include="Views\Gestion\Voluntariado_D.cshtml" />
+    <Content Include="Views\Gestion\Actividad_D.cshtml" />
+    <Content Include="Web References\ws_DNI\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Views\User\update.cshtml" />
+    <Content Include="Views\Gestion\ResultadosVol.cshtml" />
+    <Content Include="Views\Gestion\Asistencia.cshtml" />
+    <None Include="Web References\SR_CE\MigraCarnetdeExtrajeria.wsdl" />
+    <Content Include="Web References\SR_CE\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web References\SR_CE\respuestaBean.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <None Include="Web References\ws_DNI\ReniecConsultaDni.wsdl" />
+    <Content Include="Web References\ws_DNI\resultadoActualizacionCredencial.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+    <Content Include="Web References\ws_DNI\resultadoConsulta.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\SR_AUT\" />
+    <WCFMetadataStorage Include="Service References\SR_DNI\" />
+    <WCFMetadataStorage Include="Service References\wsAcceso\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://ws3.pide.gob.pe/services/MigraCarnetdeExtrajeria%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SR_CE\</RelPath>
+      <UpdateFromURL>https://ws3.pide.gob.pe/services/MigraCarnetdeExtrajeria%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>AppMC_SR_CE_MigraCarnetdeExtrajeria</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://ws5.pide.gob.pe/services/ReniecConsultaDni%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ws_DNI\</RelPath>
+      <UpdateFromURL>https://ws5.pide.gob.pe/services/ReniecConsultaDni%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>AppMC_ws_DNI_ReniecConsultaDni</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>8844</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:8844/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

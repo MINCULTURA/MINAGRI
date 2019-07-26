@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://pe/gob/reniec/wsauth/WSAuthentication.wsdl" xmlns:ns1="http://pe.gob.reniec.wsauth/IWSAuthentication.xsd" name="WSAuthentication" targetNamespace="http://pe/gob/reniec/wsauth/WSAuthentication.wsdl" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://pe.gob.reniec.wsauth/IWSAuthentication.xsd" />
+  </types>
+  <message name="getSecureCode1Request" />
+  <message name="registerUser2Request">
+    <part name="nombre" type="xsd:string" />
+    <part name="paterno" type="xsd:string" />
+    <part name="materno" type="xsd:string" />
+    <part name="fechanac" type="xsd:string" />
+    <part name="dni" type="xsd:string" />
+    <part name="email" type="xsd:string" />
+  </message>
+  <message name="getDTD0Response">
+    <part name="return" type="xsd:string" />
+  </message>
+  <message name="getDTD0Request" />
+  <message name="getTicket5Request">
+    <part name="user" type="xsd:string" />
+    <part name="password" type="xsd:string" />
+  </message>
+  <message name="loginValidation3Response">
+    <part name="return" type="xsd:string" />
+  </message>
+  <message name="loginValidation3Request">
+    <part name="userID" type="xsd:string" />
+    <part name="encriptCode" type="xsd:string" />
+    <part name="key" type="xsd:string" />
+  </message>
+  <message name="getSecureCode1Response">
+    <part name="return" type="xsd:string" />
+  </message>
+  <message name="getTicket5Response">
+    <part name="return" type="xsd:string" />
+  </message>
+  <message name="changePin4Response">
+    <part name="return" type="xsd:string" />
+  </message>
+  <message name="registerUser2Response">
+    <part name="return" type="xsd:string" />
+  </message>
+  <message name="changePin4Request">
+    <part name="userID" type="xsd:string" />
+    <part name="encriptCode" type="xsd:string" />
+    <part name="key" type="xsd:string" />
+  </message>
+  <portType name="WSAuthenticationPortType">
+    <operation name="getDTD">
+      <input name="getDTD0Request" message="tns:getDTD0Request" />
+      <output name="getDTD0Response" message="tns:getDTD0Response" />
+    </operation>
+    <operation name="getSecureCode">
+      <input name="getSecureCode1Request" message="tns:getSecureCode1Request" />
+      <output name="getSecureCode1Response" message="tns:getSecureCode1Response" />
+    </operation>
+    <operation name="registerUser">
+      <input name="registerUser2Request" message="tns:registerUser2Request" />
+      <output name="registerUser2Response" message="tns:registerUser2Response" />
+    </operation>
+    <operation name="loginValidation">
+      <input name="loginValidation3Request" message="tns:loginValidation3Request" />
+      <output name="loginValidation3Response" message="tns:loginValidation3Response" />
+    </operation>
+    <operation name="changePin">
+      <input name="changePin4Request" message="tns:changePin4Request" />
+      <output name="changePin4Response" message="tns:changePin4Response" />
+    </operation>
+    <operation name="getTicket">
+      <input name="getTicket5Request" message="tns:getTicket5Request" />
+      <output name="getTicket5Response" message="tns:getTicket5Response" />
+    </operation>
+  </portType>
+  <binding name="WSAuthenticationBinding" type="tns:WSAuthenticationPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <operation name="getDTD">
+      <soap:operation soapAction="getDTD" style="rpc" />
+      <input name="getDTD0Request">
+        <soap:body use="encoded" namespace="WSAuthentication" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output name="getDTD0Response">
+        <soap:body use="encoded" namespace="WSAuthentication" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getSecureCode">
+      <soap:operation soapAction="getSecureCode" style="rpc" />
+      <input name="getSecureCode1Request">
+        <soap:body use="encoded" namespace="WSAuthentication" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output name="getSecureCode1Response">
+        <soap:body use="encoded" namespace="WSAuthentication" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="registerUser">
+      <soap:operation soapAction="registerUser" style="rpc" />
+      <input name="registerUser2Request">
+        <soap:body use="encoded" namespace="WSAuthentication" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output name="registerUser2Response">
+        <soap:body use="encoded" namespace="WSAuthentication" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="loginValidation">
+      <soap:operation soapAction="loginValidation" style="rpc" />
+      <input name="loginValidation3Request">
+        <soap:body use="encoded" namespace="WSAuthentication" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output name="loginValidation3Response">
+        <soap:body use="encoded" namespace="WSAuthentication" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="changePin">
+      <soap:operation soapAction="changePin" style="rpc" />
+      <input name="changePin4Request">
+        <soap:body use="encoded" namespace="WSAuthentication" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output name="changePin4Response">
+        <soap:body use="encoded" namespace="WSAuthentication" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getTicket">
+      <soap:operation soapAction="getTicket" style="rpc" />
+      <input name="getTicket5Request">
+        <soap:body use="encoded" namespace="WSAuthentication" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output name="getTicket5Response">
+        <soap:body use="encoded" namespace="WSAuthentication" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="WSAuthentication">
+    <port name="WSAuthenticationPort" binding="tns:WSAuthenticationBinding">
+      <soap:address location="http://ws5.pide.gob.pe/services/ReniecAuthentication" />
+    </port>
+  </service>
+</definitions>

@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "Evaluacion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model AppMC.Models.GestionModels.ProcesoComite
+
+<div class="row">
+    <div class="col-lg-2">
+        <h2>Evaluación</h2>
+    </div>
+    <div class="col-lg-9" style="padding-top:20px;">
+        <h5><b>PROCESOS EN LOS QUE PARTICIPÓ COMO MIEMBRO DEL COMITÉ DE EVALUACIÓN O COORDINADOR DE VOLUNTARIADO:</b></h5>
+    </div>
+    <div class="col-lg-1" style="padding-top:20px;font-weight:bold">
+        <select tabindex="-1" id="NANIO_G" class="form-control" onchange="ListarProceso()">
+            <option value="2019">2019</option>
+            <option value="2018">2018</option>
+            <option value="2017">2017</option>
+        </select>
+    </div>
+</div>
+    <input type="hidden" id="txtcodusu" class="form-control" value="@ViewBag.NCODIGOUSUARIO" />
+    <input type="hidden" id="txtperfil" class="form-control" value="@ViewBag.NIDPERFIL" />
+    <input type="hidden" id="txtidControl" value="0" />
+    <input type="hidden" id="txtPuntaje" value="0" />
+    <input type="hidden" id="NTIPOEVALUADOR" value="0" />
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="table-responsive" style="font-size:11px;">
+                <table class="display compact" id="tbl_Proceso" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th style="display:none; text-align:center;">NIDCOMITE</th>
+                            <th style="display:none; text-align:center;">NIDPERSONAL</th>
+                            <th style="display:none; text-align:center;">NIDPROCESO</th>
+                            <th style="text-align:center; width:20%;">PROCESO</th>
+                            <th style="text-align:center; width:70%;">SERVICIO / ACTIVIDAD</th>
+                            <th style="text-align: center; width: 10%;">VER POST.</th>
+                            <th style="display:none; text-align:center;">NTIPO_EVALUADOR</th>
+                            <th style="display:none; text-align:center;">NELENCO</th>
+                            <th style="display:none; text-align:center;">ESATDO_EVAL</th>
+                            <th style="display:none; text-align:center;">NMODIFICA</th>
+                            <th style="display:none; text-align:center;">NIDACTIVIDAD</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <h5><b>POSTULANTES:</b></h5>
+        </div>
+        <div class="col-lg-9" style="padding-top:8px">
+            <label class="control-label" id="lblnomProceso" style="font-size: 11px; color: darkblue;"></label><br /><br />
+        </div>
+    </div>
+    <div id="divEC" style="DISPLAY:NONE"></div>
+    <div class="row" id="divCAS">
+        <div class="col-lg-11">
+            <div class="table-responsive" style="font-size:11px;">
+                <table class="display compact" id="tbl_Postulacion" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                            <th style="display:none; text-align:center;">NIDCODIGOUSUARIO</th>
+                            <th style="display:none; text-align:center;">NIDPROCESO</th>
+                            <th style="text-align: center; width: 45%;">POSTULANTE</th>
+                            <th id="th_eval_curr" style="text-align: center; width: 15%;">EVALUACIÓN CURRICULAR</th>
+                            <th style="text-align: center; width: 15%;">E.C. RESULTADO</th>
+                            <th id="th_neval_tecnica" style="text-align: center; width: 15%;">EVALUACIÓN TÉCNICA</th>
+                            <th id="th_entrevista" style="text-align: center; width: 15%;">ENTREVISTA PERSONAL</th>
+                            <th style="text-align: center; width: 15%;">DOCUMENTOS</th>
+                            <th style="display:none; text-align:center;">NEVAL_CUR</th>
+                            <th style="display:none; text-align:center;">NEVAL_TECNICA</th>
+                            <th style="display:none; text-align:center;">ENTREVISTA</th>
+                            <th style="text-align: center; width: 10%;">HORA ENVÍO</th>
+                            <th style="text-align: center; width: 10%;">Información Adicional</th>
+                            <th style="display:none;">NIDPROCESO</th>
+                            <th style="display:none;">NIDPROCESO</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="divVOL" style="display:none">
+        <div class="col-lg-11">
+            <div class="table-responsive" style="font-size:11px;">
+                <table class="display compact" id="tbl_PostulacionVol" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th style="display:none; text-align:center;">NIDPROCESOUSU</th>
+                            <th style="display:none; text-align:center;">NIDPROCESO</th>
+                            <th style="text-align: center; width: 45%;">POSTULANTE</th>
+                            <th style="text-align: center; width: 15%;">EVALUACIÓN</th>
+                            <th style="text-align: center; width: 15%;">DOCUMENTOS</th>
+                            <th style="text-align: center; width: 10%;">FECHA (MM-DD) Y HORA DE ENVÍO</th>
+                            <th style="text-align: center; width: 10%;">Información Adicional</th>
+                            <th style="display:none; ">ADD</th>
+                            <th style="display:none; ">ADD</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Conocimiento Informatico -->
+    <div id="ModalFicha" class="modal fade">
+        <div class="modal-dialog" style="width:80%">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Detalle de la Ficha</h4>
+                </div>
+                <div class="modal-body" style="font-size:12px">
+                    <div id="divFicha">
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="@Url.Content("~/js/Vistas/Gestion/Evaluacion.js")" type="text/javascript"></script>

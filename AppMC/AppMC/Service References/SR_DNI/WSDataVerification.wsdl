@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://pe/gob/reniec/wsauth/WSDataVerification.wsdl" xmlns:ns1="http://pe.gob.reniec.wsauth/IWSDataVerification.xsd" name="WSDataVerification" targetNamespace="http://pe/gob/reniec/wsauth/WSDataVerification.wsdl" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://pe.gob.reniec.wsauth/IWSDataVerification.xsd" />
+  </types>
+  <message name="getDatavalidate1Request">
+    <part name="xmlDocumento" type="xsd:string" />
+  </message>
+  <message name="getDatapersonal2Response">
+    <part name="return" type="xsd:string" />
+  </message>
+  <message name="getDatapersonal2Request">
+    <part name="xmlDocumento" type="xsd:string" />
+  </message>
+  <message name="dataVerification0Request">
+    <part name="xmlDocumento" type="xsd:string" />
+  </message>
+  <message name="getDatavalidate1Response">
+    <part name="return" type="xsd:string" />
+  </message>
+  <message name="dataVerification0Response">
+    <part name="return" type="xsd:string" />
+  </message>
+  <portType name="WSDataVerificationPortType">
+    <operation name="dataVerification">
+      <input name="dataVerification0Request" message="tns:dataVerification0Request" />
+      <output name="dataVerification0Response" message="tns:dataVerification0Response" />
+    </operation>
+    <operation name="getDatavalidate">
+      <input name="getDatavalidate1Request" message="tns:getDatavalidate1Request" />
+      <output name="getDatavalidate1Response" message="tns:getDatavalidate1Response" />
+    </operation>
+    <operation name="getDatapersonal">
+      <input name="getDatapersonal2Request" message="tns:getDatapersonal2Request" />
+      <output name="getDatapersonal2Response" message="tns:getDatapersonal2Response" />
+    </operation>
+  </portType>
+  <binding name="WSDataVerificationBinding" type="tns:WSDataVerificationPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <operation name="dataVerification">
+      <soap:operation soapAction="dataVerification" style="rpc" />
+      <input name="dataVerification0Request">
+        <soap:body use="encoded" namespace="WSDataVerification" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output name="dataVerification0Response">
+        <soap:body use="encoded" namespace="WSDataVerification" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getDatavalidate">
+      <soap:operation soapAction="getDatavalidate" style="rpc" />
+      <input name="getDatavalidate1Request">
+        <soap:body use="encoded" namespace="WSDataVerification" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output name="getDatavalidate1Response">
+        <soap:body use="encoded" namespace="WSDataVerification" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+    <operation name="getDatapersonal">
+      <soap:operation soapAction="getDatapersonal" style="rpc" />
+      <input name="getDatapersonal2Request">
+        <soap:body use="encoded" namespace="WSDataVerification" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </input>
+      <output name="getDatapersonal2Response">
+        <soap:body use="encoded" namespace="WSDataVerification" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </output>
+    </operation>
+  </binding>
+  <service name="WSDataVerification">
+    <port name="WSDataVerificationPort" binding="tns:WSDataVerificationBinding">
+      <soap:address location="http://ws5.pide.gob.pe/services/ReniecVerification" />
+    </port>
+  </service>
+</definitions>

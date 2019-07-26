@@ -1,0 +1,310 @@
+﻿@{
+    ViewBag.Title = "Voluntariado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<input type="hidden" id="txtcodusu" class="form-control" value="@ViewBag.NCODIGOUSUARIO" />
+<input type="hidden" id="txtlat" class="form-control"  />
+<input type="hidden" id="txtlon" class="form-control"  />
+<input type="hidden" id="txterror" class="form-control" />
+<div class="row">
+    <div class="col-lg-12">
+        <h4>ACTIVIDADES EN DONDE HA SIDO SELECCIONADO(A) PARA SER PARTE DEL PROGRAMA DE VOLUNTARIADO</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="table-responsive">
+            <table class="display compact" id="tbl_Actividades" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="display:none;">NIDPROCESOUSU</th>
+                        <th style="display:none;">NIDACTIVIDAD</th>
+                        <th style="text-align:center; width:60%;">CONVOCATORIA</th>
+                        <th style="text-align:center; width:60%;">PROCESO</th>
+                        <th style="text-align:center; width:10%;">ACTIVIDAD</th>
+                        <th style="text-align:center; width:10%;">ASISTENCIA</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="row" >
+    <div class="col-lg-7">
+        <div class="table-responsive">
+            <table class="display compact" id="tbl_Asistencia" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="text-align:center; width:30%;">FECHA (AAAA-MM-DD)</th>
+                        <th style="text-align:center; width:25%;">HORA INGRESO</th>
+                        <th style="text-align:center; width:25%;">HORA SALIDA</th>
+                        <th style="text-align:center; width:20%;">ESTADO</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(window).load(function () {
+        ListarActividades();
+        ListarAsistencia(0);
+        setLocation();
+    });
+    function setLocation(){
+        if ("geolocation" in navigator) { //check geolocation available 
+            //try to get user current location using getCurrentPosition() method
+            navigator.geolocation.getCurrentPosition(function (position) {
+                $("#txtlat").val(position.coords.latitude) 
+                $("#txtlon").val(position.coords.longitude)
+                $("#txterror").val("OK")
+            }, function (error) {
+                // El segundo parámetro es la función de error
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        $("#txterror").val("D")
+                        break;
+                    default:
+                        $("#txterror").val("O")
+                        break;
+                }
+            });
+        } else {
+            $("#txterror").val("I")
+        }
+    }
+    function ListarActividades() {
+        var idred = true;
+        $.ajax({
+            url: 'http://swapps.cultura.gob.pe:84/sga/',
+            type: 'GET',
+            async: false,
+            datatype: 'json',
+            contentType: 'application/json',
+            success: function (result) {
+                console.log("OK")
+            },
+            error: function (a, b, c) {
+                bootbox.alert("Para esta opción es necesario estar dentro de la red del Ministerio de cultura.");
+                idred = false;
+            },
+            timeout: 7000
+        });
+        var idusu = $("#txtcodusu").val()
+        var dataObject = JSON.stringify({
+            'NOPT': 8,
+            'NIDPROCESO': idusu
+        });
+        $.ajax({
+            async: false,
+            url: baseUrl + 'Gestion/SP_LISTADO',
+            type: 'POST',
+            datatype: 'json',
+            contentType: 'application/json',
+            data: dataObject,
+            success: function (data) {
+                var inf = data;
+                var t = $('#tbl_Actividades').DataTable({
+                    data: inf,
+                    "order": [
+                                 [3, "desc"]
+                    ],
+                    "columnDefs": [
+                        { "width": "5%", "targets": 5, "orderable": false },
+                    ],
+                    "oLanguage": {
+                        "sProcessing": "Procesando...",
+                        "sInfoPostFix": "",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Ãšltimo",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    "lengthMenu": [[10, 20, 30, 40, 50, -1], [10, 20, 30, 40, 50, "Todo"]],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $('td:eq(0)', nRow).css("display", "none");
+                        $('td:eq(1)', nRow).css("display", "none");
+                        $('td:eq(2)', nRow).css("text-align", "left").css("width", "15%");
+                        $('td:eq(3)', nRow).css("text-align", "left").css("width", "25%");
+                        $('td:eq(4)', nRow).css("text-align", "left").css("width", "35%");
+                        $('td:eq(5)', nRow).css("text-align", "left").css("width", "25%");
+                        return nRow;
+                    },
+                    "bFilter": false,
+                    //"scrollX": true,
+                    "bLengthChange": false,
+                    "info": false,
+                    destroy: true,
+
+                    columns: [
+                        { data: 'NIDPROCESOUSU' },
+                        { data: 'NACTIVIDAD' },
+                        { data: 'DCONVOCATORIA' },
+                        { data: 'PROCESO' },
+                        { data: 'SACTIVIDAD' },
+                        { data: 'NASISTENCIA' },
+                    ]
+                });
+
+                var cont = 0;
+                t.on('order.dt search.dt', function () {
+                    cont += 1;
+                    if (cont == 1) {
+                        t.column(5, {}).nodes().each(function (cell, i) {
+                            t.column(0, {}).nodes().each(function (cell, j) { if (i == j) { NIDPROCESOUSU = cell.innerHTML; } });
+                            if (cell.innerHTML == "1" && idred) {
+                                dataObject = JSON.stringify({
+                                    'NOPT': 9,
+                                    'NIDPROCESO': NIDPROCESOUSU
+                                });
+                                $.ajax({
+                                    async: false,
+                                    url: baseUrl + 'Gestion/SP_LISTADO',
+                                    type: 'POST',
+                                    datatype: 'json',
+                                    contentType: 'application/json',
+                                    data: dataObject,
+                                    success: function (data) {
+                                        cell.innerHTML = "<span style='font-size:14px;font-weight:bold'>FECHA: " + data[0].FECHA + "</span>";
+                                        if (data[0].SHORA_ING == "S")
+                                            cell.innerHTML = cell.innerHTML + '<button type="button" class="btn btn-green" style = "margin-left:10px;" onclick="saveMarca(1,' + NIDPROCESOUSU + ',0)"> Marcar Ingreso </button>'
+                                        else {
+                                            cell.innerHTML = cell.innerHTML + ', <b>INGRESO: ' + data[0].SHORA_ING + '</b>';
+                                            if (data[0].SHORA_SAL == "S")
+                                                cell.innerHTML = cell.innerHTML + ' <button type="button" class="btn btn-green" style = "margin-left:10px;" onclick="saveMarca(2,' + NIDPROCESOUSU + ',' + data[0].NIDASISTENCIA + ')"> Marcar Salida </button>'
+                                            else
+                                                cell.innerHTML = cell.innerHTML + ', <b>SALIDA: ' + data[0].SHORA_SAL + '</b>';
+                                        }
+                                    }
+                                });
+                            }
+                            else
+                                cell.innerHTML = "";
+                        });
+                    }
+
+                }).draw();
+            }
+        });
+    }
+    $('#tbl_Actividades').on('click', 'tr', function (event) {
+        if (!$(this).hasClass('selected')) {
+            $('#tbl_Actividades').DataTable().$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+            ListarAsistencia($(this).closest('tr').find('td:eq(0)').text())
+        }
+    });
+    function ListarAsistencia(id) {
+        var dataObject = JSON.stringify({
+            'NOPT': 10,
+            'NIDPROCESO': id
+        });
+        $.ajax({
+            async: false,
+            url: baseUrl + 'Gestion/SP_LISTADO',
+            type: 'POST',
+            datatype: 'json',
+            contentType: 'application/json',
+            data: dataObject,
+            success: function (data) {
+                var inf = data;
+                var t = $('#tbl_Asistencia').DataTable({
+                    data: inf,
+                    "order": [
+                                 [0, "desc"]
+                    ],
+                    "oLanguage": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "<b>LISTADO DE ASISTENCIA:</b> Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron registros coincidentes",
+                        "sEmptyTable": "No hay registros disponibles",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Buscar:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Ãšltimo",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    "lengthMenu": [[20, 30, 40, 50, -1], [20, 30, 40, 50, "Todo"]],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $('td:eq(0)', nRow).css("text-align", "center").css("width", "30%");
+                        $('td:eq(1)', nRow).css("text-align", "center").css("width", "25%");
+                        $('td:eq(2)', nRow).css("text-align", "center").css("width", "25%");
+                        $('td:eq(3)', nRow).css("text-align", "center").css("width", "20%");
+                        return nRow;
+                    },
+                    "bFilter": true,
+                    //"scrollX": true,
+                    "bLengthChange": true,
+                    "info": true,
+                    destroy: true,
+
+                    columns: [
+                        { data: 'FECHA' },
+                        { data: 'SHORA_ING' },
+                        { data: 'SHORA_SAL' },
+                        { data: 'ESTADO' },
+                    ]
+                });
+            }
+        });
+    }
+    function saveMarca(tipo_hora, id_pu, id_asist) {
+        setLocation();
+        var dataObject = JSON.stringify({
+            'NIDASISTENCIA': id_asist,
+            'NIDPROCESOUSU': id_pu,
+            'NTIPO_MARCA': 1,
+            'NESTADO': 1,
+            'NTIPO_HORA': tipo_hora,
+            'SLONGITUD': $("#txtlon").val(),
+            'SLATITUD': $("#txtlat").val(),
+            'SERROR': $("#txterror").val()
+        });
+        bootbox.confirm("Está seguro de realizar esta operación?", function (resultado) {
+            if (resultado != true) {
+                return;
+            } else {
+                $.ajax({
+                    url: baseUrl + 'Postulacion/SP_GUARDAR_ASISTENCIA',
+                    type: 'POST',
+                    datatype: 'json',
+                    contentType: 'application/json',
+                    data: dataObject,
+                    success: function (result) {
+                        if (result.SMENSAJE == "OK")
+                        {
+                            var tipo = tipo_hora == 1 ? "ingreso" : "salida";
+                            ListarActividades();
+                            ListarAsistencia(id_pu)
+                            bootbox.alert("Acaba de realizar la marca de " + tipo + " de su asistencia.");
+                        }
+                        else
+                            bootbox.alert(result.SMENSAJE);
+                    }
+                });
+            }
+        });
+    }
+    </script>

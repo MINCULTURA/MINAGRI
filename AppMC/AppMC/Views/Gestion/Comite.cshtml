@@ -1,0 +1,488 @@
+﻿@{
+    ViewBag.Title = "Comite";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model AppMC.Models.PostulacionModels.ProcesoUsuario
+
+<input type="hidden" id="hddRUTADOC" value="@ViewBag.rutaDOC" />
+<input type="hidden" id="hddMAX_SIZE" value="@ViewBag.max_size" />
+
+<input type="hidden" id="FLG_UPLOAD" value="S" />
+<input type="hidden" id="SRUTADOC" />
+<input type="hidden" id="hdNREGISTRO" value="0"/>
+<input type="hidden" id="NPRIORIDAD" value="0"/>
+<style>
+    .nav-pills > li.active > a, .nav-pills > li.active > a:focus {
+        color: white;
+        background-color: #962a17;
+        font-size: 14px;
+        font-family: Arial;
+        font-weight: bold;
+    }
+
+    .nav-pills > li > a {
+        color: white;
+        font-size: 14px;
+        font-family: Arial;
+    }
+
+    .nav-pills > li.active > a:hover {
+        background-color: rgba(150,42,23,0.0901981);
+        color: rgb(255,255,255);
+    }
+
+    .nav-pills > li > a:hover {
+        background-color: rgba(255,255,255, 0.0901961);
+        color: rgb(255,255,255);
+    }
+</style>
+
+   
+<div class="row">
+    <div class="col-lg-2">
+        <h2>PROCESOS</h2>
+    </div>
+    <div class="col-lg-3" style="padding-top:20px">
+        <select tabindex="-1" id="NANIO_G" class="form-control" onchange="ListarProceso()">
+            <option value="2019">2019</option>
+            <option value="2018">2018</option>
+            <option value="2017">2017</option>
+        </select>
+    </div>
+    <div class="col-lg-7" style="text-align: right; padding-top: 20px">
+        <button type="button" class="btn btn-dark-grey" id="btn_AgregarProceso" onclick="AbrirModalPR('')" style="padding: 6px; font-size:13px; "> Agregar&nbsp;&nbsp;<i class="fa fa-plus"></i> </button><br /><br />
+    </div>
+</div>
+    <div class="row">
+        <div class="col-lg-12">
+<div class="table-responsive" style="font-size:11px;">
+                <table class="display compact" id="tbl_Proceso" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th style="display:none; text-align:center;">NIDPROCESO</th>
+                            <th style="display:none; text-align:center;">NIDCONVOCATORIA</th>
+                            <th style="text-align:center; width:20%;">CONVOCATORIA</th>
+                            <th style="text-align:center; width:20%;">PROCESO</th>
+                            <th style="text-align:center; width:70%;">SERVICIO</th>
+                            <th style="text-align:center; width:5%;">EDITAR</th>
+                            <th style="text-align: center; width: 10%;">VER MIEMBROS</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            &nbsp;
+        </div>
+    </div>
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="row">
+            <div class="col-lg-8">
+                <h5><b>MIEMBROS DEL COMITÉ:</b></h5><label class="control-label" id="lblnomProceso" style="font-size:11px;color:darkblue"></label>
+            </div>
+            <div class="col-lg-4" style="text-align:right">
+                <button type="button" class="btn btn-dark-grey" id="btn_AgregarMiembro" onclick="NuevoModalMI()" style="padding: 6px; font-size:13px; "> Agregar&nbsp;&nbsp;<i class="fa fa-plus"></i> </button>
+            </div>
+            <div class="col-lg-12">
+                <input type="hidden" id="SPROCESO" value="" />
+                <input type="hidden" id="SSERVICIO" value="" />
+                <input type="hidden" id="NIDPROCESO" value="0" />
+                <div class="table-responsive" style="font-size:11px;">
+                    <table class="display compact" id="tbl_Comite" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th style="display:none; text-align:center;">NIDCOMITE</th>
+                                <th style="display:none; text-align:center;">NIDPERSONAL</th>
+                                <th style="display:none; text-align:center;">NIDPROCESO</th>
+                                <th style="display:none; text-align:center;">PROCESO</th>
+                                <th style="text-align: center; width: 35%;">PERSONAL</th>
+                                <th style="text-align: center; width: 45%;">OFICINA DEL PERSONAL</th>
+                                <th style="text-align: center; width: 10%;">TIPO EVALUADOR</th>
+                                <th style="text-align:center; width:5%;">ELIMINAR</th>
+                                <th style="text-align:center; width:5%;">VER PROCESOS</th>
+                                <th style="text-align:center; width:5%;">HABILITAR</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-6">
+        <div class="row">
+            <div class="col-lg-12">
+                <h5><b>PROCESOS POR MIEMBRO DEL COMITÉ:</b></h5><label class="control-label" id="lblnomProcesoxMiembro" style="font-size:11px;color:darkblue"></label><br /><br />
+                <div class="table-responsive" style="font-size:11px;">
+                    <table class="display compact" id="tbl_ProcesosxMiembro" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th style="display:none; text-align:center;">NIDCOMITE</th>
+                                <th style="display:none; text-align:center;">NIDPERSONAL</th>
+                                <th style="display:none; text-align:center;">NIDPROCESO</th>
+                                <th style="text-align: center; width: 30%;">PROCESO</th>
+                                <th style="text-align: center; width: 70%;">SERVICIO</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    
+
+
+    <!-- Modal Comite -->
+    <div id="ModalComite" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="LimpiarComite();">&times;</button>
+                    <h4 class="modal-title">MIEMBRO DE COMITÉ</h4>
+                </div>
+                <div class="modal-body" style="font-size:12px;">
+                    <div id="divComite">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <label class="control-label">Proceso:</label>
+                                <label class="control-label" id="lblnomProceso2" style="font-size:11px;"></label>
+                                <input type="hidden" id="NIDPROCESO" value="0" />
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-lg-4">
+                                <label class="control-label">Tipo de evaluador:</label>
+                                <select tabindex="-1" id="NTIPO_EVALUADOR" class="form-control"></select>
+                            </div>
+                            <div class="col-lg-8">
+                                <input id="ID_ALL_C" type="checkbox" />&nbsp;&nbsp; Todos los procesos de esta convocatoria.<br />
+                                <input id="NPRINCIPAL" type="checkbox" checked />&nbsp;&nbsp; Principal.<br />
+                                <input id="NREEMPLAZO" type="checkbox" onclick="reemplazoChk(this.checked);" />&nbsp;&nbsp; Reemplazo.
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:10px;display:none" id="divR" >
+                            <div class="col-lg-12">
+                                <label class="control-label">Tipo de evaluación a reemplazar:</label><br />
+                                <input id="NREVALCUR" type="checkbox" checked />&nbsp;&nbsp; Evaluación Curricular.
+                                <input id="NREVALTEC" type="checkbox" checked />&nbsp;&nbsp; Evaluación Técnica.
+                                <input id="NRENTREVISTA" type="checkbox" checked />&nbsp;&nbsp; Entrevista.
+                            </div> 
+                            <div class="col-lg-12">
+                                <label class="control-label">Sustento:</label><br />
+
+                                <textarea id="DSUSTENTOR" name="DSUSTENTOR" maxlength="1000" style="height:35px" class="form-control" ></textarea>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-lg-12">
+                                <label class="control-label">Personal:</label>
+                                <select id="ddl_Personal" tabindex="-1" class="form-control search-select select2-offscreen" onchange="SetPersonal();"></select>
+                                <input type="hidden" id="NIDPERSONAL" value="0" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="LimpiarComite();">Cerrar&nbsp;&nbsp;<i class="clip-close"></i> </button>
+                    <button type="button" class="btn btn-dark-grey" id="btn_guardar" onclick="GuardarComite();">Guardar&nbsp;&nbsp;<i class="fa fa-save"></i> </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Modal Proceso -->
+    <div id="ModalProceso" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="width:70%">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="LimpiarProceso();">&times;</button>
+                    <h4 class="modal-title">PROCESO CAS</h4>
+                </div>
+                <div class="modal-body" style="font-size:10px;">
+                    <ul class="nav nav-pills nav-justified" style="background-color: rgba(150,42,23,0.7);">
+                        <li class="active"><a data-toggle="pill" href="#DatosProceso" style="">Configuración del Proceso</a></li>
+                        <li><a data-toggle="pill" href="#BasesProceso">Bases del Proceso</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="DatosProceso" class="tab-pane fade in active">
+                            <div class="row" style="display:none">
+                                <div class="col-lg-4">
+                                    <label class="control-label">N°:</label>
+                                    <input class="form-control" type="text" id="NIDPROCESO_M" disabled style="text-align: center" />
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:6px;">
+                                <div class="col-lg-6">
+                                    <div class="row col-lg-12">
+                                            <label class="control-label">Convocatoria:</label>
+                                            <select tabindex="-1" id="NIDCONVOCATORIA" class="form-control"></select>
+                                            <label class="control-label">Proceso:</label>
+                                            <input type="text" class="form-control" id="SPROCESO_M" maxlength="500">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="row col-lg-12 checkbox checkbox-primary">
+                                        <input id="NRNA_OBLIG" type="checkbox" /><label for="NRNA_OBLIG">RNA</label>
+                                    </div>
+                                    <div class="row col-lg-12 checkbox checkbox-primary">
+                                        <input id="NOBLIG_DJ" type="checkbox" /><label for="NOBLIG_DJ">DJ</label>
+                                    </div>
+                                    <div class="row col-lg-12 checkbox checkbox-primary">
+                                        <input id="NOCI" type="checkbox" /><label for="NOCI">OCI</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="row col-lg-12 checkbox checkbox-primary">
+                                        <input id="NCOLEGHAB_OBLIG" type="checkbox" /><label for="NCOLEGHAB_OBLIG">Coleg.Hab.</label>
+                                    </div>
+                                    <div class="row col-lg-12 checkbox checkbox-primary">
+                                        <input id="NCOLEG_OBLIG" type="checkbox" /><label for="NCOLEG_OBLIG">Colegiatura</label>
+                                    </div>
+                                    <div class="row col-lg-12 checkbox checkbox-primary">
+                                        <input id="NMESES" type="checkbox" /><label for="NMESES">Exp.Meses</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="row col-lg-12 checkbox checkbox-primary">
+                                        <input id="NOBLIG_BREVETE" type="checkbox" /><label for="NOBLIG_BREVETE">Brevete</label>
+                                    </div>
+                                    <div class="row col-lg-12 checkbox checkbox-primary">
+                                        <input id="BACTIVO" type="checkbox" /><label for="BACTIVO">Activo</label>
+                                    </div>
+                                    <div class="row col-lg-12 checkbox checkbox-primary">
+                                        <input id="NELENCO" type="checkbox" /><label for="NELENCO">Eval.Técnica</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-lg-12">
+                                    <label class="control-label">Servicio:</label>
+                                    <input type="text" class="form-control" id="SSERVICIO_M" maxlength="1000">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-lg-8">
+                                    <label class="control-label">Área usuaria:</label>
+                                    <select tabindex="-1" id="IDOFICODIGO" class="form-control search-select select2-offscreen" onchange="cargaMeta(this.value)"></select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label class="control-label">Fte.Fto:</label>
+                                    <select tabindex="-1" id="IDFTECODIGO" class="form-control">
+                                        <option value="0">Seleccione</option>
+                                        <option value="100">100 - R.O.</option>
+                                        <option value="109">109 - R.D.R.</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label class="control-label">Meta:</label>
+                                    <select tabindex="-1" id="SIAF" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-lg-5">
+                                    <label class="control-label">Puesto:</label>
+                                    <input type="text" class="form-control" id="DPUESTO" maxlength="500" style="display:none">
+                                    <select tabindex="-1" id="IDSERCASCODIGO" name="IDSERCASCODIGO" class="form-control search-select select2-offscreen" onchange="setPuesto(this.value)"></select>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="control-label">Lugar de Prestación:</label>
+                                    <input type="text" class="form-control" id="DLUGAR" maxlength="500">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label class="control-label">AIRHSP:</label>
+                                    <input type="text" class="form-control solo-numero" id="AIRHSP" maxlength="6">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-lg-12">
+                                    <label class="control-label">Objeto de contratación:</label>
+                                    <textarea id="DOBJETO" name="DOBJETO" maxlength="1000" style="height:45px" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-lg-2">
+                                    <label class="control-label">Experiencia Laboral:</label>
+                                </div>
+                                <div class="col-lg-1">
+                                    Genérica:&nbsp;&nbsp;<input type="text" class="form-control solo-numero" id="NEXP_GEN" maxlength="5" style="text-align:right">
+                                </div>
+                                <div class="col-lg-1">
+                                    Específica:&nbsp;&nbsp;<input type="text" class="form-control solo-numero" id="NEXP_ESP" maxlength="5" style="text-align:right">
+                                </div>
+
+                                <div class="col-lg-2">
+                                    N° de Plazas:<input type="text" class="form-control solo-numero" id="NPLAZAS" maxlength="5" style="text-align:right">
+                                </div>
+                                <div class="col-lg-2">
+                                    <label class="control-label">Sueldo:</label>
+                                    <input type="text" class="form-control solo-numero" id="NSUELDO" maxlength="5" style="text-align:right">
+                                </div>
+                                <div class="col-lg-4">
+                                    <label class="control-label">Duración:</label>
+                                    <input type="text" class="form-control" id="SDURACION" maxlength="500">
+                                </div>
+                            </div>
+                           
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-lg-4">
+                                    <label class="control-label">Formación académica permitida:</label>
+                                    <input type="hidden" id="hdItemsFA" value="">
+                                    <div id="itemsFA" style="padding-left:20px"></div><a href="#" onclick="CargarListaR(1, 'Formación Académica', 'FA');" style="font-size: 14px;" title="AGREGAR">Seleccionar</a><br />
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="control-label">Grado académico permitido:</label>
+                                    <input type="hidden" id="hdItemsGA" value="">
+                                    <div id="itemsGA" style="padding-left:20px"></div><a href="#" onclick="CargarListaR(2, 'Grados Académicos', 'GA');" style="font-size: 14px;" title="AGREGAR">Seleccionar</a><br />
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="control-label">Resultado:</label>
+                                    <select tabindex="-1" id="NRESULTADO" class="form-control"></select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label class="control-label">Bases:</label>
+                                    <select tabindex="-1" id="NTIPOBASE" class="form-control">
+                                        <option value="16">Formato 2</option>
+                                        <option value="8">Formato 1</option>
+                                    </select>
+                                </div>
+                                
+                            </div>
+                            <div class="row" style="margin-top:10px;">
+                                <div class="col-lg-5">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div id="BasesProceso" class="tab-pane fade">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <label class="control-label">Sección:</label>
+                                    <select tabindex="-1" id="NTIPO" class="form-control"></select>
+                                </div>
+                                <div class="col-lg-7">
+                                    <label class="control-label">Descripción:</label>
+                                    <textarea id="SDESCRIPCION" name="SDESCRIPCION" maxlength="2000" style="height:36px" class="form-control"></textarea>
+                                </div>
+                                <div class="col-lg-1" id="divNorden" style="display:none">
+                                    <label class="control-label">Orden:</label>
+                                    <input type="text" class="form-control solo-numero" id="NORDEN" maxlength="2" style="text-align:right">
+                                </div>
+                                <div class="col-lg-2" style="text-align:center;padding-top:15px;">
+                                    <button type="button" class="btn btn-dark-grey" onclick="AgregarBase(1);">Agregar&nbsp;&nbsp;<i class="fa fa-save"></i> </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="display compact" id="tbl_bases" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center; width: 10%;">EDITAR</th>
+                                                    <th style="text-align: center; width: 10%;">ELIMINAR</th>
+                                                    <th style="display:none; text-align:center;">NIDPROCESO</th>
+                                                    <th style="display:none; text-align:center;">NIDREGISTRO</th>
+                                                    <th style="text-align: center; width: 25%;">SECCIÓN</th>
+                                                    <th style="text-align: center; width: 50%;">DESCRIPCIÓN</th>
+                                                    <th style="text-align: center; width: 5%;">ORDEN</th>
+                                                    <th style="display:none; text-align:center;">ORDEN_ASC</th>
+                                                    <th style="display:none; text-align:center;">NTIPO_T</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <label class="control-label">Sección:</label>
+                                    <select tabindex="-1" id="NTIPO_CRO" class="form-control"></select>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div id="div_fechad_cro" class="input-append">
+                                        <label class="control-label">Fecha Desde:</label>
+                                        <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="DFECHA_DESDE_CRO" maxlength="10" placeholder="DD/MM/AAAA">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div id="div_fechah_cro" class="input-append">
+                                        <label class="control-label">Fecha Hasta:</label>
+                                        <input data-format="dd/MM/yyyy" type="text" class="form-control cls-fecha add-on" id="DFECHA_HASTA_CRO" maxlength="10" placeholder="DD/MM/AAAA"><br />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4" style="text-align: center; padding-top: 15px;">
+                                    <button type="button" class="btn btn-dark-grey" onclick="AgregarBase(2);">Agregar&nbsp;&nbsp;<i class="fa fa-save"></i> </button>
+                                    <button type="button" class="btn btn-dark-grey" onclick="CargarBase(2);">Cargar&nbsp;&nbsp;<i class="fa fa-save"></i> </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="display compact" id="tbl_cronograma" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align: center; width: 10%;">ELIMINAR</th>
+                                                    <th style="display:none; text-align:center;">NIDPROCESO</th>
+                                                    <th style="display:none; text-align:center;">NIDREGISTRO</th>
+                                                    <th style="text-align: center; width: 70%;">SECCIÓN</th>
+                                                    <th style="text-align: center; width: 10%;">FECHA INI.</th>
+                                                    <th style="text-align: center; width: 10%;">FECHA FIN</th>
+                                                    <th style="display: none">ELIMINAR</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="LimpiarProceso();">Cerrar&nbsp;&nbsp;<i class="clip-close"></i> </button>
+                        <button type="button" class="btn btn-dark-grey" id="btn_guardarP" onclick="GuardarProceso();">Guardar&nbsp;&nbsp;<i class="fa fa-save"></i> </button>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Proceso -->
+    <div id="ModalRestriccion" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="width:250px">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" onclick="cerrarSeleccion();">&times;</button>
+                    <h4 class="modal-title" id="h4Titulo">RESTRICCIÓN</h4>
+                </div>
+                <div class="modal-body" style="font-size:12px;">
+                    <div id="divRestriccion">
+                        <div class="row" style="margin-top:10px;">
+                            <div class="col-lg-12">
+                                <div style="padding: 5px 4px; width: 21px; height: 28px; background: #12326D; font-family: Arial, Helvetica, sans-serif; color: #FFF; font-size: 12px; text-align: center; border: 1px solid #FFFFFF; float: left; display: block;"><input type="checkbox" id="chkMarcarTodos" name="chkMarcarTodos" onclick="marcarTodos(this.checked);" /></div>
+                                <div style="padding: 5px 4px; width: 150px; height: 28px; background: #12326D; font-family: Arial, Helvetica, sans-serif; color: #FFF; font-size: 12px; text-align: center; border: 1px solid #FFFFFF; float: left; display: block;">ÍTEM</div>
+                                <div id="divListadoSC" class="divscrolltabla" style="height:auto;width: 100.1%;overflow-x: hidden;float:left">
+                                </div>
+                                <input type="hidden" id="hdsigla">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="cerrarSeleccion();">Cancelar&nbsp;&nbsp;<i class="clip-close"></i> </button>
+                    <button type="button" class="btn btn-dark-grey" id="btn_guardarR" onclick="GuardarSeleccion();">Guardar&nbsp;&nbsp;<i class="fa fa-save"></i> </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="@Url.Content("~/js/Vistas/Gestion/Comite.js")" type="text/javascript"></script>
+
